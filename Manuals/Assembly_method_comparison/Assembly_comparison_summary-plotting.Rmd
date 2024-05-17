@@ -1,0 +1,142 @@
+---
+title: "R Notebook - Assembly metrics "
+output: html_notebook
+---
+
+
+```{r}
+#install.packages('googlesheets4')
+library(googlesheets4)
+library(tidyverse)
+library(ggstance)
+library(ggbeeswarm)
+
+# make some helpful shortcuts
+x.theme.axis.rotate <- theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))
+
+standard.textsize <- 10
+text.size.within <- (5/14)*(standard.textsize-4)
+panel.lab.size <- 10
+
+theme.text.size <- theme(text = element_text(size = standard.textsize))
+
+```
+
+
+/ 
+Import googlesheet 
+```{r}
+#Paraguay_assembly.stats <- read_sheet("https://docs.google.com/spreadsheets/d/14HD7J1yyjgJAATjsHBSMbVS16jMsDYbaGWazVfjqRBc/edit?usp=sharing", sheet="Instructor_Testing")
+
+Paraguay_assembly.stats <- read_sheet("https://docs.google.com/spreadsheets/d/14HD7J1yyjgJAATjsHBSMbVS16jMsDYbaGWazVfjqRBc/edit?usp=sharing", sheet="Student_Results")
+
+Paraguay_assembly.stats
+```
+\
+Create a variable 'method_full' that summarises the methods used
+```{r}
+Paraguay_assembly.stats <- Paraguay_assembly.stats %>%
+  mutate(method_full=paste0(`Assembler (Unicycler/Dragonflye)`, "__", `Assembly Type (short/long/hybrid)`, "__", `Number of long reads (if used)`)) %>%
+  mutate(student_method=paste0(`Student Name`, "_", method_full))
+
+```
+
+\
+Do some basic plotting
+```{r}
+Paraguay_assembly.stats %>%
+  arrange(desc(`# contigs`)) %>%
+  mutate(method_full=factor(method_full, levels=unique(method_full))) %>%
+  ggplot(aes(y=method_full, x=`# contigs`, color=`Assembly Type (short/long/hybrid)`)) +
+  geom_quasirandom(width=0.4, alpha=0.75, groupOnX=F) +
+  theme_bw() + theme(legend.position = 'none') + 
+  theme.text.size + 
+  labs(y="Method", x="# Contigs", title="# Contigs for each method")
+ggsave(paste0("Assembly.Methods.by.Contig.count.png"), units='mm', width=120, height=70, device='png', dpi=300)
+
+
+Paraguay_assembly.stats %>%
+  arrange((`N50`)) %>%
+  mutate(method_full=factor(method_full, levels=unique(method_full))) %>%
+  ggplot(aes(y=method_full, x=`N50`, color=`Assembly Type (short/long/hybrid)`)) +
+  geom_quasirandom(width=0.4, alpha=0.75, groupOnX=F) +
+  theme_bw() + theme(legend.position = 'none') + 
+  theme.text.size +
+  labs(y="Method", x="N50", title="N50 for each method")
+ggsave(paste0("Assembly.Methods.by.N50.png"), units='mm', width=120, height=70, device='png', dpi=300)
+
+Paraguay_assembly.stats %>%
+  arrange(desc(`# misassemblies`)) %>%
+  mutate(method_full=factor(method_full, levels=unique(method_full))) %>%
+  ggplot(aes(y=method_full, x=`# misassemblies`, color=`Assembly Type (short/long/hybrid)`)) +
+  geom_quasirandom(width=0.4, alpha=0.75, groupOnX=F) +
+  theme_bw() + theme(legend.position = 'none') + 
+  theme.text.size +
+  labs(y="Method", x="# Misassemblies", title="# Misassemblies for each method")
+ggsave(paste0("Assembly.Methods.by.Missassembly.count.png"), units='mm', width=120, height=70, device='png', dpi=300)
+
+```
+
+\
+Do some more analyses by technique
+```{r}
+Paraguay_assembly.stats %>%
+  arrange((`N50`)) %>%
+  mutate(method_full=factor(`Assembly Type (short/long/hybrid)`, levels=unique(`Assembly Type (short/long/hybrid)`))) %>%
+  ggplot(aes(y=method_full, x=`N50`, color=`Assembler (Unicycler/Dragonflye)`)) +
+  geom_quasirandom(width=0.4, alpha=0.75, groupOnX=F) +
+  theme_bw() + theme(legend.position = 'bottom') + 
+  theme.text.size +
+  labs(y="Assembly Type", x="N50", title="N50 for each Assembly Type")
+ggsave(paste0("Assembly.Type.by.N50.png"), units='mm', width=120, height=60, device='png', dpi=300)
+
+
+Paraguay_assembly.stats %>%
+  arrange((`N50`)) %>%
+  mutate(method_full=factor(`Assembly Type (short/long/hybrid)`, levels=unique(`Assembly Type (short/long/hybrid)`))) %>%
+  ggplot(aes(y=method_full, x=`N50`, color=factor(`Number of long reads (if used)`))) +
+  geom_quasirandom(width=0.4, alpha=0.75, groupOnX=F) +
+  theme_bw() + theme(legend.position = 'bottom') + 
+  theme.text.size + 
+  facet_grid(`Assembler (Unicycler/Dragonflye)`~.) +
+  labs(y="Assembly Type", x="N50", title="N50 for each Assembly Type", color="# Long Reads")
+ggsave(paste0("Assembly.Type.+.readinput.by.N50.png"), units='mm', width=120, height=90, device='png', dpi=300)
+```
+\
+\
+
+Plot N50 by person
+```{r}
+Paraguay_assembly.stats %>%
+  arrange((`N50`)) %>%
+  #filter(method_full=="Unicycler__hybrid__10000") %>%
+  mutate(`student_method`=factor(`student_method`, levels=unique(`student_method`))) %>%
+  ggplot(aes(y=`student_method`, x=`N50`, fill=`Student Name`)) +
+  #geom_quasirandom(width=0.4, alpha=0.75, groupOnX=F) +
+  geom_barh(width=0.5, stat='identity') + 
+  theme_bw() + theme(legend.position = 'none') + 
+  theme.text.size + 
+  geom_text(aes((N50+150000), `student_method`,label=`Student Name`), size=2.5) +
+  labs(y="Student", x="N50", title="N50 for each Student")
+
+ggsave(paste0("Student.by.N50.png"), units='mm', width=110, height=140, device='png', dpi=900)
+
+
+Paraguay_assembly.stats %>%
+  arrange(desc(`# contigs`)) %>%
+  #filter(method_full=="Unicycler__hybrid__10000") %>%
+  mutate(student_method=factor(`student_method`, levels=unique(`student_method`))) %>%
+  ggplot(aes(y=`student_method`, x=`# contigs`, fill=`Student Name`)) +
+  #geom_quasirandom(width=0.4, alpha=0.75, groupOnX=F) +
+  geom_barh(width=0.5, stat='identity') + 
+  theme_bw() + theme(legend.position = 'none') + 
+  theme.text.size + 
+  geom_text(aes((`# contigs`+20), `student_method`,label=`Student Name`), size=2.5) +
+  labs(y="Student", x="# Contigs", title="# Contigs for each Student") +
+  coord_cartesian(xlim=c(1,500)) #+ scale_x_log10()  
+
+ggsave(paste0("Student.by.Contig.count.png"), units='mm', width=110, height=140, device='png', dpi=900)
+
+```
+
+
