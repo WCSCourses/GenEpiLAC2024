@@ -357,7 +357,7 @@ cat quast.output/contigs_reports/misassemblies_report.tsv
 <br>
 
 ## Add details to class googlesheet
-Add your assembly metrics to the google sheet at https://docs.google.com/spreadsheets/d/14HD7J1yyjgJAATjsHBSMbVS16jMsDYbaGWazVfjqRBc/edit?usp=sharing
+Add your assembly metrics to the google sheet at https://docs.google.com/spreadsheets/d/1CEDScAVSXuboNu-K_-lZzkPnk9woO_3MFRZ8zgWG3c0/edit?usp=sharing
 
 <br>
 
