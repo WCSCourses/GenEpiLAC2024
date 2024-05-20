@@ -2,7 +2,7 @@
 
 
 
-[<<< Go back to Manual Contents Page](https://github.com/WCSCourses/GenEpiLAC2023/blob/main/Manuals/README.md)
+[<<< Go back to Manual Contents Page](https://github.com/WCSCourses/GenEpiLAC2024/blob/main/Manuals/Manual_main.md)
 
 <br>
 
@@ -43,7 +43,7 @@ Since each assembler can take a while to run, each student will pick a different
     - 5,000 reads
     - 2,500 reads
 
-To add some uncertainty into the analysis, there are 3 different versions of each readset - prepared using a different 'seed' - this should mean that different readsets will give slightly different results. 
+To add some uncertainty into the analysis, there are 3 different versions of each readset (labelled 100, 200 and 300) - prepared using a different 'seed' - this should mean that different readsets will give slightly different results. 
 
 
 First move into the working directory for this exercise:
@@ -395,6 +395,6 @@ You can examine the SNPs identified using `less`:
 <br>
 
 
-[<<< Go back to Manual Contents Page](https://github.com/WCSCourses/GenEpiLAC2023/blob/main/Manuals/README.md)
+[<<< Go back to Manual Contents Page](https://github.com/WCSCourses/GenEpiLAC2024/blob/main/Manuals/Manual_main.md)
 
 <br>
