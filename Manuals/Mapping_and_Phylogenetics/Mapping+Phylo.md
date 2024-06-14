@@ -1,11 +1,11 @@
 <img src="https://coursesandconferences.wellcomeconnectingscience.org/wp-content/themes/wcc_courses_and_conferences/dist/assets/svg/logo.svg" width="200" height="200">
 
 
-[<<< Go back to Manual Contents Page](https://github.com/WCSCourses/GenEpiLAC2023/blob/main/Manuals/README.md)
+[<<< Go back to Manual Contents Page](https://github.com/WCSCourses/GenEpiLAC2024/blob/main/Manuals/Manual_main.md)
 
 <br>
 
-# Mapping and Phylogenetics - Paraguay 2023 <!-- omit in toc -->
+# Mapping and Phylogenetics - Costa Rica 2024 <!-- omit in toc -->
 
 ### Module Lead: Mat Beale <!-- omit in toc -->
 <br>
@@ -679,7 +679,7 @@ You should now see a tree coloured by your fastbaps groups. You can use the togg
 END
 
 
-[<<< Go back to Manual Contents Page](https://github.com/WCSCourses/GenEpiLAC2023/blob/main/Manuals/README.md)
+[<<< Go back to Manual Contents Page](https://github.com/WCSCourses/GenEpiLAC2024/blob/main/Manuals/Manual_main.md)
 
 <br>
 
