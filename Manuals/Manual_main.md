@@ -11,7 +11,7 @@
   - [Sequencing QC]()
 - [Module 2](), Genome visualisation tools
 - [Module 3](), Comparative Genomics (lecture only)
-- [Module 4](), (https://github.com/WCSCourses/GenEpiLAC2024/blob/main/Manuals/Mapping_and_Phylogenetics/Mapping%2BPhylo.md), Mapping and Phylogenetics
+- [Module 4]()(https://github.com/WCSCourses/GenEpiLAC2024/blob/main/Manuals/Mapping_and_Phylogenetics/Mapping%2BPhylo.md), Mapping and Phylogenetics
 - [Module 5](), Genome Assembly and Analysis
 - [Module 6](https://github.com/WCSCourses/GenEpiLAC2024/blob/main/Manuals/Assembly_method_comparison/Assembly_method_comparison.md), Assembly Methods Comparison
 - World Cafe
