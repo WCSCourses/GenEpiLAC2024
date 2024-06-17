@@ -26,6 +26,9 @@
     - [Examine `snippy` logs](#examine-snippy-logs)
     - [Examine `snippy` outputs](#examine-snippy-outputs)
   - [Map a second genome to reference](#map-a-second-genome-to-reference)
+  - [Map an assembly to reference](#Use-an-existing-assembly-as-input-to-snippy)
+    - [Map an existing short-read assembly](#Map-an-existing-short-read-assembly)
+    - [Map an existing long-read assembly](#Map-a-long-read-assembly-to-reference)
   - [Contextualise new genomes with a collection](#contextualise-new-genomes-with-a-collection)
   - [Phylogenetics](#phylogenetics)
     - [Make a SNP-only alignment using `snp-sites`](#make-a-snp-only-alignment-using-snp-sites)
@@ -330,6 +333,44 @@ Use the code examples provided above to run `snippy` on the second set of `fastq
 Examine the results of snippy for `new-sample-2` using `grep`, `ls` and `less`
 
 
+
+<br> 
+
+## Use an existing assembly as input to snippy
+
+### Map an existing short-read assembly 
+
+Sometimes we only have assemblies available, or we want to integrate long-read data into our analysis of short-read genomes. Snippy allows us to do this using the `--ctgs` argument. This takes an existing assembly file and simulates short reads, before calling variants against the reference.
+
+We will do this for the same sample assembled using both short- and long-reads to compare their placements. The assemblies are in the `assemblies` directory:
+```
+ls -lh assemblies/
+```
+
+![snippy.longread.assemblies.dir]()
+
+<br>
+
+We can add the short-read assembly to snippy like this:
+```
+snippy --outdir CTMA_1441.short --ctgs assemblies/CTMA_1441.unicycler-short.fasta references/Vibrio_cholerae_O1_biovar_eltor_str_N16961_v2.fa --cpus 4 --ram 4 --force --quiet
+```
+
+<br>
+
+### Map a long-read assembly to reference 
+We now need to map the long read assembly (`CTMA_1441.dragonflye-long.fasta`) to our reference
+
+Adapt the code examples provided above to run `snippy` on the long-read assembly using the output directory `CTMA_1441.long`
+
+Examine the results of snippy for `CTMA_1441.long` using `grep`, `ls` and `less`
+
+
+<br>
+
+
+What do you notice about the number of variable sites identified with the long-read assembly?
+
 <br>
 
 ## Contextualise new genomes with a collection
@@ -337,7 +378,7 @@ Now lets look at this new genome in context with a collection.
 
 We can add this genome to a collection of genomes mapped using `snippy-core`. First, let’s extract the old `snippy` runs from our archive file
 ```
-tar -zxf old.snippy.runs.2023.tar.gz
+tar -zxf old.snippy.runs.2024.tar.gz
 ```
 We can see that we now have a new directory `old.snippy.runs`
 ```
@@ -355,7 +396,7 @@ ls -lh old.snippy.runs
 Now lets use `snippy-core` to summarise all these genomes along with the new ones and create a multiple sequence alignment
 
 ```
-snippy-core --ref new-sample-1/ref.fa old.snippy.runs/* new-sample-1 new-sample-2
+snippy-core --ref new-sample-1/ref.fa old.snippy.runs/* new-sample-1 new-sample-2 CTMA_1441.short CTMA_1441.long
 ```
 ![snippy-core.run1](snippy-core-run.png)
 
