@@ -21,7 +21,7 @@ Learn how to apply genomics to epidemiological surveillance of bacterial pathoge
 - [María Sol Haim](https://www.researchgate.net/profile/Maria-Sol-Haim), National Center of Genomics & Bioinformatics - ANLIS-Malbran, Argentina
 - [Tomás Poklepovich](https://www.linkedin.com/in/tom%C3%A1s-javier-pokl%C3%A9povich-caride-6a622322/), National Center of Genomics & Bioinformatics - ANLIS-Malbran, Argentina
 - [César Rodríguez](https://scholar.google.com/citations?user=Mq0-MIsAAAAJ&hl=en), Universidad de Costa Rica, Costa Rica
-- Marcela Suarez, Universidad Nacional, Costa Rica
+- Marcela Suárez-Esquivel(https://www.researchgate.net/profile/Marcela-Suarez-Esquivel), Universidad Nacional, Costa Rica
 
 Any reuse of the course materials, data or code is encouraged with due acknowledgement.
 
