@@ -1,6 +1,9 @@
 <img src="https://coursesandconferences.wellcomeconnectingscience.org/wp-content/themes/wcc_courses_and_conferences/dist/assets/svg/logo.svg" width="200" height="200">
 
 
+[<<< Go back to Manual Contents Page](https://github.com/WCSCourses/GenEpiLAC2024/blob/main/Manuals/README.md)
+
+<br>
 
 # Genome Assembly and Analysis - Costa Rica 2024 <!-- omit in toc -->
 
@@ -17,20 +20,14 @@
 - [Assembly and annotation exercise](#assembly-and-annotation-exercise)
   - [Background](#background)
   - [An outbreak sample](#an-outbreak-sample)
-  - [Tasks](#tasks)
+  - [Analyses](#analyses)
   - [The research questions](#the-research-questions)
-  - [A: Examining the resistome of 16B](#examining-the-resistome-of-16B)
-    - [Step 1: Download the `ResFinder` database](#Download-the-resfinder-database)
-    - [Step 2: Run `ariba` on 16B](#run-ariba-on-16B)
-    - [Step 3: Run `ariba` on MW2](#run-ariba-on-MW2)
-    - [Step 3: Run `ariba` on MSSA476](#run-ariba-on-MSSA476)
-    - [Step 5: Compile the `ariba` results](#compile-the-ariba-results)
-    - [Step 6. Visualize in Phandango](#visualize-in-phandango)
-  - [B: Generating a _de novo_ assembly](#generating-a-de-novo-assembly)
-  - [C: Ordering the assembly against a reference chromosome](ordering-the-assembly-against-a-reference-chromosome)
-  - [D: Mapping reads back to the ordered assembly](#Mapping-reads-back-to-the-ordered-assembly)
-  - [E: Annotation transfer](#Annotation transfer)
-  - [F: Examining the evolution of drug resistance in ST1 _S. aureus_](#Examining-the-evolution-of-drug-resistance-in-ST1-S-aureus)
+  - [Examining the resistome of 16B](#examining-the-resistome-of-16B)
+  - [Generating a _de novo_ assembly](#generating-a-de-novo-assembly)
+  - [Ordering the assembly against a reference chromosome](#ordering-the-assembly-against-a-reference-chromosome)
+  - [Mapping reads back to the ordered assembly](#Mapping-reads-back-to-the-ordered-assembly)
+  - [Generating Annotation](#generating-annotation)
+  - [Examining the evolution of drug resistance in ST1 _S. aureus_](#Examining-the-evolution-of-drug-resistance-in-ST1-S-aureus)
 
 <br> 
 
@@ -44,9 +41,10 @@ Aims of this exercise
 
 *	Use a resistome prediction tool to identify the genetic determinants for antibiotic resistance from sequencing reads
 *	To show how short-read data can be assembled into a draft genome
-*	Order the draft genome against a reference sequence, and transfer annotation from the reference to the draft genome
+*	Order the draft genome against a reference sequence
+*	Annotate the reordered draft genome
 *	To show how, using comparative genomics, regions of difference that distinguish genomes can identified and analysed
-*	Compare assembled genomes generated from short-read sequence data only, long-read sequence data and combined sort- and long-read sequence data
+*	Identify the genetic basis of resistance and be able to explain the evolution of resistance in the isolates investigated 
 
 <br>
 
@@ -75,7 +73,7 @@ Having longer reads, that extend through some of the repeat regions that limit t
 
 <br>
 
-A popular approach to generate complete genomes has been to utilize the accuracy of short-read sequencing data and combine it with the long-range information of long-read sequencing data, in a hybrid assembly approach. This requires sequence data for an isolate to be sequenced using the two different sequencing technologies and then assembled using assembler program that is designed to handle the difference types of data and compare them to find overlaps to stitch the sequences together, accurately predict the sequence in the assembly.
+A popular approach to generate complete genomes has been to utilize the accuracy of short-read sequencing data and combine it with the long-range information of long-read sequencing data, in a hybrid assembly approach. This requires sequence data for an isolate to be sequenced using the two different sequencing technologies. This can then be assembled using assembler programs that are designed to handle the difference types of data and compare them to find overlaps to stitch the sequences together and accurately predict the sequence in the assembly.
 
 ## [What assemblies are best?](#what-assemblies-are-best?)
 
@@ -98,13 +96,13 @@ _Staphylococcus aureus_ is a bacterial pathogen that has gained notoriety in rec
 
 <br>
 
-In this module we will assemble the genome of a strain of _S. aureus_, 16B, that was sequenced as part of an MRSA outbreak investigation, (Köser et al., 2012, N Engl J Med. 366:2267-75). Using multi locus sequence typing (MLST) the isolate was identified as belonging to sequence type 1 (ST1), a lineage of _S. aureus_ that is more frequently associated with infections in the community rather than in hospitals, and tends to be less resistant to antibiotics than the _S. aureus_ commonly associated with hospital-acquired infection.
+In this module we will assemble the genome of a strain of _S. aureus_, 16B, that was sequenced as part of an MRSA outbreak investigation, (Köser _et al_., 2012, N Engl J Med. 366:2267-75). Using multi locus sequence typing (MLST) the isolate was identified as belonging to sequence type 1 (ST1), a lineage of _S. aureus_ that is more frequently associated with infections in the community rather than in hospitals, and tends to be less resistant to antibiotics than the _S. aureus_ commonly associated with hospital-acquired infection.
 
-## [Tasks](#tasks)
+## [Analyses](#analyses)
 
 <br>
 
-We are going to query the resistome of 16B using `ariba` and a resistance gene database. We will generate an assembly and compare it to the chromosomes of 2 other ST1 isolates: MSSA476, which was isolated in the UK (Holden et al., 2004, PNAS. 101:9786-91), and MW2, which was isolated in the USA (Baba et al., 2002, Lancet 359:1819-27). Both MSSA476 and MW2 have been completely sequenced, annotated and deposited in EMBL.
+We are going to query the resistome of 16B using `ariba` and a resistance gene database. We will generate an assembly and compare it to the chromosomes of 2 other ST1 isolates: MSSA476, which was isolated in the UK (Holden _et al_., 2004, PNAS. 101:9786-91), and MW2, which was isolated in the USA (Baba _et al_., 2002, Lancet 359:1819-27). Both MSSA476 and MW2 have been completely sequenced, annotated and deposited in EMBL.
 
 <br>
 
@@ -125,10 +123,10 @@ Using a comparative genomic approach we will identify regions of difference, and
 
 
 ## Finding the data 
-Navigate to the `Module_6_Assembly_Analysis` directory
+Navigate to the `Module_6_Genome_Assembly_Analysis` directory
 
 ```
-cd Module_6_Assembly_Analysis
+cd Module_6_Genome_Assembly_Analysis
 ```
 
 We can confirm where we are 
@@ -147,36 +145,43 @@ ls -l
 The folder contains:
 
 - three pairs of sequencing reads :
-  - `16B_1.fastq.gz`, `16B_2.fastq.gz`
-  - `MSSA476_1.fastq.gz`, `MSSA476_2.fastq.gz`
-  - `MW2_1.fastq.gz`, `MW2_2.fastq.gz`
-- a folder containing the EMBL format file of reference genomes
+  - `16B_1.fastq`, `16B_2.fastq`
+  - `MSSA476_1.fastq`, `MSSA476_2.fastq`
+  - `MW2_1.fastq`, `MW2_2.fastq`
+- fasta format files for the chromosomes of MW2 and MSSA476 (`MW2.dna` and `MSSA476.dna`)
+- EMBL format files of the annotation of the chromosomes of MW2 and MSSA476 (`MW2.embl` and `MSSA476.embl`) 
+- EMBL format files of mobile genetic elements of the chromosomes of MW2 and MSSA476 (`MW2_MGEs.tab` and `MSSA476_MGEs.tab`) 
+- a folder containing the pdf files of the Köser _et al_., Holden _et al_., and Baba _et al_. manuscripts if you want to find out a bit more about the genomes and origins of the isolates
+- a folder containing an annotation database
+
 
 <br>
 
 
+## [Examining the resistome of 16B](#examining-the-resistome-of-16B)
 
-## [A: Examining the resistome of 16B](#examining-the-resistome-of-16B)
 
-<br>
+### Using the genome to predict antibiotic resistance phenotype
 
 One of the benefits of whole genome sequencing bacterial pathogens is that you capture the genomic inventory of the organism. This has been capitalized on in clinical microbiology for the _in silico_ prediction of antibiotic resistance directly from whole genome sequencing data. This is being developed as a alternative to phenotypic sensitivity testing of microorganisms in the laboratory, where microorganisms are routinely sequenced.
 
 For many microorganisms the genetic basis of antibiotic resistance has been extensively studied. This means that the genes responsible for resistance have been identified and sequenced, and can be used to compile a database of resistance determinants and used to query an organism’s genome and define its resistome. Based on the presence or absence of genes or mutations it is possible to make a prediction of the antibiotic sensitives of an organism. For some species of bacteria this works better than others. For example, _S. aureus_ the correlation between the genotype and phenotype for most commonly used antibiotics is above 99%. However, for other organisms, such as members of the _Enterobacteriaceae_, the concordance is a lot lower, as these organisms have a more extensive array of resistance mechanisms and determinants.
 
-A recent review from a EUCAST subcommittee summarized the current development status of WGS for bacterial antimicrobial susceptibility testing (AST) for a range or organisms:
+A recent review from a EUCAST subcommittee summarized the current development status of WGS for bacterial antimicrobial susceptibility testing (AST) for a range or organisms: Ellington MJ, _et al_., (2017) The role of whole genome sequencing in antimicrobial susceptibility testing of bacteria: report from the EUCAST Subcommittee. Clin Microbiol Infect. 23:2-22. PubMed PMID: 27890457.
 
-Ellington MJ, et al., (2017) The role of whole genome sequencing in antimicrobial susceptibility testing of bacteria: report from the EUCAST Subcommittee. Clin Microbiol Infect. 23:2-22. PubMed PMID: 27890457.
+
+### Resistance phenotype of 16B
 
 From the phenotypic data you have been given you know that 16B exhibits resistance to penicillin, fusidic acid, methicillin and erythromycin, however you do not know what genes are responsible for this is in this isolate. In the first part of this exercise you are going to use a piece of software, `ariba`, and a publicly available curated antibiotic resistance gene database from ResFinder, to rapidly predict the resistome of 16B from the Illumina sequence reads. You will also do this for this other ST1 _S. aureus_ isolates MW2 and MSSA476, and correlate the phenotypic metadata with the genetic information.
 
-<br>
 
-`ariba` (Antimicrobial Resistance Identifier by Assembly) is a freely available tool (https://github.com/sanger-pathogens/`ariba`). This tool required a `FASTA` input of reference sequences, which can be a multifasta file or database of antibiotic resistance genes or non-coding sequences. This database will serve as one of your inputs and the other is paired sequence reads. `ariba` reports which of the reference sequences were found, plus detailed information on the quality of the assemblies and any variants between the sequencing reads and the reference sequences. 
+### Determining the antibiotic resistance genotype
 
-`ResFinder`, is a web resource for the prediction of antibiotic resistances (www.genomicepidemiology.org). It used a curated database of over 2100 acquired antibiotic resistance determinants (Zankari E et al., (2012) Identification of acquired antimicrobial resistance genes. J Antimicrob Chemother. 67:2640-4).
+`ariba` (Antimicrobial Resistance Identifier by Assembly) is a freely available tool (https://github.com/sanger-pathogens/ariba). This tool required a `FASTA` input of reference sequences, which can be a multifasta file or database of antibiotic resistance genes or non-coding sequences. This database will serve as one of your inputs and the other is paired sequence reads. `ariba` reports which of the reference sequences were found, plus detailed information on the quality of the assemblies and any variants between the sequencing reads and the reference sequences. 
 
-We have installed `ariba` on the virtual machine, and you will use this to download the `ResFinder` database locally to the virtual machine, and then use it with `ariba` to examine the resistome of your isolates. Further information about `ariba` can be found here: https://github.com/sanger-pathogens/`ariba`/wiki (Hunt M, et al., (2017) `ariba`: rapid antimicrobial resistance genotyping directly from sequencing reads. Microb Genom. 3:e000131) 
+`ResFinder`, is a web resource for the prediction of antibiotic resistances (www.genomicepidemiology.org). It uses a curated database of over 2100 acquired antibiotic resistance determinants (Zankari E _et al_., (2012) Identification of acquired antimicrobial resistance genes. J Antimicrob Chemother. 67:2640-4).
+
+We have installed `ariba` on the virtual machine, and you will use this to download the `ResFinder` database locally to the virtual machine, and then use it with `ariba` to examine the resistome of your isolates. Further information about `ariba` can be found here: https://github.com/sanger-pathogens/ariba/wiki (Hunt M, _et al_., (2017) `ariba`: rapid antimicrobial resistance genotyping directly from sequencing reads. Microb Genom. 3:e000131) 
 
 The results can then be viewed in `Phandango` (http://jameshadfield.github.io/phandango/), an interactive web tool to visualize your outputs.
 
@@ -228,7 +233,7 @@ In the command below we:
 
 
 ```
-ariba prepareref –f out.resfinder.fa –m out.resfinder.tsv out.resfinder.prepareref 
+ariba prepareref -f out.resfinder.fa -m out.resfinder.tsv out.resfinder.prepareref 
 ```
 
 <br>
@@ -296,8 +301,6 @@ Next you need to compile the `ariba` results from the three isolates using the t
     - `out.summary`
 - Specify the report files made by the separate runs of `ariba` for each isolate 
     - `16B_out.run/report.tsv MW2_out.run/report.tsv MSSA476_out.run/report.tsv`
-- Specify the 
-    - ``
 
 
 ```
@@ -315,7 +318,7 @@ The `ariba` summary command generates three files:
 - `out.summary.phandango.tre` - tree based on matches in the out.summary.csv file
 
 
-To visualize the results open up the web browser, and type in the URL: https://jameshadfield.github.io/phandango/
+To visualize the results open up the Firefox web browser, and type in the URL: https://jameshadfield.github.io/phandango/
 
 From a file view window drag and drop the two `phandango` files, `out.summary.phandango.tre` and `out.summary.phandango.csv`, into the browser window.
 
@@ -330,14 +333,14 @@ In the browser window the tree is displayed on the left and represents relations
 
 - What are the genes identified, and which antibiotics do they encode resistance for?
 
-To help you understand what what genes ResFinder is using for different antibiotics you can explore here: https://cge.cbs.dtu.dk/services/ResFinder/database.php 
+To help you understand what what genes ResFinder is using for different antibiotics you can explore here: https://cge.food.dtu.dk/services/ResFinder/gene_overview.php
 
 - How do the resistomes predicted for each isolate compare with the phenotypic data?
 
 
 <br>
 
-## [B: Generating a _de novo_ assembly](#generating-a-de-novo-assembly)
+## [Generating a _de novo_ assembly](#generating-a-de-novo-assembly)
 
 Having identified antibiotic resistance genes using `ariba`, you are now going to continue the exercise exploring the genome of 16B to identify the genomic context of the genes and see if you can find any missing genes. The first step is to generate a _de novo_ assembly of 16B using the `fastq` files. Make sure you are still in the Module 6 directory.  
 
@@ -345,7 +348,7 @@ To generate the _de novo_ assembly you are going to use a assembly package calle
 
 The algorithm at the heart of Velvet is based on de Bruijn graphs (a mathematical structure used to model relationships between objects). When doing assembly with short reads the first step is to find all the possible overlaps between all the reads. One efficient way is to look for k-mers (words/nucleotide patterns of a specific length) in each read. If two reads contain the same k-mer they might also overlap. Each read contains several k-mers, and k-mers from the same read can be connected in a graph. Velvet represents overlaps between k-mers in a de Bruijn graph. By simplifying the graph Velvet can try to generate connected sequences, where k-mers in the graph are connected and thereby it is able to piece together sequences and generate contigs. 
 
-In this module we are not going to explore the options available in Velvet, but are going to run it with basic parameters. If you would like to know more about theory behind Velvet, or the various options, see the Velvet web site (www.ebi.ac.uk/~zerbino/velvet/).
+In this module we are not going to explore the options available in Velvet, but are going to run it with basic parameters. If you would like to know more about theory behind Velvet, or the various options, see the Velvet web site (https://github.com/dzerbino/velvet).
 
 
 <br> 
@@ -371,13 +374,13 @@ The first program of the velvet package we are going to use is `velveth`.
 - Specify the the input files are short paired reads 
     - `-shortPaired`
 - Specify the forward and reverse fastq files
-    - `–fastq –separate 16B_1.fastq 16B_2.fastq`
+    - `-fastq -separate 16B_1.fastq 16B_2.fastq`
 
 Other k-mers can be used and can alter the performance of assembly, however for this module we will run it with a value of 49 which will perform adequately.
 
 
 ```
-velveth S_aureus_16B.49 49 -shortPaired –fastq –separate 16B_1.fastq 16B_2.fastq
+velveth S_aureus_16B.49 49 -shortPaired -fastq -separate 16B_1.fastq 16B_2.fastq
 ```
 
 
@@ -414,9 +417,9 @@ velvetg S_aureus_16B.49 -exp_cov auto -min_contig_lgth 200 -cov_cutoff auto -ins
 
 
 There is a lot of output printed to the screen, but the most important is in the last line:
-Final graph has 250 nodes and n50 of 225963, max 613961, total 2777676, using 3847086/4000000 reads. (Result might differ depending on the velvet version used).
+Final graph has 251 nodes and n50 of 225962, max 557946, total 2777486, using 3846837/4000000 reads. (Result might differ depending on the velvet version used).
 
-This line first gives you a quick idea of the result. 250 nodes (contigs) are in the final graph. An n50 of 225963 means that 50% of the assembly is in contigs of at least 225963 bases. This n50 parameter is most commonly used as an indicator of assembly quality. The higher, the better! max is the length of the longest contig. total is the size of the assembly, here it is 2.78 Mb. The last two numbers tell us how many reads were used from the 4 million pairs.
+This line first gives you a quick idea of the result. 251 nodes (contigs) are in the final graph. An n50 of 225962 means that 50% of the assembly is in contigs of at least 225963 bases. This n50 parameter is most commonly used as an indicator of assembly quality. The higher, the better! max is the length of the longest contig. total is the size of the assembly, here it is 2.78 Mb. The last two numbers tell us how many reads were used from the 4 million pairs.
 
 A typical S. aureus genome is 2.8 Mb in size, therefore the _de novo_ assembly that we have produced should contain over 99% of this isolate’s genome.
 
@@ -425,7 +428,7 @@ All of the results are written into the directory you specified, e.g. `S_aureus_
 Use the UNIX `cd` command to move into this directory, and the `ls` command to look at the contents.
 
 
-![velvetg 1](velvetg_1.png)
+![velvetg 2](velvetg_2.png)
 
 
 The final contigs are in `contigs.fa`. This files contains the contigs in multifasta format, i.e. the sequence of each contig is written as a separate fasta sequence, with all the contigs fasta sequences concatenated together. The `stats.txt` file holds some information about each contig, its length, the coverage, etc.. The other files contain information for the assembler.
@@ -460,9 +463,9 @@ Looking at the GC Deviation plot in `artemis` of the 16B assembly you can see th
 <br>
 
 
-## [C: Ordering the assembly against a reference chromosome](ordering-the-assembly-against-a-reference-chromosome)
+## [Ordering the assembly against a reference chromosome](#ordering-the-assembly-against-a-reference-chromosome)
 
-At the Wellcome Sanger Institute a tool called `abacas` (Assefa et al., 2009) was developed to order contigs against a reference sequence. Any spaces between the contigs (gaps) can be filled in with “N” characters to ‘pad’ the sequence with equivalent sized regions to those on the reference that may be missing in the assembly. The result is called a pseudo-molecule. This can be loaded into `act` along with the reference sequence and then be analyzed.
+At the Wellcome Sanger Institute a tool called `abacas` (Assefa _et al_., 2009) was developed to order contigs against a reference sequence. Any spaces between the contigs (gaps) can be filled in with “N” characters to ‘pad’ the sequence with equivalent sized regions to those on the reference that may be missing in the assembly. The result is called a pseudo-molecule. This can be loaded into `act` along with the reference sequence and then be analyzed.
 
 The sequence we are going to use as a reference belongs to an ST1 MSSA strain, MSSA476 (EMBL accession number BX571857). Before we begin, make sure you are back in the Module 6 directory.
 
@@ -496,7 +499,7 @@ To see a complete list the option available you can type the command: `abacas.1.
 
 
 ```
-abacas.1.3.1.pl -r MSSA476.dna –q S_aureus_16B.49/contigs.fa –p nucmer -b -d –a –c –o 16B.ordered
+abacas.1.3.1.pl -r MSSA476.dna -q S_aureus_16B.49/contigs.fa -p nucmer -b -d -a -c -o 16B.ordered
 ```
 
 <br>
@@ -579,10 +582,11 @@ As before, display the GC Deviation (G-C)/(G+C) plots for both of the sequences 
 
 In the `act` figure there are several regions of interest that are worth investing. The first region we are going to look at is the inverted region in the centre of the assembly that is covered by the hourglass shaped blue matches in the comparison panel. This 130 kb region spans the terminus of replication region, and is present at one end of a contig. At the other end of the putative inverted region there is a contig break. 
 
+![ACT focus region](ACT_focus_region.png)
 
 <br>
 
-## [D: Mapping reads back to the ordered assembly](#Mapping-reads-back-to-the-ordered-assembly)
+## [Mapping reads back to the ordered assembly](#Mapping-reads-back-to-the-ordered-assembly)
 
 In this next exercise you are going to use the same mapping method as you did in Mapping Module, to map the 16B strain forward and reverse reads against the pseudo-molecule that you created using `abacas`. We are then going to look at the aligned mapped reads in `act` by loading the mapped bam file with the `16B.ordered.fasta`.  
 
@@ -619,21 +623,18 @@ The bam file contains all the mapping positions on the genome for each individua
 Before we can use it in `act` we have to index is using the `samtools` `index` command.
 
 
-- Specify the 
-    - ``
-- Specify the 
-    - ``
+- Specify the bam file to index
+    - `16B_mapping/snps.bam`
 
 
 ```
 samtools index 16B_mapping/snps.bam
-
 ```
 
 <br>
 
 
-To load the `bam` file into `act, click *File* on the menu and them click the *16B.ordered.fasta* entry, and then the *Read BAM / VCF*.
+To load the `bam` file into `act`, click *File* on the menu and them click the *16B.ordered.fasta* entry, and then the *Read BAM / VCF*.
 
 In the pop-up box click *Select*, select the `snps.bam` file from the `16B_mapping` directory, click *Open*, then click *OK*.
 
@@ -689,66 +690,85 @@ The non-mapping contigs are indicated by the yellow features. There are 7 contig
 <br>
 
 
-## [E: Annotation transfer](#Annotation transfer)
+## [Generating Annotation](#generating-annotation)
 
-Now we have the contigs ordered against the reference, and have mapped back the reads to identify a possible mis-assembly, and also identified putative plasmid sequences. However we are still not yet in a position to drill down into the biology of the strain. For this we need to add some annotation to the newly assembled genome. To do this we can transfer the annotation of reference strain we used in ABACAS, as this has been annotated and is clearly highly related. We have developed a tool called `ratt` (Otto et al., 2011, Nucleic Acids Res 39:e57) that can do this. 
+Now we have the contigs ordered against the reference, and have mapped back the reads to identify a possible mis-assembly, and also identified putative plasmid sequences. However we are still not yet in a position to drill down into the biology of the strain. For this we need to add some annotation to the newly assembled genome. 
 
-In the first step the similarity between the two sequences is determined and a synteny map is constructed. This map is used to map the annotation of the reference onto the new sequence. In a second step, it tries to correct gene models. One advantage of `ratt` is that the complete annotation is transferred, including descriptions. Thus careful manual annotation from the reference becomes available in the newly sequenced genome. Obviously, where no synteny exists, no transfer can be done. Let’s see if this will work for our assembly.
+There are a number of ways you can generate annotation for a novel sequence. You can manually annotate sequence by curating the results of bioinformatic analyses of the sequence, but this is time consuming and prone to human bias. If there is a closely related reference sequence and annotation, you can transfer annotation by similarity matching, but this relies on there being a suitable reference. The fastest and most consistant way to generate annotation for novel sequence is to use an automatic annotation software such as `prokka` (Seemann T. (2014) Prokka: rapid prokaryotic genome annotation. Bioinformatics. 30:2068-9. doi: 10.1093/bioinformatics/btu153) or `bakta` (Schwengers O et al., (2021). Bakta: rapid and standardized annotation of bacterial genomes via alignment-free sequence identification. Microbial Genomics, 7(11). https://doi.org/10.1099/mgen.0.000685)
 
-<br>
+Both of these program are installed on the disk image, but we are going to use `bakta` as this is a new tool that generates standardized, taxonomy-independent, high-throughput annotation.
 
-As input for `ratt` we use the reference genome’s annotation (the MSSA476 genome consists of a single chromosome and plasmid therefore are going to use them both) and the output of `abacas` (16B.ordered.fasta). 
+There are two steps in running `bakta`, the first is downloading a database for it to use for annotation, the second is to run the `bakta` annotation on a query sequence using the database. The downloading step takes a while to run (it involves download a file of ~1.6 Gb), so we have already down loaded is for you. 
 
-We will run `ratt`
 
-- Specify the `ratt` script 
-    - `start.ratt.sh`
-- Specify the directory which contains all the EMBL files to be transferred (EMBL files for the MSSA476 chromosome and plasmid, pSAS)
-    - `embl`
-- Specify the multifasta file to which the annotation will be mapped
+### Running `bakta`
+
+
+To run `bakta` to annotate your sequence.
+
+- Specify the database directory
+    - `--db bakta_database/db-light`
+- Specify the multifasta file to be annotated
     - `16B.ordered.fasta`
-- Specify the prefix to give results files
-    - `16B`
-- Specify the Transfer type: Assembly, transfer between different assemblies 
-    - `Assembly`
-- Specify the output summary file
-    - `> out.ratt.txt`
-
 
 
 ```
-start.ratt.sh embl 16B.ordered.fasta 16B Assembly > out.ratt.txt
+bakta --db bakta_database/db-light 16B.ordered.fasta
 ```
 
 <br>
 
 
-`ratt` generates a lot of output, such as synteny block information, which genes were corrected, and most importantly how many genes were transferred. A summary of this is in the file `out.ratt.txt`.
+The first step of `bakta` is to annotate non-protein encoding regions including tRNAs, tmRNA, rRNA, ncRNA.
 
-To take a look at the contents of this file type at prompt and return the command line:
+![bakta 1](bakta_1.png)
 
-```
-more out.ratt.txt
-```
-
-
-![ratt output](ratt_output.png)
-
-
-`ratt` produces an EMBL format file containing the assembly and transferred annotation ending in the suffix .final.embl (e.g. 16B.ordered_staph-55e08.q2c2068.final.embl)
-
-Load this up into ACT with the MSS476 reference chromosome. At the prompt type and return the command line:
-
-```
-act MSSA476.embl MSSA476.dna_vs_16B.ordered.fasta 16B.ordered_staph-55e08.q2c2068.final.embl &
-```
-
-
-Once the `act` window loads up, open `16B.ordered.tab` file into the *16B.ordered.fasta* entry by going to the *File* menu, and selecting the *16B.ordered.fasta* option, and right clicking onto the *Read An Entry* option. 
 
 <br>
 
-RATT has transferred 2432 gene features to the reference, and if you look in `act` you will see that most of the 16B assembly now has annotation. There are a few regions that do not have annotation, and these mainly coincide with regions that do not share DNA-DNA identity with the reference. We will quickly have a look at these regions.
+
+It then predicts protein coding sequences and annotates these from match to proteins with predicted function, and includes annotation of hypothetical proteins with matches to protein domains
+
+![bakta 2](bakta_2.png)
+
+
+<br>
+
+
+Matches to plasmids origins of replication are included where found and provides a summary of the genomic annotation.
+
+
+![bakta 3](bakta_3.png)
+
+
+<br>
+
+
+
+![bakta 4](bakta_4.png)
+
+
+The results are written to multiple output files in the directory in which `bakta` was run.
+
+
+![bakta 5](bakta_5.png)
+
+
+
+<br>
+
+
+
+For more information on the annotation generated by `bakta`, the run options and the output it generates see here: https://github.com/oschwengers/bakta   
+
+
+
+### Visualizing the `bakta` annotation
+
+
+`bakta` has generated a number of output files in different foramt that contain the annotation for 16B ordered assembly. We are going to use the EMBL format file and view it in ACT. 
+
+In ACT, open the `16B.ordered.embl` file into the `16B.ordered.fasta` entry by going to the *File* menu, and selecting the *16B.ordered.fasta* option, and right clicking onto the *Read An Entry* option. 
 
 
 ![ACT 3 regions](ACT_3_regions.png)
@@ -762,11 +782,17 @@ RATT has transferred 2432 gene features to the reference, and if you look in `ac
 ![Region 1](Region_1.png)
 
 
-In this region near at the left hand side of the reference chromosome and near the origin of replication you can see that there are two regions without annotation transferred. The first is at the very end of the assembly. If you look at this region, it matches to DNA in the reference chromosome. This contig spans the origin of replication and therefore matches two separate regions of the reference (left and right ends of the MSSA476 chromosome), therefore `ratt` has failed transfer annotation to the whole of this contig because it has effectively been split and separated in comparison to the reference.
+In this region near at the left hand side of the reference chromosome and near the origin of replication, you can see that this contig spans the origin of replication and therefore matches two separate regions of the reference (left and right ends of the MSSA476 chromosome). 
 
-The second region lacking annotation spans two contigs. This ~22 kb region, contains `blastn` hits in the middle of the sequence, that match sequence in the MSSA476 reference (top) that is also present in the 16B assembly (positions 85000 to 90000). This suggest that the ~22 kb region shares some similarity with the region downstream.
+Beyond the origin of replication there is a second region that is a novel indel region in 16B. The region spans two contigs. This ~22 kb region, contains `blastn` hits in the middle of the sequence, that match sequence in the MSSA476 reference (top) that is also present in the 16B assembly. This suggest that the ~22 kb region shares some similarity with the region downstream. 
 
+- Have a look at the annotation generated by `bakta` of the CDSs in this region in 16B. 
+- What sort of functions do the proteins in this region encode? 
+- Have a look at the annotation of the CDSs in the MSSA476 reference that match this regions. 
+- What do you the identity of this region is?
+- Can you find any genes of interest for antibiotic resistance that `ariba` identified?
 <br>
+
 
 ### Region 2
 
@@ -774,9 +800,10 @@ The second region lacking annotation spans two contigs. This ~22 kb region, cont
 ![Region 2](Region_2.png)
 
 
-From the `act` figure it would appear that there is a large insert in the 16B assembly relative to the MSSA476. If you zoom in and look at the sequence you will see that is composed of Ns rather than bases (in the figure you can make out regions with Ns, as they do not have any black lines that indicate stop codons on the forward and reverse translations). In this case ABACAS has mis-predicted a gap in this region, and therefore `ratt` has not transferred annotation.
+From the `act` figure it would appear that there is a large insert in the 16B assembly relative to the MSSA476. If you zoom in and look at the sequence you will see that is composed of Ns rather than bases (in the figure you can make out regions with Ns, as they do not have any black lines that indicate stop codons on the forward and reverse translations). In this case ABACAS has mis-predicted a gap in this region, and therefore `bakta` has not  annotation this region as it does not contain sequence.
 
 <br>
+
 
 ### Region 3
 
@@ -784,60 +811,25 @@ From the `act` figure it would appear that there is a large insert in the 16B as
 ![Region 3](Region_3.png)
 
 
-In this region near at the right hand side of the assembly, we have the non-mapping contigs (yellow). Previously we have seen that the two largest contigs are likely to be separate plasmids. The larger of the contigs has annotation transferred to it, however if you look in `act`, you will see that there it has no `blastn` matches to the MSSA476 chromosome. If you then look at the annotation that has been transferred, you will see that it has come from the MSSA476 plasmid, pSAS, rather than the chromosome, this is because we included EMBL files for both the plasmid and chromosome in the `ratt` transfer. This indicates that 16B contains a similar plasmid to that found in MSSA46.
+In this region near at the right hand side of the assembly, we have the non-mapping contigs (yellow). Previously we have seen that the two largest contigs are likely to be separate plasmids. 
 
-<br>
-
-
-For the regions of difference that do not have any annotation, we can use a useful function of `act` (and also `artemis`) to see what similar regions there are in the public sequence databases. To do this we are going to the run a BLAST search at the NCBI from the *Run* menu in `act`.
-
-Navigate yourself back to Region 1. Select the DNA region in the 16B assembly that is unique (*Right click* and hold, drag the cursor to the end of the region and release). *Left click* the *Create* menu, and move the cursor over the lower entry, and click *Feature From Base Range*. In the pop up feature box, change the *Key* to *misc_feature*, then click *Apply*. 
-
-
-![ACT blast 1](ACT_blast_1.png)
-
-
-Click on the *misc_feature* you have just created. Click the *Run* menu, and move the cursor the over lower entry, then over *NCBI searches*.
-
-
-![ACT blast 2](ACT_blast_2.png)
-
-
-In the NCBI searches sub-menu you will see the various flavours of BLAST that you can run. We are going to run a BLASTN (DNA-DNA comparison) and also a BLASTX (translated DNA-Protein comparison) search for the feature. First click *blastn*. An *Options for blastn* window will appear that allows you to change the blast parameters. We are going to run it with the default settings, therefore click *OK*.
-
-The BLAST job is now sent by ACT to the NCBI, and the Web browser window will open, and the results will appear when they have finished.
-
-<br> 
-
-Look at the BLASTN results and see what matches there are, and how much coverage there is of the region we are interested in.
-
-- What is the identity of some of these sequences?
-
-- Does it correspond to particular type of mobile genetic element (MGE) and what genes would you expect to find on this element?
-
-<br>
-
-Having seen the DNA-DNA matches, we are now going to repeat the NCBI search with BLASTX this time (Click the *Run* menu, and move the cursor over the lower entry, then over *NCBI searches*, and click *blastx*). This will search for protein coding sequences in the region of interest that have BLAST matches to proteins in UniProt.
-
-
-- What is the identity of the matching sequences and their predicted function?
-
-- How does this relate to antibiotic resistance?
-
-- Can you find matches to the genes ARIBA identified?
+- Have a look at the annotation generated by `bakta` of the CDSs of the contigs in this region. 
+- What sort of functions do the proteins in this encode? 
+- Does the annotation confirm them as plasmids?
+- Can you find any genes of interest for antibiotic resistance that `ariba` identified?
 
 
 <br>
 
 
-## [F: Examining the evolution of drug resistance in ST1 _S. aureus_](#Examining-the-evolution-of-drug-resistance-in-ST1-S-aureus)
+## [Examining the evolution of drug resistance in ST1 _S. aureus_](#Examining-the-evolution-of-drug-resistance-in-ST1-S-aureus)
 
 
 Up until now we have compared the 16B assembly to only one other ST1 _S. aureus_ strain, MSSA476. We are now going introduce another strain to the comparison, MW2, and start looking at the genetic differences between the isolates that may impact on their biology. Although MW2 was isolated in a different country (USA), many thousands of miles away from 16B and MSSA476 (both UK), it still belongs to the same clone, and probably share a common ancestor tens rather than hundreds of years ago. A clinically important phenotypic difference between these isolates are their antibiotic resistances:
 
-- 16B – penicillin*R*, fusidic acid*R*, methicillin*R*, erythromycin*R*
-- MSSA476 – penicillin*R*, fusidic acid*R*
-- MW2 – penicillin*R*, methicillin*R*
+- 16B – penicillin<sup>R</sup>, fusidic acid<sup>R</sup>, methicillin<sup>R</sup>, erythromycin<sup>R</sup>
+- MSSA476 – penicillin<sup>R</sup>, fusidic acid<sup>R</sup>
+- MW2 – penicillin<sup>R</sup>, methicillin<sup>R</sup>
 
 As you will hopefully have just discovered, it is possible to use genome sequence data to find the genes responsible for antibiotic resistance. Examining the genetic context of these genes helps us to understand the mechanism that are driving the evolution of resistance in these _S. aureus_ isolates. In this next part of the Module you are going use the comparisons with MW2 and MSSA476 to identify regions of difference regions that distinguish the isolates, and explain the differences in the antibiotic resistance phenotypes.
 
@@ -850,14 +842,14 @@ In order to examine the regions of difference in the 16B assembly with MW2 we ar
 At the prompt type and return the command line:
 
 ```
-formatdb -p F –i 16B.ordered.fasta
+formatdb -p F -i 16B.ordered.fasta
 ```
 
 
 Next type and return the command line:
 
 ```
-blastall -p blastn -m 8 –d 16B.ordered.fasta –i MW2.dna –o 16B.ordered.fasta_vs_MW2.dna
+blastall -p blastn -m 8 -d 16B.ordered.fasta -i MW2.dna -o 16B.ordered.fasta_vs_MW2.dna
 ```
 
 
@@ -867,95 +859,57 @@ We are now going to load up the three sequences and relevant comparison files in
 If you prefer to do it from the command line you can type:
 
 ```
-act MSSA476.embl MSSA476.dna_vs_16B.ordered.fasta 16B.ordered_staph-55e08.q2c2068.final.embl 16B.ordered.fasta_vs_MW2.dna MW2.embl &
+act MSSA476.embl MSSA476.dna_vs_16B.ordered.fasta 16B.ordered.embl 16B.ordered.fasta_vs_MW2.dna MW2.embl &
 ```
+
+<br>
+
 
 
 Now that you have included the MW2 sequence to the comparison you should see an `act` view with three DNA panels and two comparison panels separating them. In this zoomed out view, MSSA476 is on the top, 16B is in the middle and MW2 on the bottom. You will also notice that in the `act` menu at the top there are now three entry options. 
 
 
+
 ![ACT 3way 1](ACT_3way_1.png)
+
+
 
 
 To help you with your investigations, we have also provided two additional annotation files that contain misc_features which mark the extent of MGEs identified in the MSSA476 and MW2 chromosomes. These can be loaded into the appropriate entry (from the menu click *File*, the entry you want, then *Read An Entry*). The misc_features are colour coded in the ACT view according to the type of MGE (see legend on on the circular diagram of MSSA476).
 
 
+
 ![ACT 3way 2](ACT_3way_2.png)
+
+
 
 
 Here is the Region 1 that we have looked at previously, now with MW2 at the bottom. The regions of 16B that lacking annotation transferred from MSSA476, contains a matches to a region of the MW2. Does the identity of this MW2 region correspond to what you have seen from the NCBI BLAST searches? What has occurred in this region of the 16B chromosome that could explain the structure of this region in comparison to the other strains?
 
 
+
+
 ![ACT 3way 3](ACT_3way_3.png)
 
 
-Compare the other regions containing MGEs. How do these regions vary in the three strains, and what do they encode? Does this explain the differences in the antibiotics phenotypes of the isolates? Can you find any other important genes associated with MGEs that are vary in the isolates that are clinical relevant (clue, think toxins).
 
-<br>
+Compare the other regions containing MGEs. 
 
-## Annotation from scratch
+- How do these regions vary in the three strains, and what do they encode? 
+- Does this explain the differences in the antibiotics phenotypes of the isolates? 
+- Can you find any other important genes associated with MGEs that are vary in the isolates that are clinical relevant (clue, think toxins).
 
-In the example we have looked at, we are fortunate that we have annotation for a closely related reference sequence that that we can use to transfer to our isolate of interest’s assembly. In this case most of the query isolate’s assembly is covered by the transferred annotation. What if you are not so lucky, and you do not have an appropriate reference which you can use? What options are available to you?
 
-One option would be to use an annotation program such as `prokka` (Seemann T. (2014) Prokka: rapid prokaryotic genome annotation. Bioinformatics. 30:2068-9. doi: 10.1093/bioinformatics/btu153) or `bakta` (Schwengers O et al., (2021). Bakta: rapid and standardized annotation of bacterial genomes via alignment-free sequence identification. Microbial Genomics, 7(11). https://doi.org/10.1099/mgen.0.000685)
-
-Both of these program are installed on the disk image. If you have time why don't you have a go at running them on the 16B.ordered.fasta sequence.
 
 
 <br>
 
+<br>
 
-To run `prokka`.
+[>>> Go to Assembly Method Comparison Exercise](https://github.com/WCSCourses/GenEpiLAC2023/blob/main/Manuals/Assembly_method_comparison/Assembly_method_comparison.md)
 
-- Specify the output directory
-    - `--outdir 16B_prokka`
-- Specify the prefix
-    - `--prefix 16B`
-- Specify the multifasta file to be annotated
-    - `16B.ordered.fasta`
-
-
-```
-prokka --outdir 16B_prokka --prefix 16B 16B.ordered.fasta
-```
-
-
-To visualize the annotation in Artemis type:
-
-
-```
-art 6B_prokka/16B.gff
-```
+[<<< Go back to Manual Contents Page](https://github.com/WCSCourses/GenEpiLAC2023/blob/main/Manuals/README.md)
 
 <br>
 
-To run `bakta` first download the most recent compatible database
-
-
-- Specify the `bakta` program to run
-    - `download`
-- Specify the output directory
-    - `--output bakta_database`
-- Specify the database versions (available as either full or light):
-    - `--type light`
-
-
-```
-bakta_db download --output bakta_database --type light
-```
-
-
-Then run `bakta` to annotate your sequence.
-
-- Specify the database directory
-    - `--db bakta_database`
-- Specify the multifasta file to be annotated
-    - `16B.ordered.fasta`
-
-
-```
-bakta --db bakta_database 16B.ordered.fasta
-```
-
-Like for the `prokka`, `bakta` produces annotations & sequences in GFF3 format, which can be loaded in `artemis` or `act` and explored.
 
