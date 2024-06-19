@@ -140,7 +140,7 @@ We can also examine the contents of this file
 ```
 ls -l
 ```
-![directory_contents](Directory_ls_start.png)
+![directory_contents](Terminal_1.png)
 
 <br>
 
