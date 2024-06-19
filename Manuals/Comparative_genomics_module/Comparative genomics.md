@@ -1,24 +1,30 @@
 <img src="https://coursesandconferences.wellcomeconnectingscience.org/wp-content/themes/wcc_courses_and_conferences/dist/assets/svg/logo.svg" width="200" height="200">
 
 
+[<<< Go back to Manual Contents Page](https://github.com/WCSCourses/GenEpiLAC2023/blob/main/Manuals/README.md)
+
+<br>
 
 # Comparative genomics - Paraguay 2023 <!-- omit in toc -->
 
-### Module Leads: Matt Holden <!-- omit in toc -->
+### Module Lead: Matt Holden <!-- omit in toc -->
 <br>
 
 # Table of contents <!-- omit in toc -->
-- [Module Overview and Aims](#module-overview-and-aims)
 - [Introduction](#introduction)
 - [Aims](#aims)
+- [Finding the data](#finding-the-data)
 - [Starting up the `act` software](#starting-up-the-ACT-software)
-- 
-
+- [The basics of `act`](#the-basics-of-act)
+- [Exercise](#exercise) 
+- [Things to try out in `act`](#things-to-try-out-in-act)
+- [More things to try out in `act`](#more-things-to-try-out-in-act)
+- [Bonus Exercise](#bonus-exercise)
 <br> 
 
 
 # [Introduction](#introduction)
-<br.
+<br>
 
 The `artemis` Comparison Tool (`act`) was designed to extract the additional information that can only be gained by comparing the growing number of sequences from closely related organisms (Carver _et al_., 2005). `act` is based on `artemis`, and so you will already be familiar with many of its core functions, and is essentially composed of three layers or windows. 
 
@@ -37,13 +43,15 @@ More details on `act` can be found here: http://sanger-pathogens.github.io/Artem
 <br>
 
 * Become familiar with the basic functions of `act`
-* Explore a comparison of the chromosomes of _E. coli_ and _S. enterica_ serotype Typhi
+* Explore a comparison of the chromosomes of _Escherichia coli_ and _Salmonella enterica_ serotype Typhi
 
 
 <br>
 
-## Finding the data 
+# [Finding the data](#finding-the-data)
 Navigate to the `Module_5_Comparative_Genomics` directory
+
+<br>
 
 ```
 cd Module_5_Comparative_Genomics
@@ -91,7 +99,7 @@ In the folder the files you will need for this exercise are:
 <br>
 
 
-Start `act` from the terminal window by typing ‘act &’
+Start `act` from the terminal window by typing `act &`
 
 
 Click *File* then *Open*
@@ -100,7 +108,7 @@ Click *File* then *Open*
 ![act start up 1](act_start_1.png)
 
 
-Use the *File manager* to drag and drop files into the `act' file window:
+Use the *File manager* to drag and drop files into the `act` file window:
 
 * Drag `EcK12.dna` into the *Sequence file 1* box
 * Drag `S_typhi.dna_vs_EcK12.dna.crunch` into the *Comparison file 1* box
@@ -112,7 +120,7 @@ Alternatively you could select the files from the *Choose* option in the `act' f
 Once you have filled all the boxes, click the *Apply* button.
 
 
-![act start up 1](act_start_1.png)
+![act start up 2](act_start_2.png)
 
 <br>
 
@@ -139,9 +147,6 @@ You should now have a window like this so lets see what is there.
 **5**. Right button click in the Comparison View panel brings up this important `act`-specific menu which we will use later. 
 
 
-
-![act view 2](act_2.png)
-
 <br>
 
 
@@ -151,6 +156,9 @@ You should now have a window like this so lets see what is there.
 
 
 In this first exercise we are going to explore the basic features of `act`. Using the `act` session you have just opened we firstly are going to zoom outwards until we can see the entire _S_. Typhi chromosome compared against the _E. coli_ K12 chromosome. As for the `artemis` exercises we should turn off the stop codons to clear the view and speed up the process of zooming out.
+
+
+![act view 2](act_2.png)
 
 
 The only difference between `act` and `artemis` when applying changes to the sequence views is that in `act` you must click the right mouse button over the specific sequence that you wish to change, as shown above.
@@ -191,12 +199,6 @@ You can optimise your image by either removing ‘low scoring’ (or percentage 
 ![act view 6](act_6.png)
 
 
-
-
-![act view 7](act_7.png)
-
-
-
 <br>
 
 
@@ -206,15 +208,22 @@ You can optimise your image by either removing ‘low scoring’ (or percentage 
 
 Load into the top sequence (S.typhi) a ‘.tab’ file  called `laterally.tab`. You will need to use the *File* menu and select the correct genome sequence (*S.typhi.dna*) before you can read in an entry. 
 
+
+![act view 7](act_7.png)
+
+
+
 If you are zoomed out and looking at the whole of both genomes you should see the above. 
+
+The small white boxes are the regions of atypical DNA covering regions that we looked at in the first `artemis` exercise. 
 
 It is apparent that there is a backbone sequence shared with _E. coli_ K12, plus chunks of _S_. Typhi specific DNA, which appear to be insertions relative to _E. coli_ K12.   
 
 
 <br>
 
+# [More things to try out in `act`](#more-things-to-try-out-in-act)
 
-# [More things to try out in `act`](#more-things-to-try-out-in-act)
 <br>
 
 - Double click red boxes to centralise them.
@@ -230,7 +239,9 @@ It is apparent that there is a backbone sequence shared with _E. coli_ K12, plus
 
 <br>
 
-# [Bonus Exercise](#bonus-exercise)
+# [Bonus Exercise](#bonus-exercise)
+
+<br> 
 
 In the the `Module_5_Comparative_Genomics` directory there is an additional directory that contains a bonus exercise. This exercise compares of the chromosomal structures of the Gram-positive pathogen, _Streptococcus pyogenes_ (also known as Group A _Streptococcus_, which is often abbreviated to GAS).
 
@@ -307,7 +318,9 @@ Use the *File manager* to drag and drop files into the `act' file window:
 
 
 
+
 ![act start up 1](act_start_1.png)
+
 
 
 
@@ -332,5 +345,6 @@ Things to do:
 <br>
 
 
+[<<< Go back to Manual Contents Page](https://github.com/WCSCourses/GenEpiLAC2023/blob/main/Manuals/README.md)
 
-
+<br>
