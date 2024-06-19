@@ -46,9 +46,9 @@ art &
 
 A small start-up window will appear (see figure below). The directory for Module 3 contains all files you will need for this module. Please ask if you cannot find it on your computer. Now follow the sequence of numbers in the figure below to load up the *Salmonella* Typhi chromosome sequence. Ask a demonstrator for help if you have any problems.
 
-![Artemis1](https://user-images.githubusercontent.com/65819144/231214046-58289d81-5d3d-4e9c-9bc9-dfbb49e111c9.png)
+![Artemis1](Artemis1.png)
 
-![Artemis2](https://user-images.githubusercontent.com/65819144/231215229-7dd5451b-d172-4c1e-8f15-a61727e795e5.png)
+![Artemis2](Artemis2.png)
 
 
 ### 2. Loading an annotation file (entry) into Artemis
