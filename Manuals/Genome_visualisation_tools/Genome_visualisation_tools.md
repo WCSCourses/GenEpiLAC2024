@@ -55,11 +55,11 @@ A small start-up window will appear (see figure below). The directory for Module
 
 Hopefully you will now have an Artemis window like this! If not, ask a demonstrator for assistance.
 
-![Artemis3](https://user-images.githubusercontent.com/65819144/231216039-4d8d6287-e631-41d3-a4da-be047a4140d6.png)
+![Artemis3](Artemis3.png)
 
 Now follow the numbers in the figure below to load the annotation file for the *Salmonella* Typhi chromosome.
 
-![Artemis4](https://user-images.githubusercontent.com/65819144/231219005-22657063-b697-4c4b-92b3-d76f42b3f9b0.png)
+![Artemis4](Artemis4.png)
 
 **What is an entry?**
 
@@ -71,7 +71,7 @@ It’s a file of DNA and/or features which can be overlaid onto the sequence inf
 
 Now you have an Artemis window open let’s look at what is in there:
 
-![Artemis5](https://user-images.githubusercontent.com/65819144/231230135-195b8396-50bd-4a54-8922-d766d5d6b114.png)
+![Artemis5](Artemis5.png)
 
 1- **Drop-down menus**: There’s lots in there so don’t worry about all the details right now.
 
@@ -103,7 +103,7 @@ The best method depends on what you’re trying to do. Knowing which one to use 
 
 The functions on this menu (below the Navigator option) are shortcuts for getting to locations within a selected feature or for jumping to the start or end of the DNA sequence. This is really intuitive so give it a try!
 
-![Artemis6](https://user-images.githubusercontent.com/65819144/231232221-23289b1d-148e-4b1f-a7af-9974d9e762f7.png)
+![Artemis6](Artemis6.png)
 
 It may seem that `Goto > Start of Selection` and `Goto > Feature Start` do the same thing.
 Well they do if you have a feature selected but `Goto > Start of Selection` will also work for a region which you have selected by click-dragging in the main window. So yes, give it a try!
@@ -124,7 +124,7 @@ Well they do if you have a feature selected but `Goto > Start of Selection` will
 
 The Navigator panel is fairly intuitive so open it up and give it a try.
 
-![Artemis7](https://user-images.githubusercontent.com/65819144/231233525-c175fd6e-4a50-4f69-9283-e02be74ea98d.png)
+![Artemis7](Artemis7.png)
 
 **Suggestions about where to go:**
 
@@ -150,7 +150,7 @@ Clearly there are many more features of Artemis which we will not have time to e
 
 This part of the exercise uses the files and data you already have loaded into Artemis from Part I. By a method of your choice go to the region from bases 2188349 to 2199512 on the DNA sequence. This region is bordered by the *fbaB* gene which codes for fructose-bisphosphate aldolase. You can use the Navigator function discussed previously to get there. The region you arrive at should look similar to that shown below.
 
-![Artemis8](https://user-images.githubusercontent.com/65819144/231242665-6999b821-b552-4286-8283-8b8332c95a20.png)
+![Artemis8](Artemis8.png)
 
 Once you have found this region have a look at some of the information available:
 
@@ -179,7 +179,7 @@ The plot information is generated dynamically by Artemis and although this is a 
 
 Click on the `Graph` menu to see all those available. Perhaps some of the most useful plots are the (1) **GC Content (%)** and (2) **GC Deviation** as shown below. To adjust the smoothing of the graph you change the window size over which the points on the graph are calculated, using the sliders shown below. If you are not familiar with any of these please ask.
 
-![Artemis9](https://user-images.githubusercontent.com/65819144/231245658-aecff0f3-2cc7-4739-922d-e2429493e552.png)
+![Artemis9](Artemis9.png)
 
 Notice how several of the plots show a marked deviation around the region you are currently looking at. To fully appreciate how anomalous this region is move the genome view by scrolling to the left and right of this region. The apparent unusual nucleotide content of this region is indicative of laterally acquired DNA that has inserted into the genome.
 
@@ -192,15 +192,15 @@ an option to de-select "Stop Codons" (see below).
 
 2- You will also need to temporarily remove all of the annotated features from the Artemis display window. In fact if you leave them on, which you can, they would be too small to see when you zoomed out to display the entire genome. To remove the annotation click on the S_typhi.tab entry button on the grey entry line of the Artemis window shown above.
 
-![Artemis10](https://user-images.githubusercontent.com/65819144/231564333-faff1c83-7cb6-4426-8c9e-80155dccc72d.png)
+![Artemis10](Artemis10.png)
 
-   ![Artemis11](https://user-images.githubusercontent.com/65819144/231250471-5a626ad4-0452-4552-9d51-858f882a2b87.png)
+   ![Artemis11](Artemis11.png)
 
 3. One final tip is to adjust the scaling for each graph displayed before zooming out. This increases the maximum window size over which a single point for each plot is calculated. To adjust the scaling click with the right mouse button over a particular graph window. A menu will appear with an option "Set the Window size" (see above), set the window size to ‘20000’. You should do this for each graph displayed (if you get an error message press continue).
 
 4. You are now ready to zoom out by dragging or clicking the slider indicated above. Once you have zoomed out fully to see the entire genome you will need to adjust the smoothing of the graphs using the vertical graph sliders as before, to have a similar view to that shown below.
 
-![Artemis12](https://user-images.githubusercontent.com/65819144/231252764-215fe8ab-3665-4d4e-a24f-24ee233e3e0b.png)
+![Artemis12](Artemis12.png)
 
 
 ## [Artemis exercise 3](#artemis-exercise-3)
@@ -208,7 +208,7 @@ an option to de-select "Stop Codons" (see below).
 There are many examples where anomalous regions of DNA within a genome have been shown to carry laterally acquired DNA. In this part of the exercise we are going to
 look at several of these regions in more detail. Starting with the whole genome view, note down the approximate positions and characteristics of the two regions indicated below. Remember the locations of the peaks are given in the graph window if you click the left mouse button within it.
 
-![Artemis13](https://user-images.githubusercontent.com/65819144/231256736-e05ab93f-957e-47f4-b821-7d7cba6f5649.png)
+![Artemis13](Artemis13.png)
 
 | Region | Genome location | Characteristics of DNA plots 
 | --|--|--
@@ -233,11 +233,11 @@ The region you should be looking at is shown below and is a classical example of
 
 Have a look in and around this region and look for some of these features
 
-![Artemis14](https://user-images.githubusercontent.com/65819144/231262920-12c84002-cdba-46c6-bdc0-d266b93c564b.png)
+![Artemis14](Artemis14.png)
 
 Next go to Region 2.
 
-![Artemis15](https://user-images.githubusercontent.com/65819144/231268151-f5273258-99de-4df8-a15a-205d75e2fae2.png)
+![Artemis15](Artemis15.png)
 
 As with region 1, this region is also defined as a *Salmonella* pathogenicity island (SPI). SPI-7, or the major Vi pathogenicity island, is ~134 kb in length and contains ~30 kb of integrated bacteriophage. Have a look at the CDSs within this region. As before notice any stable RNAs that may have acted as the phage integration site.
 
@@ -246,11 +246,11 @@ As with region 1, this region is also defined as a *Salmonella* pathogenicity is
 Continuing on from the analysis of Region 2 or SPI-7 (the major Vi-antigen pathogenicity island) we are going to extract this region from the whole genome sequence and perform some more detailed analysis on it. We will aim to write and save new EMBL format files which will include just the annotations and DNA for this region.
 Follow the numbers on the figure below to complete the task:
 
-![Artemis16](https://user-images.githubusercontent.com/65819144/231480577-8ef8064e-5caf-4c56-89cf-905b487e0339.png)
+![Artemis16](Artemis16.png)
 
 A new Artemis window will appear displaying only the region that you highlighted:
 
-![Artemis17](https://user-images.githubusercontent.com/65819144/231489908-12de90c2-48f5-456e-87d9-45e32754f16c.png)
+![Artemis17](Artemis17.png)
 
 Note that the two entries on the grey "Entry" line are now denoted "no name". They represent the same information in the same order as the original Artemis window but simply have no assigned "Entry" names. As the sub-sequence is now viewed in a new Artemis session, this prevents the original files (S_typhi.dna and S_typhi.tab) from being over-written.
 
@@ -258,54 +258,54 @@ We will save the new files with relevant names to avoid confusion. So click on `
 
 Do the same again for the second unnamed entry and save it as spi7.tab
 
-![Artemis18](https://user-images.githubusercontent.com/65819144/231491957-b4f46cac-9aeb-45a6-a8d1-ba2b6e821045.png)
+![Artemis18](Artemis18.png)
 
 We are going to look at this region in more detail and to attempt to define the limits of the bacteriophage that lies within this region. Luckily for us all the phage-related genes within this region have been given a colour code number 12 (pink; for a list of the other numerical values that Artemis will display as colours for features see [Appendix VII](https://github.com/WCSCourses/GenEpiLAC2023/blob/main/Manuals/Genome_visualisation_tools/Appendix_Artemis_2023.pdf). We are going to use this information to select all the relevant phage genes using the Feature selector as shown below and then define the limits of the bacteriophage.
 
 First we need to create a new entry (click `Create > New Entry`). Another entry will appear on the entry line called, you guessed it, "no name". We will eventually copy all our phage-related genes into here.
 
-![Artemis19](https://user-images.githubusercontent.com/65819144/231533214-47fad724-e72d-4260-a902-4c69584aafb7.png)
+![Artemis19](Artemis19.png)
 
 After clicking the "View" button another window will open containing the feature list:
 
-![Artemis20](https://user-images.githubusercontent.com/65819144/231533240-3ca8a544-760c-401c-a462-8bfcb48aed44.png)
+![Artemis20](Artemis20.png)
 
 The genes listed above are only those fitting your selection criteria. They can be copied or cut/moved in to a new entry so we can view them in isolation from the rest of the information within spi7.tab.
 
 Firstly in the feature window select all of the CDSs shown by clicking on the "Select" menu and then selecting "All". All the features listed in this window should now be highlighted. To copy them to another entry (file) click `Edit > Copy Selected Features To > no name`. Close the two smaller feature selector windows and return to the SPI-7 Artemis window. You could rename the "no name" entry as phage.tab, as you did before. Temporarily remove the features contained in "spi7.tab" file by left clicking on the entry button on the grey entry line. Only the phage genes should remain:
 
-![Artemis22](https://user-images.githubusercontent.com/65819144/231550039-2ff6d91c-7624-4bb5-9917-d75e4e2a99e7.png)
+![Artemis21](Artemis21.png)
 
 **Additional methods for selecting/extracting features using the Feature Selector** It is worth noting that the Feature Selector can be used in many other ways to select and extract subsets of features from the genome, using e.g. text or amino acid searches: 
 
-![Artemis21](https://user-images.githubusercontent.com/65819144/231546042-b47f4eb6-802c-446d-867c-a63ab6c9cb6f.png)
+![Artemis22](Artemis22.png)
 
 **Defining the extent of the prophage**
 
 Even from this preliminary analysis it is clear that the prophage occupies a fairly discrete region within SPI-7 (see below). It is often useful to create a new DNA feature to define the limits of this type of genome landmark. To do this use the left mouse button to click and drag over the region that you think defines the prophage:
 
-![Artemis23](https://user-images.githubusercontent.com/65819144/231551194-a7dce887-6f82-4743-8b0e-5ba1636e9263.png)
+![Artemis23](Artemis23.png)
 
 While the region in highlighted, click on `Create > Create feature from base range`. A feature edit window will appear:
 
-![Artemis24](https://user-images.githubusercontent.com/65819144/231552053-3c799f3b-e16b-4e0a-9406-ee53e0dc7b26.png)
+![Artemis24](Artemis24.png)
 
 The default Key value given by Artemis when creating a new feature is "CDS". With this Key the newly created feature would automatically be put on the translation line. However, if we change this to "misc_feature" (an option in the Key drop down menu in the top left hand corner of the Edit window), Artemis will place this feature on the DNA line. This is perhaps more appropriate and is easier to visualise. 
 
 
 You can also add a qualifier, such as "/label". To do so, follow the numbers in the figure below:
 
-![Artemis25](https://user-images.githubusercontent.com/65819144/231555919-e7c60a91-8e5f-4adc-94de-e7f5516faccc.png)
+![Artemis25](Artemis25.png)
 
 To see how well you have done, turn the spi7.tab.
 
 Your final task is to write out the spi7 files in EMBL submission format, and create a merged annotation and sequence file in EMBL submission format. In Artemis you are going to copy the annotation features from the ".tab" file into the ".dna" file, and then save this entry in EMBL format. Don’t worry about error messages popping up. This is because not all entries are accepted by the EMBL database.
 
-![Artemis26](https://user-images.githubusercontent.com/65819144/231558101-4cb50a71-aa5b-4b11-959b-8acd7cfb6677.png)
+![Artemis26](Artemis26.png)
 
 Now open the EMBL format file that you have just created in Artemis.
 
-![Artemis27](https://user-images.githubusercontent.com/65819144/231563601-05cba0af-7b3f-4832-ad3c-8a0defe9a967.png)
+![Artemis27](Artemis27.png)
 
 You will see that the colours of the features have now changed. This is because not all the qualifiers in the previous entry are accepted by the EMBL database, so some have not been saved in this format. This includes the "/colour" qualifier, so Artemis displays the features with default colours.
 
