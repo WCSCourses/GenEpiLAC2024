@@ -2,7 +2,7 @@
 
 
 
-# Genome Assembly and Analysis - Paraguay 2023 <!-- omit in toc -->
+# Genome Assembly and Analysis - Costa Rica 2024 <!-- omit in toc -->
 
 ### Module Leads: Matt Holden and Mat Beale<!-- omit in toc -->
 <br>
