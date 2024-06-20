@@ -5,7 +5,7 @@
 
 <br>
 
-# Comparative genomics - Paraguay 2023 <!-- omit in toc -->
+# Comparative genomics - Costa Rica 2024 <!-- omit in toc -->
 
 ### Module Lead: Matt Holden <!-- omit in toc -->
 <br>
