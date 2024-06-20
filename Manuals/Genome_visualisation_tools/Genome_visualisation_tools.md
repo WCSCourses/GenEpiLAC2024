@@ -5,7 +5,7 @@
 
 <br>
 
-# Genome Visualisation tools - Paraguay 2023 <!-- omit in toc -->
+# Genome Visualisation tools - Costa Rica 2024 <!-- omit in toc -->
 
 ## Table of contents <!-- omit in toc -->
 - [Introduction](#introduction)
