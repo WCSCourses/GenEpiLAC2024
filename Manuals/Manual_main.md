@@ -10,7 +10,7 @@
 - Genomic Capacity Development for Public Health Settings 
 - World Café: Translating Genomics into Public Health Action
 - [Module 1](), Sequencing & QC 
-- [Module 2](), Genome visualisation tools
+- [Module 2](Manuals/Genome_visualisation_tools/Genome_visualisation_tools.md), Genome visualisation tools
 - [Module 3](), Comparative Genomics (lecture only)
 - [Module 4](https://github.com/WCSCourses/GenEpiLAC2024/blob/main/Manuals/Mapping_and_Phylogenetics/Mapping+Phylo.md), Mapping and Phylogenetics
 - [Module 5](), Genome Assembly and Annotation
