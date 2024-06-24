@@ -11,7 +11,7 @@
 - World Café: Translating Genomics into Public Health Action
 - [Module 1](), Sequencing & QC 
 - [Module 2](https://github.com/WCSCourses/GenEpiLAC2024/blob/main/Manuals/Genome_visualisation_tools/Genome_visualisation_tools.md), Genome visualisation tools
-- [Module 3](https://github.com/WCSCourses/GenEpiLAC2024/blob/main/Manuals/Genome_visualisation_tools/Genome_visualisation_tools.md), Comparative Genomics (lecture only)
+- [Module 3](https://github.com/WCSCourses/GenEpiLAC2024/blob/main/Manuals/Comparative_genomics_module/Comparative genomics.md), Comparative Genomics (lecture only)
 - [Module 4](https://github.com/WCSCourses/GenEpiLAC2024/blob/main/Manuals/Mapping_and_Phylogenetics/Mapping+Phylo.md), Mapping and Phylogenetics
 - [Module 5](https://github.com/WCSCourses/GenEpiLAC2024/blob/main/Manuals/Genome_Assembly_Annotation/Assembly_analysis.md), Genome Assembly and Annotation
   - [Assembly_method_comparison](https://github.com/WCSCourses/GenEpiLAC2024/blob/main/Manuals/Assembly_method_comparison/Assembly_method_comparison.md), Assembly Methods Comparison
