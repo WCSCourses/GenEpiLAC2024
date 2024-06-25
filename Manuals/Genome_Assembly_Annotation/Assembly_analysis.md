@@ -1,13 +1,14 @@
 <img src="https://coursesandconferences.wellcomeconnectingscience.org/wp-content/themes/wcc_courses_and_conferences/dist/assets/svg/logo.svg" width="200" height="200">
 
 
-[<<< Go back to Manual Contents Page](https://github.com/WCSCourses/GenEpiLAC2024/blob/main/Manuals/README.md)
+[<<< Go back to Manual Contents Page](https://github.com/WCSCourses/GenEpiLAC2023/blob/main/Manuals/README.md)
 
 <br>
 
-# Genome Assembly and Analysis - Costa Rica 2024 <!-- omit in toc -->
+# Genome Assembly and Analysis - Paraguay 2023 <!-- omit in toc -->
 
-### Module Leads: Matt Holden and Mat Beale<!-- omit in toc -->
+### Module Leads: Mat Beale and Jordan Ashworth<!-- omit in toc -->
+
 <br>
 
 # Table of contents <!-- omit in toc -->
@@ -29,116 +30,101 @@
   - [Generating Annotation](#generating-annotation)
   - [Examining the evolution of drug resistance in ST1 _S. aureus_](#Examining-the-evolution-of-drug-resistance-in-ST1-S-aureus)
 
-<br> 
-
-# Module Overview and Aims
-
 <br>
 
-One of the greatest challenges of sequencing a genome is determining how to arrange sequencing reads into chromosomes and plasmids. This process of determining how the reads fit together by looking for overlaps between them is called genome assembly. In this module we are going to look as assemblies using short- and long-reads and see how they can be used to characterize isolates of interest, and when annotated, help answer biological and clinical questions.
+# [Module Overview and Aims](#module-overview-and-aims)
 
-Aims of this exercise
+One of the greatest challenges of sequencing a genome is determining how to arrange sequencing reads into chromosomes and plasmids. This process of determining how the reads fit together by looking for overlaps between them is called genome assembly. In this module, we are going to explore genome assembly using short- and long-read sequencing technologies and see how they can be used to characterize isolates of interest. Additionally, we will annotate these genomes and use comparative genomics to analyze regions of difference and identify genetic determinants of antibiotic resistance.
 
-*	Use a resistome prediction tool to identify the genetic determinants for antibiotic resistance from sequencing reads
-*	To show how short-read data can be assembled into a draft genome
-*	Order the draft genome against a reference sequence
-*	Annotate the reordered draft genome
-*	To show how, using comparative genomics, regions of difference that distinguish genomes can identified and analysed
-*	Identify the genetic basis of resistance and be able to explain the evolution of resistance in the isolates investigated 
+Aims of this exercise:
+
+*	Use a resistome prediction tool to identify the genetic determinants for antibiotic resistance from sequencing reads.
+*	Show how short-read data can be assembled into a draft genome.
+*	Order the draft genome against a reference sequence.
+*	Annotate the reordered draft genome.
+*	Demonstrate how comparative genomics can identify and analyse regions of difference that distinguish genomes.
+*	Identify the genetic basis of resistance and explain the evolution of resistance in the isolates investigated.
 
 <br>
 
 # [Introduction](#introduction)
 
-<br>
-
 ## [Short-read sequencing assembly](#short-read-sequencing-assembly)
 
-<br>
+The data from the Illumina machine comes as relatively short stretches (35-250 bp) of DNA – around 6 billion of them for a typical bacterial genome. These individual sequences are called sequencing reads. There are a range of assembly programs that have been specifically designed to assemble genomes from next-generation sequence (NGS) data. Genome assembly using sequence reads of around 100bp is complicated due to the high frequency of repeats longer than the sequence read length in genomes, such as insertion sequence (IS) elements and rRNA operons, and the massive amount of data the programs have to handle. In addition to finding overlaps in the sequence, the assembly programs can also use information from the predicted insert size when paired reads are used, to link and position reads in an assembly.
 
-The data from the Illumina machine comes as relatively short stretches (35-250 bp) of DNA – around 6 billion of them for a typical bacterial genome. These individual sequences are called sequencing reads. There are a range of assembly programs that have been specifically designed to assemble genomes from next generation sequence (NGS) data. Genome assembly using sequence reads of around 100bp is complicated due to the high frequency of repeats longer than the sequence read length in genomes, for example: insertion sequence (IS) elements, rRNA operons; and the massive amount of data the programs have to handle. In addition to finding overlaps in the sequence, the assembly programs can also use information from the predicted insert size where paired reads are used, to link and position reads in an assembly.
-
-Where a genome is piecing together without any reference sequence to compare it to, or scaffold it against, it is termed a _de novo_ assembly. Due to the previously mentioned challenges of assembly, de novo assembly using short reads will not produce complete genomes, but will be fragmented into multiple contiguous sequences (contigs), the order of which is arbitrary, and does not necessarily bear not any relation to their real order in the genome. 
-
+When a genome is pieced together without any reference sequence to compare it to or scaffold against, it is termed a _de novo_ assembly. Due to the challenges of assembly mentioned earlier, de novo assembly using short reads will not produce complete genomes, but rather fragmented assemblies of multiple contiguous sequences (contigs), the order of which is arbitrary and does not necessarily reflect their actual order in the genome.
 
 ## [Long-read sequencing assembly](#long-read-sequencing-assembly)
 
-<br>
+With the advent of real-time sequencing technologies like Oxford Nanopore and Pacific Biosciences, it is now possible to generate sequence reads that far exceed the size of those produced by Illumina platforms. These long-read technologies can produce reads tens of thousands of base pairs in length, which contrasts with the tens or hundreds of base pairs generated by Illumina platforms.
 
-With the availability of real-time sequencing technologies, such as Oxford Nanopore and Pacific Bioscience, it is possible to generate sequence reads that far exceed the size of those produced by Illumina platforms. The size of read can be tens of thousands of base pairs in length, contrasting with the tens or hundreds of base pairs generated by Illumina, which had led to these technologies being term long-read technologies.
-
-Having longer reads, that extend through some of the repeat regions that limit the assembly of short-read sequence data, can help piece together a genome sequence. However due to the higher error rate of some real-time sequencing technologies and the variable distribution of size of reads they generate, mean that generating high quality complete assemblies from long-reads alone can challenging.
+The longer reads from these technologies can span through repeat regions that limit the assembly of short-read sequence data. However, the higher error rates associated with some long-read sequencing technologies and the variable size distribution of reads they generate mean that generating high-quality complete assemblies from long-reads alone can be challenging.
 
 ## [Hybrid Assembly](#hybrid-Assembly)
 
-<br>
-
-A popular approach to generate complete genomes has been to utilize the accuracy of short-read sequencing data and combine it with the long-range information of long-read sequencing data, in a hybrid assembly approach. This requires sequence data for an isolate to be sequenced using the two different sequencing technologies. This can then be assembled using assembler programs that are designed to handle the difference types of data and compare them to find overlaps to stitch the sequences together and accurately predict the sequence in the assembly.
+A popular approach to generate more complete genomes is to combine the accuracy of short-read sequencing data with the long-range information provided by long-read sequencing data, known as hybrid assembly. This approach requires sequencing an isolate using both short-read and long-read technologies. Assembler programs designed for hybrid assembly can utilize both types of data to find overlaps, stitch sequences together, and accurately predict the sequence in the assembly.
 
 ## [What assemblies are best?](#what-assemblies-are-best?)
 
-<br>
-Hybrid assemblies that are more complete have advantages for downstream analysis, however require access to sequencing capacity for two different technologies, and incur the extra expense of sequencing the same isolate twice, consequently it is not always practical to use this approach to characterize isolates of interest. Equally, it is not always necessary to generate more complete assemblies if the information you need from the genome is not dependant on knowing the full genomic context, i.e. genotyping and isolate for an biomarker such as an antibiotic gene. To answer the question of what is the best assembly to aim for, it very much depends on what you want to use it for. 
+Hybrid assemblies that achieve greater completeness offer distinct advantages for downstream analysis, such as understanding mobile genetic elements (MGEs), genome rearrangements, and evolutionary studies. However, these assemblies require dual sequencing technologies and entail additional costs, making them impractical for all isolates.
+
+For tasks focused on genotyping and identifying specific genetic markers like antibiotic resistance genes, a draft genome from short-read data may suffice, avoiding the complexities and costs of hybrid approaches. The choice of assembly strategy should align closely with research objectives, balancing the need for comprehensive genomic information with practical considerations.
 
 <br>
 
 # [Assembly and annotation exercise](#assembly-and-annotation-exercise)
 
-<br>
-
 ## [Background](#background)
 
-<br> 
-
-_Staphylococcus aureus_ is a bacterial pathogen that has gained notoriety in recent years due to its ability to evolve new virulent and drug resistant variants. In particular, the spread of _S. aureus_ in hospitals has placed an increased burden on health care systems; _S. aureus_ is the most common cause of hospital-acquired infection. Accompanying the spread of this bacterium has been an increase in the resistance to antibiotics. In parts of Europe, the US and Japan, 40-60% of all hospital _S. aureus_ are now resistant to the β-lactam antibiotic methicillin. Methicillin-resistant _S. aureus_ (MRSA) strains were first described in the 1960s and successful clones of MRSAs have spread round the globe.
+*Staphylococcus aureus* is a bacterial pathogen that has garnered attention in recent years due to its capacity to evolve into highly virulent and antibiotic-resistant strains. Its prevalence in hospital settings poses a significant burden on healthcare systems worldwide, being the leading cause of hospital-acquired infections. The rise of antibiotic resistance among *S. aureus* strains, particularly to β-lactam antibiotics like methicillin, has reached alarming levels in regions such as Europe, the US, and Japan, where 40-60% of hospital-acquired *S. aureus* infections are now methicillin-resistant. The emergence of methicillin-resistant *S. aureus* (MRSA) dates back to the 1960s, and since then, various successful clones have disseminated globally.
 
 ## [An outbreak sample](#an-outbreak-sample)
 
-<br>
-
-In this module we will assemble the genome of a strain of _S. aureus_, 16B, that was sequenced as part of an MRSA outbreak investigation, (Köser _et al_., 2012, N Engl J Med. 366:2267-75). Using multi locus sequence typing (MLST) the isolate was identified as belonging to sequence type 1 (ST1), a lineage of _S. aureus_ that is more frequently associated with infections in the community rather than in hospitals, and tends to be less resistant to antibiotics than the _S. aureus_ commonly associated with hospital-acquired infection.
+In this module, we will assemble the genome of a strain of *Staphylococcus aureus*, 16B, which was sequenced as part of an MRSA outbreak investigation (Köser _et al_., 2012, N Engl J Med. 366:2267-75). Through multi locus sequence typing (MLST), the isolate was identified as belonging to sequence type 1 (ST1), a lineage of *S. aureus* more frequently associated with community infections rather than hospital-acquired infections. ST1 strains typically exhibit lower antibiotic resistance compared to those commonly found in hospitals.
 
 ## [Analyses](#analyses)
 
-<br>
-
-We are going to query the resistome of 16B using `ariba` and a resistance gene database. We will generate an assembly and compare it to the chromosomes of 2 other ST1 isolates: MSSA476, which was isolated in the UK (Holden _et al_., 2004, PNAS. 101:9786-91), and MW2, which was isolated in the USA (Baba _et al_., 2002, Lancet 359:1819-27). Both MSSA476 and MW2 have been completely sequenced, annotated and deposited in EMBL.
+We will conduct a comprehensive analysis starting with querying the resistome of 16B using `ariba` and a resistance gene database. Additionally, we will perform genome assembly and comparative analysis against the chromosomes of two other ST1 isolates: MSSA476, isolated in the UK (Holden _et al_., 2004, PNAS. 101:9786-91), and MW2, isolated in the USA (Baba _et al_., 2002, Lancet 359:1819-27). Both MSSA476 and MW2 have been fully sequenced, annotated, and deposited in EMBL, providing valuable reference genomes for our comparative genomic study.
 
 <br>
 
-![MSSA476 circular](Circular_1.png)
+<p align="center">
+    <img src="Circular_1.png" alt="MSSA476 circular">
+</p>
 
 <br>
-
 
 ## [The research questions](#the-research-questions)
-
-<br>
 
 The three ST1 isolates are closely related but exhibit different antibiotic resistance profiles: 16B is resistant to penicillin, fusidic acid, methicillin and erythromycin; MSSA476 is resistant to penicillin and fusidic acid; and MW2 is resistant to penicillin and methicillin. 
 
 Using a comparative genomic approach we will identify regions of difference, and identify the genetic basis of the antibiotic resistance in 16B, and genetic mechanisms that drive the evolution of resistance.
 
-<br>
-
-
 ## Finding the data 
+
 Navigate to the `Module_6_Genome_Assembly_Analysis` directory
 
-```
+```bash
 cd Module_6_Genome_Assembly_Analysis
 ```
 
 We can confirm where we are 
-```
+```bash
 pwd
 ```
 
 We can also examine the contents of this file
-```
+
+```bash
 ls -l
 ```
-![directory_contents](Terminal_1.png)
+
+<br>
+
+<p align="center">
+    <img src="Terminal-1.png" alt="directory_contents">
+</p>
 
 <br>
 
@@ -154,12 +140,9 @@ The folder contains:
 - a folder containing the pdf files of the Köser _et al_., Holden _et al_., and Baba _et al_. manuscripts if you want to find out a bit more about the genomes and origins of the isolates
 - a folder containing an annotation database
 
-
 <br>
 
-
 ## [Examining the resistome of 16B](#examining-the-resistome-of-16B)
-
 
 ### Using the genome to predict antibiotic resistance phenotype
 
@@ -169,32 +152,30 @@ For many microorganisms the genetic basis of antibiotic resistance has been exte
 
 A recent review from a EUCAST subcommittee summarized the current development status of WGS for bacterial antimicrobial susceptibility testing (AST) for a range or organisms: Ellington MJ, _et al_., (2017) The role of whole genome sequencing in antimicrobial susceptibility testing of bacteria: report from the EUCAST Subcommittee. Clin Microbiol Infect. 23:2-22. PubMed PMID: 27890457.
 
-
 ### Resistance phenotype of 16B
 
 From the phenotypic data you have been given you know that 16B exhibits resistance to penicillin, fusidic acid, methicillin and erythromycin, however you do not know what genes are responsible for this is in this isolate. In the first part of this exercise you are going to use a piece of software, `ariba`, and a publicly available curated antibiotic resistance gene database from ResFinder, to rapidly predict the resistome of 16B from the Illumina sequence reads. You will also do this for this other ST1 _S. aureus_ isolates MW2 and MSSA476, and correlate the phenotypic metadata with the genetic information.
 
-
 ### Determining the antibiotic resistance genotype
 
-`ariba` (Antimicrobial Resistance Identifier by Assembly) is a freely available tool (https://github.com/sanger-pathogens/ariba). This tool required a `FASTA` input of reference sequences, which can be a multifasta file or database of antibiotic resistance genes or non-coding sequences. This database will serve as one of your inputs and the other is paired sequence reads. `ariba` reports which of the reference sequences were found, plus detailed information on the quality of the assemblies and any variants between the sequencing reads and the reference sequences. 
+`ariba` (Antimicrobial Resistance Identifier by Assembly) is a freely available tool [on GitHub](https://github.com/sanger-pathogens/ariba). This tool requires a FASTA input of reference sequences, which can be either a multi-FASTA file or a database of antibiotic resistance genes or non-coding sequences. The database serves as one of your inputs, while the other input is paired sequence reads. `ariba` reports which of the reference sequences were found and provides detailed information on the quality of the assemblies and any variants between the sequencing reads and the reference sequences.
 
-`ResFinder`, is a web resource for the prediction of antibiotic resistances (www.genomicepidemiology.org). It uses a curated database of over 2100 acquired antibiotic resistance determinants (Zankari E _et al_., (2012) Identification of acquired antimicrobial resistance genes. J Antimicrob Chemother. 67:2640-4).
+`ResFinder` is a web resource for the prediction of antibiotic resistance (available at [www.genomicepidemiology.org](https://www.genomicepidemiology.org)). It utilises a curated database of over 2100 acquired antibiotic resistance determinants (Zankari E, et al., 2012. "Identification of acquired antimicrobial resistance genes." J Antimicrob Chemother. 67:2640-4).
 
-We have installed `ariba` on the virtual machine, and you will use this to download the `ResFinder` database locally to the virtual machine, and then use it with `ariba` to examine the resistome of your isolates. Further information about `ariba` can be found here: https://github.com/sanger-pathogens/ariba/wiki (Hunt M, _et al_., (2017) `ariba`: rapid antimicrobial resistance genotyping directly from sequencing reads. Microb Genom. 3:e000131) 
+We have installed `ariba` on the virtual machine. You will use it to download the `ResFinder` database locally and then use `ariba` to examine the resistome of your isolates. Further information about `ariba` can be found in the [ariba wiki](https://github.com/sanger-pathogens/ariba/wiki) (Hunt M, et al., 2017. "ariba: rapid antimicrobial resistance genotyping directly from sequencing reads." Microb Genom. 3:e000131).
 
-The results can then be viewed in `Phandango` (http://jameshadfield.github.io/phandango/), an interactive web tool to visualize your outputs.
+The results can then be visualised using [Phandango](http://jameshadfield.github.io/phandango/), an interactive web tool for viewing your outputs.
 
 <br>
 
-The first part of this exercise will follow 6 steps:
+The first part of this exercise will follow six steps:
 
-Step 1. Download the ResFinder database using `ariba` and format it
-Step 2. Run `ariba` on the 16B fastq reads
-Step 3. Run `ariba` on the MW2 fastq reads
-Step 4. Run `ariba` on the MSSA476 fastq reads
-Step 5. Compile the results from 16B, MW2 and MSSA476
-Step 6. Visualize output in Phandango
+1. **Download the ResFinder Database:** Use `ariba` to download and format the ResFinder database.
+2. **Analyse 16B Reads:** Run `ariba` on the 16B FASTQ reads to identify antibiotic resistance genes.
+3. **Analyse MW2 Reads:** Run `ariba` on the MW2 FASTQ reads to identify antibiotic resistance genes.
+4. **Analyse MSSA476 Reads:** Run `ariba` on the MSSA476 FASTQ reads to identify antibiotic resistance genes.
+5. **Compile the Results:** Gather and compile the results from the 16B, MW2, and MSSA476 analyses.
+6. **Visualise in Phandango:** Use Phandango to visualise and interpret the compiled outputs.
 
 <br>
 
@@ -209,16 +190,15 @@ In the command below we:
 - Specify the output name prefix
     - `out.resfinder`
 
+<br>
 
-```
+```bash
 ariba getref resfinder out.resfinder
 ```
 
-
-Alternative database options that can be used are: argannot, card, megares, plasmidfinder, resfinder, srst2_argannot, vfdb_core, vfdb_full, virulencefinder.
-
 <br>
 
+Alternative database options that can be used are: argannot, card, megares, plasmidfinder, resfinder, srst2_argannot, vfdb_core, vfdb_full, virulencefinder.
 
 Next you need to format the reference database using the `ariba` `prepareref` command. 
 
@@ -231,10 +211,30 @@ In the command below we:
 - Specify directory that will contained the prepared database files for running `ariba`
     - `out.resfinder.prepareref`
 
+<br>
 
-```
+```bash
 ariba prepareref -f out.resfinder.fa -m out.resfinder.tsv out.resfinder.prepareref 
 ```
+
+<br>
+
+This command may generate warnings indicating sequences or variants were removed from the database upon formatting. Despit the warnings, the command has ran successfully and you may proceed on to the next step.
+
+<br>
+
+```bash
+WARNING. 82 sequence(s) excluded. Please see the 01.filter.check_genes.log and 01.filter_check_noncoding.log for details. This will show them:
+    grep REMOVE out.resfinder.prepareref/01.filter.check_genes.log
+    cat out.resfinder.prepareref/01.filter.check_noncoding.log
+WARNING. Problem with at least one variant. Problem variants are removed. Please see the file out.resfinder.prepareref/01.filter.check_metadata.log for details.
+```
+
+<br>
+
+<p align="center">
+    <img src="Terminal-2.png" alt="ariba_warning">
+</p>
 
 <br>
 
@@ -249,8 +249,9 @@ Next using the 16B fastq files run local assemblies and call variants using the 
 - Specify the the directory containing the results
     - `16B_out.run`
 
+<br>
 
-```
+```bash
 ariba run out.resfinder.prepareref 16B_1.fastq 16B_2.fastq 16B_out.run
 ```
 
@@ -260,7 +261,6 @@ ariba run out.resfinder.prepareref 16B_1.fastq 16B_2.fastq 16B_out.run
 
 Repeat the `ariba` run on the MW2 fastq files. 
 
-
 - Specify the directory containing the ResFinder database files
     - `out.resfinder.prepareref`
 - Specify the 16B forward and reverse fastq files
@@ -268,14 +268,15 @@ Repeat the `ariba` run on the MW2 fastq files.
 - Specify the the directory containing the results
     - `MW2_out.run`
 
+<br>
 
-```
+```bash
 ariba run out.resfinder.prepareref MW2_1.fastq MW2_2.fastq MW2_out.run
 ```
 
 <br>
 
-## [Step 3: Run `ariba` on MSSA476](#run-ariba-on-MSSA476)
+## [Step 4: Run `ariba` on MSSA476](#run-ariba-on-MSSA476)
 
 Repeat the `ariba` run on the MSSA476 fastq files.
 
@@ -286,8 +287,9 @@ Repeat the `ariba` run on the MSSA476 fastq files.
 - Specify the the directory containing the results
     - `MSSA476_out.run`
 
+<br>
 
-```
+```bash
 ariba run out.resfinder.prepareref MSSA476_1.fastq MSSA476_2.fastq MSSA476_out.run
 ```
 
@@ -302,8 +304,9 @@ Next you need to compile the `ariba` results from the three isolates using the t
 - Specify the report files made by the separate runs of `ariba` for each isolate 
     - `16B_out.run/report.tsv MW2_out.run/report.tsv MSSA476_out.run/report.tsv`
 
+<br>
 
-```
+```bash
 ariba summary out.summary 16B_out.run/report.tsv MW2_out.run/report.tsv MSSA476_out.run/report.tsv
 ```
 
@@ -317,17 +320,19 @@ The `ariba` summary command generates three files:
 - `out.summary.phandango.csv` - a version of summary file for viewing in Phandango
 - `out.summary.phandango.tre` - tree based on matches in the out.summary.csv file
 
-
 To visualize the results open up the Firefox web browser, and type in the URL: https://jameshadfield.github.io/phandango/
 
 From a file view window drag and drop the two `phandango` files, `out.summary.phandango.tre` and `out.summary.phandango.csv`, into the browser window.
 
-![Phandango image](Phandango_1.png)
+<br>
 
-In the browser window the tree is displayed on the left and represents relationships of the isolates based on the shared resistance determinants displayed in the right-hand panel, where the column indicate genes, and the green blocks indicate matches. The pink blocks indicate that the isolates are negative for those genes.
-
+<p align="center">
+    <img src="Phandango_1.png" alt="phandango_image">
+</p>
 
 <br>
+
+In the browser window the tree is displayed on the left and represents relationships of the isolates based on the shared resistance determinants displayed in the right-hand panel, where the column indicate genes, and the green blocks indicate matches. The pink blocks indicate that the isolates are negative for those genes.
 
 ## Questions
 
@@ -337,254 +342,192 @@ To help you understand what what genes ResFinder is using for different antibiot
 
 - How do the resistomes predicted for each isolate compare with the phenotypic data?
 
+<br>
+
+## [Step 7. Generating a _de novo_ assembly](#generating-a-de-novo-assembly)
+
+Having identified antibiotic resistance genes using `ariba`, you are now going to continue the exercise exploring the genome of 16B to identify the genomic context of the genes and see if you can find any missing genes. The first step is to generate a _de novo_ assembly of 16B using the `fastq` files. Make sure you are still in the Module 6 directory.
+
+To generate the _de novo_ assembly, you are going to use an assembly package called `Unicycler` (Wick et al., 2017, PLoS Comput Biol. 13(10): e1005595). `Unicycler` is a comprehensive assembly pipeline that uses `SPAdes` as its core assembler, offering seamless integration and better handling of bacterial genome assembly, especially with short reads and mixed read types (paired-end, long reads).
+
+`Unicycler` simplifies the assembly process by combining several steps into one command and enhances the assembly with improved handling of repeat sequences and complex genomic regions. It uses a combination of de Bruijn graph and overlap-based assembly strategies, benefiting from SPAdes’ robust algorithm.
+
+In this module, we will use `Unicycler` to assemble our reads with its default parameters. For more details on Unicycler or the theory behind its usage, you can refer to the [Unicycler GitHub page](https://github.com/rrwick/Unicycler).
 
 <br>
 
-## [Generating a _de novo_ assembly](#generating-a-de-novo-assembly)
+To perform the assembly, you will type a series of commands on the command line. Ensure that you type the commands carefully, as UNIX is case-sensitive and some command lines contain a lot of text.
 
-Having identified antibiotic resistance genes using `ariba`, you are now going to continue the exercise exploring the genome of 16B to identify the genomic context of the genes and see if you can find any missing genes. The first step is to generate a _de novo_ assembly of 16B using the `fastq` files. Make sure you are still in the Module 6 directory.  
+The input files for the Unicycler _de novo_ assembly are the `16B_1.fastq` and `16B_2.fastq` files that you previously used with `ariba`.
 
-To generate the _de novo_ assembly you are going to use a assembly package called `velvet` (Zurbino et al., 2008, Genome Res. 8:821-9); other assembly programs are available, e.g. spades (https://github.com/ablab/spades), which we will use in a later exercise. `velvet` was one of the earlier assembly programs and takes in short read sequences, removes errors then produces high quality unique contigs. It then uses paired-end read and long read information, when available, to retrieve the repeated areas between contigs. 
+The forward and reverse reads for the isolate 16B were generated using an Illumina HiSeq machine and are 75bp paired-end reads.
 
-The algorithm at the heart of Velvet is based on de Bruijn graphs (a mathematical structure used to model relationships between objects). When doing assembly with short reads the first step is to find all the possible overlaps between all the reads. One efficient way is to look for k-mers (words/nucleotide patterns of a specific length) in each read. If two reads contain the same k-mer they might also overlap. Each read contains several k-mers, and k-mers from the same read can be connected in a graph. Velvet represents overlaps between k-mers in a de Bruijn graph. By simplifying the graph Velvet can try to generate connected sequences, where k-mers in the graph are connected and thereby it is able to piece together sequences and generate contigs. 
-
-In this module we are not going to explore the options available in Velvet, but are going to run it with basic parameters. If you would like to know more about theory behind Velvet, or the various options, see the Velvet web site (https://github.com/dzerbino/velvet).
-
-
-<br> 
-
-To perform the assembly you are going to run a series of commands that you will type on the command line. Make sure that you type the commands carefully as UNIX is case sensitive and there were lots text in some of the command lines.
-
-The input files for the velvet de novo assembly are the `16B_1.fastq` and `16B_2.fastq` files that you previously used in with `aria`.
-
-The forward and reverse reads for the isolate 16B were generated using an Illumina HiSeq machine and are 75bp paired-end reads. 
-
-The `velvet` package contains two programs: `velveth` and `velvetg`, which are run in succession to generate the assembly. `velveth` helps you construct the dataset for the following program, `velvetg`, and indicates to the system what each sequence file represents. `velvetg` is the core of `velvet` where the de Bruijn graph is built then manipulated, and which ultimately produces the assembly that we are interested in.
+The `Unicycler` package only requires a single command to process and assemble the reads into a genome. This command calls `SPAdes` internally and performs various additional steps to improve the quality of the final assembly.
 
 <br>
 
+To assemble the genome, run the following `Unicycler` command:
 
-The first program of the velvet package we are going to use is `velveth`.
+- Allocate 4 CPUs to the assembler:
+    - `-t 4`
+- Specify the directory into which results are written:
+    - `-o S_aureus_16B`
+- Specify the input paired-end reads in FASTQ format:
+    - `-1 16B_1.fastq`
+    - `-2 16B_2.fastq`
 
-
-- Specify the directory into which results are written
-    - `S_aureus_16B.49`
-- Specify the is the the k-mer value we are using (i.e. 49 nucleotides)
-    - `49`
-- Specify the the input files are short paired reads 
-    - `-shortPaired`
-- Specify the forward and reverse fastq files
-    - `-fastq -separate 16B_1.fastq 16B_2.fastq`
-
-Other k-mers can be used and can alter the performance of assembly, however for this module we will run it with a value of 49 which will perform adequately.
-
-
-```
-velveth S_aureus_16B.49 49 -shortPaired -fastq -separate 16B_1.fastq 16B_2.fastq
-```
-
-
-![velveth 1](velveth_1.png)
-
-
+Other parameters can be adjusted to optimise performance, but the default settings are generally adequate for most bacterial genome assemblies.
 
 <br>
 
+To view the screen output of the assembly process, follow these steps:
 
-The next program of the velvet package we are going to use is `velvetg`.
+- Run the `Unicycler` command:
 
-
-- Specify the directory in which `velvetg` can find the `velveth` output files which are necessary to run `velvetg`: Sequences and Roadmaps files
-    - `S_aureus_16B.49`
-- Specify the program to infer the expected coverage of unique regions
-    - `-exp_cov auto`
-- Specify the minimum contig length of 200 bp exported to the output file
-    - `-min_contig_lgth 200`
-- Specify the program to infer removal of low coverage nodes
-    - `-cov_cutoff auto`
-- Specify the expected distance between two paired-end reads in the short-read dataset: 350 bp
-    - `-ins_length 350`
-
-
-```
-velvetg S_aureus_16B.49 -exp_cov auto -min_contig_lgth 200 -cov_cutoff auto -ins_length 350
+```bash
+unicycler  -t 4 -1 16B_1.fastq -2 16B_2.fastq -o S_aureus_16B
 ```
 
-![velvetg 1](velvetg_1.png)
+- The `Unicycler` pipeline will handle all necessary steps, including error correction, contig assembly, and scaffold generation. It will print detailed progress and results to the screen.
 
+- Once the assembly is complete, you will see output indicating the statistics of the assembly, similar to:
+
+```bash
+Assembly finished successfully.
+Final assembly: 1 scaffold, 5 contigs.
+Total length: 2.84 Mb.
+N50: 1.52 Mb.
+```
+
+<br>
+
+![Unicycler_16B](Unicycler_16B.png)
 
 <br>
 
 
-There is a lot of output printed to the screen, but the most important is in the last line:
-Final graph has 251 nodes and n50 of 225962, max 557946, total 2777486, using 3846837/4000000 reads. (Result might differ depending on the velvet version used).
+- This output provides key metrics: the number of scaffolds and contigs, the total length of the assembly, and the N50
 
-This line first gives you a quick idea of the result. 251 nodes (contigs) are in the final graph. An n50 of 225962 means that 50% of the assembly is in contigs of at least 225963 bases. This n50 parameter is most commonly used as an indicator of assembly quality. The higher, the better! max is the length of the longest contig. total is the size of the assembly, here it is 2.78 Mb. The last two numbers tell us how many reads were used from the 4 million pairs.
+- **Final assembly:** This line indicates the overall structure of the assembly. For example, it may show the number of scaffolds and contigs formed during the assembly process.
 
-A typical S. aureus genome is 2.8 Mb in size, therefore the _de novo_ assembly that we have produced should contain over 99% of this isolate’s genome.
+- **Total length:** This value represents the total size of the assembled genome, in this case, 2.84 Mb (megabases).
 
-All of the results are written into the directory you specified, e.g. `S_aureus_16B.49` 
+- **N50:** The N50 statistic is a measure commonly used to evaluate the assembly quality. It represents the contig length such that 50% of the entire assembly is contained in contigs of at least this length. In this example, an N50 of 1.52 Mb suggests that half of the assembly is in contigs that are at least 1.52 Mb in length. A higher N50 indicates a more contiguous and likely more accurate assembly.
 
-Use the UNIX `cd` command to move into this directory, and the `ls` command to look at the contents.
+- These metrics provide insights into the assembly quality and completeness. In this case, with an N50 of 1.52 Mb and a total assembly size of 2.84 Mb, the assembly is reasonably contiguous and likely captures a substantial portion of the 16B genome.
 
+- All the results are written into the specified output directory, e.g., `S_aureus_16B`.
 
-![velvetg 2](velvetg_2.png)
+- Use the UNIX `cd` command to move into this directory, and the `ls` command to list the contents.
 
+- The final assembled contigs are in the `assembly.fasta` file. This file contains the contigs in multi-FASTA format, where each contig sequence is a separate FASTA entry. The `assembly.gfa` file provides a graphical representation of the assembly, useful for visualising the relationships between contigs. Other files in the directory provide detailed logs and metrics from the assembly process.
 
-The final contigs are in `contigs.fa`. This files contains the contigs in multifasta format, i.e. the sequence of each contig is written as a separate fasta sequence, with all the contigs fasta sequences concatenated together. The `stats.txt` file holds some information about each contig, its length, the coverage, etc.. The other files contain information for the assembler.
+- Comparing the assembly size (2.84 Mb) to a typical S. aureus genome size (approximately 2.8 Mb) indicates that the _de novo_ assembly likely encompasses over 99% of the isolate’s genome, considering typical genome sizes.
 
+By examining these outputs, you can gain insights into the assembly quality and structure, which will be useful for further analysis, such as exploring the genomic context of antibiotic resistance genes.
 
-<br>
+## [Step 8. Investigate genomic composition in Artemis](#investigate-genomic-composition-in-artemis)
 
-We are now going to look at the assembly in `artemis`.
+We are now going to use `Artemis` to explore the genomic composition of our assembly.
 
-Type `art &` on the command line of your terminal window and press return. Once you see the initial Artemis window, open the `contigs.fa` file 
-via *File*, *Open*.
+### What is Artemis?
 
-Once open, zoom out so you can see the whole sequence in your window. The individual contigs in the multifasta file are alternately coloured orange and brown and displayed on he forward DNA line in the sequence view window. To look at a summary of the contigs.fa, click View, then Overview. You should see that there are 35 contigs in total (35 Number of features in active entry).
+`Artemis` is a genome viewer and annotation tool widely used in bioinformatics for visualising bacterial and archaeal genomes. It allows you to explore genome sequences, annotate genes, and analyse genomic features through an intuitive graphical interface.
 
+To begin, open `Artemis` by typing `art &` on the command line of your terminal window and press return. Once the initial `Artemis` window appears, proceed to open the `contigs.fa` file via *File* → *Open*.
+
+Once opened, zoom out to view the entire sequence in your window. The individual contigs in the multi-FASTA file are alternately coloured orange and brown and displayed on the forward DNA line in the sequence view window. To obtain a summary of `contigs.fa`, click *View*, then *Overview*. Here, you will see that there are 35 contigs in total (35 Number of features in active entry).
 
 ![Artemis 1](Artemis_1.png)
 
+### Exploring Genomic Composition
 
-From the *Graph* menu, open *GC Deviation (G-C)/(G+C)* by clicking on the button next to it.
+Next, we'll examine the GC Deviation plot to gain insights into the genomic composition of our assembly. From the *Graph* menu in `Artemis`, open *GC Deviation (G-C)/(G+C)* by clicking on the corresponding button.
 
-Rescale the plot for to a more appropriate window size for this zoomed out view: Right click on the graph, and click *Maximum Window Size*, and select *20000*. Then move the graph slider of the right hand side of the screen down to the bottom of the bar.
-
+Adjust the plot to a suitable window size for this zoomed-out view by right-clicking on the graph, selecting *Maximum Window Size*, and choosing *20000*. Then, adjust the graph slider on the right-hand side of the screen to the bottom of the bar.
 
 ![Artemis 2](Artemis_2.png)
 
+### Understanding GC Deviation
 
-From the graph you can see that plot generally varies about an upper level and a lower level across the assembly, with shifts occurring at contig boundaries. As you will see there is a GC skew across the chromosome that is caused by a mutation basis that means that the leading strand of the replication fork is G and T rich, as opposed to the lagging strand, which is C and A rich. If you look at the circular diagram of MSSA476 earlier in the module, you can see the GC skew for the MSSA476 chromosome (the purple and olive inner plot on the figure). The origin and the terminus of replications are approximately half way round the chromosome (the origin is at the top, and the terminus is at the bottom), therefore there is a strong signal of GC deviation between these sites, i.e. as you move round the chromosome the GC Deviation plot will be either be at a high or low level, and after the origin or terminus of replication, the plot will shift to converse level. 
+The GC Deviation plot shows variations across the assembly, with shifts typically occurring at contig boundaries. This variation in GC skew is influenced by differences in base composition between the leading strand (rich in G and T) and the lagging strand (rich in C and A) during DNA replication.
 
-Looking at the GC Deviation plot in `artemis` of the 16B assembly you can see there are multiple shifts from high to low indicating that the contigs in the assembly as displayed, are not in the correct order and orientation relative to the true origin and terminus of replication of the 16B chromosome.
+For comparison, refer back to the circular diagram of MSSA476 from earlier in the module, which illustrates the GC skew for its chromosome (the purple and olive inner plot on the figure). The origin and terminus of replication are positioned approximately halfway around the circular chromosome, creating distinct patterns of GC deviation. As you traverse the chromosome, the GC Deviation plot alternates between high and low levels, with shifts occurring after passing the origin or terminus of replication.
 
+### Interpreting Assembly Structure
 
-<br>
+Examining the GC deviation plot in `Artemis` for the 16B assembly reveals multiple shifts from high to low levels. These shifts indicate that the contigs displayed in the assembly may not be arranged in the correct order or orientation relative to the true origin and terminus of replication of the 16B chromosome.
 
+## [Step 9. Ordering the assembly against a reference chromosome](#ordering-the-assembly-against-a-reference-chromosome)
 
-## [Ordering the assembly against a reference chromosome](#ordering-the-assembly-against-a-reference-chromosome)
-
-At the Wellcome Sanger Institute a tool called `abacas` (Assefa _et al_., 2009) was developed to order contigs against a reference sequence. Any spaces between the contigs (gaps) can be filled in with “N” characters to ‘pad’ the sequence with equivalent sized regions to those on the reference that may be missing in the assembly. The result is called a pseudo-molecule. This can be loaded into `act` along with the reference sequence and then be analyzed.
+At the Wellcome Sanger Institute, a tool called `abacas` (Assefa _et al_., 2009) was developed to order contigs against a reference sequence. Any spaces between the contigs (gaps) can be filled in with “N” characters to ‘pad’ the sequence with equivalent sized regions to those on the reference that may be missing in the assembly. The result is called a pseudo-molecule. This can be loaded into `act` along with the reference sequence and then be analyzed.
 
 The sequence we are going to use as a reference belongs to an ST1 MSSA strain, MSSA476 (EMBL accession number BX571857). Before we begin, make sure you are back in the Module 6 directory.
 
 <br>
 
+To check where you are, use the UNIX `pwd` command. If you were in the `S_aureus.49` directory, use the `cd ..` command to move into the directory above.
 
-To check where you are use the UNIX `pwd` command. If you were in in the `S_aureus.49` directory, use the `cd ..` command to move into the directory above.
+We are going to reorder the 16B assembly against the MSSA476 reference using `abacas`.
 
-We are going to reorder the 16B assembly against the MSSA476 reference using `abacas`
-
-
-- Specify the abacas script 
+- Specify the `abacas` script
     - `abacas.1.3.1.pl`
 - Specify the reference sequence in a single fasta file
     - `-r MSSA476.dna`
-- Specify the contigs in multi-fasta format (contig.fa in S_aureus_16B.49 directory)
-    - `–q S_aureus_16B.49/contigs.fa`
+- Specify the contigs in multi-fasta format (contigs.fa in S_aureus_16B.49 directory)
+    - `-q S_aureus_16B.49/contigs.fa`
 - Specify the MUMmer program to use: nucmer (nucleotide-nucleotide comparison)
-    - ``
-- Specify the default nucmer parameters, which is in this case is faster
+    - `-p nucmer`
+- Specify the default nucmer parameters, which are faster
     - `-d`
 - Specify the program to generate a bin of contigs that don’t map. This is very important
     - `-b`
 - Specify the program to append contigs in bin to the pseudo-molecule
     - `-a`
 - Specify the prefix for the output file name
-    - `–o 16B.ordered`
+    - `-o 16B.ordered`
 
-To see a complete list the option available you can type the command: `abacas.1.3.1.pl -h`
+To see a complete list of the options available, you can type the command: `abacas.1.3.1.pl -h`
 
-
-
+```bash
+abacas.1.3.1.pl -r MSSA476.dna -q S_aureus_16B.49/contigs.fa -p nucmer -b -d -a -o 16B.ordered
 ```
-abacas.1.3.1.pl -r MSSA476.dna -q S_aureus_16B.49/contigs.fa -p nucmer -b -d -a -c -o 16B.ordered
-```
+
 
 <br>
 
-
-Once `abacas` is done, we are going to use `act` to look at the new ordered contigs.
-
+Once `abacas` is done, we are going to use `act` to look at the newly ordered contigs.
 
 ![abacas 1](abacas_1.png)
 
+Before opening the files in `act`, we need to generate a `blastn` comparison file instead of using the comparison file that `abacas` generates. This is because the `abacas` generated file is based on MUMMER and only aligns the contigs without reporting smaller matches within contigs.
 
-Before opening the files in `act`, we are need to generate a `blastn` comparison file, rather than using the comparison file that `abacas` generates. This is because the `abacas` generated file is based on MUMMER and just aligns the contigs and does not report smaller matches within contigs.
-
-Previously we have used pre-generated comparison files for `act`. This time you are going to do it yourself using the locally installed version of `blast`. 
+Previously, we have used pre-generated comparison files for `act`. This time, you are going to generate it yourself using the locally installed version of `blast`.
 
 <br>
 
+We will run two programs: `formatdb`, which formats one of the sequences as a `blast` database; and `blastall`, which runs the `blast` comparison.
 
-We will run two programs: `formatdb`, which formats one of the sequences as a `blast` database; and the other `blastall`, runs the `blast` comparison.
+First, we will run `formatdb`.
 
-
-First we will run `formatdb`.
-
-
-- Specify the sequence protein (True or False). Ours is DNA sequence therefore we use F
+- Specify the sequence type (protein: True or False). Ours is DNA sequence, therefore, we use F
     - `-p F`
 - Specify the input sequence to format
-    - `i MSSA476.dna`
+    - `-i MSSA476.dna`
 
 
-
-```
+```bash
 formatdb -p F -i MSSA476.dna
 ```
 
-
-Next we will run `blastall`
-
-
+Next, we will run `blastall`.
 
 - Specify the `blast` program to use
     - `-p blastn`
 - Specify the alignment output type (8, one line per entry)
     - `-m 8`
-- Specify the database file. This must be the file used for the `formatdb` command
-    - `-d MSSA476.dna`
-- Specify the query file
-    - `-i 16B.ordered.fasta`
-- Specify the output file name
-    - `-o MSSA476.dna_vs_16B.ordered.fasta`
+- Specify the database file. This must be the file
 
-
-```
-blastall -p blastn -m 8 -d MSSA476.dna -i 16B.ordered.fasta -o MSSA476.dna_vs_16B.ordered.fasta
-```
-
-<br>
-
-
-We are now going to look at the `abacus` ordered 16B assembly in `act` with the `blastn` comparison file we have just generated.
-
-
-At the prompt type and return the command line:
-
-
-```
-act MSSA476.embl MSSA476.dna_vs_16B.ordered.fasta 16B.ordered.fasta &
-```
-
-
-Once the `act` window loads up, open `16B.ordered.tab` file into the `16B.ordered.fasta` entry by going to the *File* menu, and selecting the *16B.ordered.fasta* option, and right clicking onto the *Read An Entry* option. 
-
-Once ACT has opened, zoom out so you can see the whole of the sequences (you may have to re-size the ACT window) and reduce the size of the BLASTN footprint that is displayed, by moving the slider on the right-hand side of the comparison window down to the bottom of the bar.
-
-As before, display the GC Deviation (G-C)/(G+C) plots for both of the sequences (under the Graph menu there will be two sequences, top and bottom sequences, click on each to open the graphs for each). Remember to rescale the plot for a more appropriate window size (use 20000 as before, then move the graph slider of the right hand side of the screen down to the bottom of the bar).
-
-
-![ACT zoomed out](ACT_zoomed_out.png)
-
-
-In the `act` figure there are several regions of interest that are worth investing. The first region we are going to look at is the inverted region in the centre of the assembly that is covered by the hourglass shaped blue matches in the comparison panel. This 130 kb region spans the terminus of replication region, and is present at one end of a contig. At the other end of the putative inverted region there is a contig break. 
-
-![ACT focus region](ACT_focus_region.png)
-
-<br>
 
 ## [Mapping reads back to the ordered assembly](#Mapping-reads-back-to-the-ordered-assembly)
 
@@ -611,7 +554,7 @@ First we will run `snippy`.
     - `--quiet`
 
 
-```
+```bash
 snippy --outdir 16B_mapping --R1 16B_1.fastq --R2 16B_2.fastq --ref 16B.ordered.fasta --cpus 4 --ram 4 --force --quiet
 ```
 
@@ -627,7 +570,7 @@ Before we can use it in `act` we have to index is using the `samtools` `index` c
     - `16B_mapping/snps.bam`
 
 
-```
+```bash
 samtools index 16B_mapping/snps.bam
 ```
 
@@ -712,7 +655,7 @@ To run `bakta` to annotate your sequence.
     - `16B.ordered.fasta`
 
 
-```
+```bash
 bakta --db bakta_database/db-light 16B.ordered.fasta
 ```
 
@@ -841,14 +784,14 @@ In order to examine the regions of difference in the 16B assembly with MW2 we ar
 
 At the prompt type and return the command line:
 
-```
+```bash
 formatdb -p F -i 16B.ordered.fasta
 ```
 
 
 Next type and return the command line:
 
-```
+```bash
 blastall -p blastn -m 8 -d 16B.ordered.fasta -i MW2.dna -o 16B.ordered.fasta_vs_MW2.dna
 ```
 
@@ -858,7 +801,7 @@ We are now going to load up the three sequences and relevant comparison files in
 
 If you prefer to do it from the command line you can type:
 
-```
+```bash
 act MSSA476.embl MSSA476.dna_vs_16B.ordered.fasta 16B.ordered.embl 16B.ordered.fasta_vs_MW2.dna MW2.embl &
 ```
 
@@ -911,5 +854,4 @@ Compare the other regions containing MGEs.
 [<<< Go back to Manual Contents Page](https://github.com/WCSCourses/GenEpiLAC2023/blob/main/Manuals/README.md)
 
 <br>
-
 
