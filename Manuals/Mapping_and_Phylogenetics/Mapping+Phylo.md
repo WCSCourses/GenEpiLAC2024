@@ -182,10 +182,10 @@ We can use integrated pipelines to automate parts of these processes
 # Practical Exercise - Mapping & Phylogeny
 
 ## Finding the data 
-Navigate to the `Module_5_Mapping_and_Phylogeny` directory
+Navigate to the `Module_4_Mapping_Phylogeny` directory
 
 ```
-cd Module_5_Mapping_and_Phylogeny
+cd Module_4_Mapping_Phylogeny
 ```
 
 We can confirm where we are 
@@ -197,7 +197,7 @@ We can also examine the contents of this file
 ```
 ls -l
 ```
-![directory_contents](Directory_ls_start.png)
+![directory_contents](Directory_ls_start_2024.png)
 
 <br>
 
@@ -229,7 +229,7 @@ snippy --outdir new-sample-1 --R1 new-sample-1_1.fastq.gz --R2 new-sample-1_2.fa
 
 Wait for `snippy` to finish
 
-![snippy.run1](snippy-run_1.png)
+![snippy.run1](snippy-run_1_2024.png)
 
 Examine results of `snippy`
 
@@ -237,7 +237,7 @@ Examine results of `snippy`
 ls -lh new-sample-1/
 ```
 
-![snippy.run1.output](snippy-pst_ls.png)
+![snippy.run1.output](snippy-pst_ls_2024.png)
 
 You can examine the log file to see exactly what `snippy` has done
 
@@ -255,31 +255,31 @@ First, here is the command we used to set `snippy` running
 ```
 grep "outdir" new-sample-1/snps.log
 ```
-![snippy.run1.grep1](snippy-grep-command.png)
+![snippy.run1.grep1](snippy-grep-command__2024.png)
 
 After ensuring the reference genome is indexed, `snippy` maps the reads to the reference genome using `bwa mem`
 ```
 grep "bwa mem" new-sample-1/snps.log
 ```
-![snippy.run1.grep2](snippy-bwa-command.png)
+![snippy.run1.grep2](snippy-bwa-command__2024.png)
 
 Within that command, `snippy` also marks duplicate sequencing reads using `samtools markdup` (we extract only the first part of that command here, but you can look for it with `less`)
 ```
 grep "COMMAND: samtools" new-sample-1/snps.log
 ```
-![snippy.run1.grep3](snippy-markdup.png)
+![snippy.run1.grep3](snippy-markdup__2024.png)
 
 `Snippy` then uses `FreeBayes` to call variants against the reference genome, producing a variant call file (.vcf)
 ```
 grep "freebayes" new-sample-1/snps.log
 ```
-![snippy.run1.grep4](snippy-freebayes.png)
+![snippy.run1.grep4](snippy-freebayes__2024.png)
 
 `Snippy` then applies some filters to assess the quality of those variants. It then applies the high quality variants to the reference genome to create a ‘pseudosequence consensus’ representation of our new genome
 ```
 grep "bcftools consensus" new-sample-1/snps.log
 ```
-![snippy.run1.grep5](snippy-bcftools-consensus.png)
+![snippy.run1.grep5](snippy-bcftools-consensus__2024.png)
 
 `Snippy` creates two versions of the pseudosequence consensus:
 - `snps.consensus.fa` contains all high quality variants
@@ -292,15 +292,15 @@ grep "bcftools consensus" new-sample-1/snps.log
 
 The `bam` file contains all the mapping positions on the genome for each individual read, along with metrics around mapping quality. This is a binary (machine readable) file, but we can view it using `samtools view`
 ```
-samtools view  new-sample-1/snps.bam | head -2
+samtools view new-sample-1/snps.bam | head -2
 ```
-![snippy.run1.samtools-view](snippy-samtools-view-bam.png)
+![snippy.run1.samtools-view](snippy-samtools-view-bam__2024.png)
 
 The `VCF` file contains all the variants that have been called in our new genome compared to the reference genome
 ```
 head -35 new-sample-1/snps.vcf 
 ```
-![snippy.run1.vcf](snippy-vcf.png)
+![snippy.run1.vcf](snippy-vcf__2024.png)
 
 The first ~28 lines here are ‘headers’ and contain information about what has been done to call the variants, and helps you to interpret what different columns mean.
 
@@ -313,7 +313,7 @@ We can view a slightly easier summary of these variants in the snps.tab file
 ```
 head -5 new-sample-1/snps.tab
 ```
-![snippy.run1.snps](snippy-snps.tab.png)
+![snippy.run1.snps](snippy-snps.tab__2024.png)
 
 In this file, we have not provided gene information, so only the first 6 columns are relevant
 
@@ -321,7 +321,7 @@ In this file, we have not provided gene information, so only the first 6 columns
 ```
 head new-sample-1/snps.consensus.fa
 ```
-![snippy.run1.consensus.fa](snippy-consensus.fasta.1.png)
+![snippy.run1.consensus.fa](snippy-consensus.fasta.1__2024.png)
 
 <br>
 
@@ -384,12 +384,12 @@ We can see that we now have a new directory `old.snippy.runs`
 ```
 ls -lh
 ```
-![snippy-context.tar.ls1](untar.old-snippy-files.ls.png)
+![snippy-context.tar.ls1](untar.old-snippy-files.ls__2024.png)
 
 ```
 ls -lh old.snippy.runs
 ```
-![snippy-context.tar.ls2](untar.old-snippy-files.ls2.png)
+![snippy-context.tar.ls2](untar.old-snippy-files.ls2__2024.png)
 
 <br>
 
