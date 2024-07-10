@@ -16,19 +16,40 @@
 - [Introduction](#introduction)
   - [Short-read sequencing assembly](#short-read-sequencing-assembly)
   - [Long-read sequencing assembly](#long-read-sequencing-assembly)
-  - [Hybrid Assembly](#hybrid-Assembly)
-  - [What assemblies are best?](#what-assemblies-are-best?)
+  - [Hybrid Assembly](#hybrid-assembly)
+  - [What assemblies are best?](#what-assemblies-are-best)
 - [Assembly and annotation exercise](#assembly-and-annotation-exercise)
   - [Background](#background)
   - [An outbreak sample](#an-outbreak-sample)
   - [Analyses](#analyses)
   - [The research questions](#the-research-questions)
-  - [Examining the resistome of 16B](#examining-the-resistome-of-16B)
-  - [Generating a _de novo_ assembly](#generating-a-de-novo-assembly)
-  - [Ordering the assembly against a reference chromosome](#ordering-the-assembly-against-a-reference-chromosome)
-  - [Mapping reads back to the ordered assembly](#Mapping-reads-back-to-the-ordered-assembly)
+  - [Finding the data](#finding-the-data)
+  - [Examining the resistome of 16B](#examining-the-resistome-of-16b)
+    - [Using the genome to predict antibiotic resistance phenotype](#using-the-genome-to-predict-antibiotic-resistance-phenotype)
+    - [Resistance phenotype of 16B](#resistance-phenotype-of-16b)
+    - [Determining the antibiotic resistance genotype](#determining-the-antibiotic-resistance-genotype)
+  - [Step 1: Download the `ResFinder` database](#step-1-download-the-resfinder-database)
+  - [Step 2: Run `ariba` on 16B](#step-2-run-ariba-on-16b)
+  - [Step 3: Run `ariba` on MW2](#step-3-run-ariba-on-mw2)
+  - [Step 4: Run `ariba` on MSSA476](#step-4-run-ariba-on-mssa476)
+  - [Step 5: Compile the `ariba` results](#step-5-compile-the-ariba-results)
+  - [Step 6. Visualize in Phandango](#step-6-visualize-in-phandango)
+  - [Questions](#questions)
+  - [Step 7. Generating a _de novo_ assembly](#step-7-generating-a-de-novo-assembly)
+  - [Step 8. Investigate genomic composition in Artemis](#step-8-investigate-genomic-composition-in-artemis)
+    - [What is Artemis?](#what-is-artemis)
+    - [Exploring Genomic Composition](#exploring-genomic-composition)
+    - [Understanding GC Deviation](#understanding-gc-deviation)
+    - [Interpreting Assembly Structure](#interpreting-assembly-structure)
+  - [Step 9. Ordering the assembly against a reference chromosome](#step-9-ordering-the-assembly-against-a-reference-chromosome)
+  - [Mapping reads back to the ordered assembly](#mapping-reads-back-to-the-ordered-assembly)
   - [Generating Annotation](#generating-annotation)
-  - [Examining the evolution of drug resistance in ST1 _S. aureus_](#Examining-the-evolution-of-drug-resistance-in-ST1-S-aureus)
+    - [Running `bakta`](#running-bakta)
+    - [Visualizing the `bakta` annotation](#visualizing-the-bakta-annotation)
+    - [Region 1](#region-1)
+    - [Region 2](#region-2)
+    - [Region 3](#region-3)
+  - [Examining the evolution of drug resistance in ST1 _S. aureus_](#examining-the-evolution-of-drug-resistance-in-st1-s-aureus)
 
 <br>
 
@@ -190,6 +211,18 @@ In the command below we:
 - Specify the output name prefix
     - `out.resfinder`
 
+`ariba` has been installed using `conda`. We must activate the relavent conda environment before running any commands using `ariba`.
+
+<br>
+
+```bash
+conda activate ~/miniconda/envs/ariba
+```
+
+<br>
+
+Now we can run `ariba`
+
 <br>
 
 ```bash
@@ -240,7 +273,7 @@ WARNING. Problem with at least one variant. Problem variants are removed. Please
 
 ## [Step 2: Run `ariba` on 16B](#run-ariba-on-16B)
 
-Next using the 16B fastq files run local assemblies and call variants using the `ariba` `run` command. 
+Next using the 16B fastq files run local assemblies and call variants using the `ariba` `run` command. As the command is running, identified variants will be printed to screen.
 
 - Specify the directory containing the ResFinder database files
     - `out.resfinder.prepareref`
@@ -350,23 +383,13 @@ Having identified antibiotic resistance genes using `ariba`, you are now going t
 
 To generate the _de novo_ assembly, you are going to use an assembly package called `Unicycler` (Wick et al., 2017, PLoS Comput Biol. 13(10): e1005595). `Unicycler` is a comprehensive assembly pipeline that uses `SPAdes` as its core assembler, offering seamless integration and better handling of bacterial genome assembly, especially with short reads and mixed read types (paired-end, long reads).
 
-`Unicycler` simplifies the assembly process by combining several steps into one command and enhances the assembly with improved handling of repeat sequences and complex genomic regions. It uses a combination of de Bruijn graph and overlap-based assembly strategies, benefiting from SPAdes’ robust algorithm.
+`Unicycler` simplifies the assembly process by combining several steps into one command and enhances the assembly with improved handling of repeat sequences and complex genomic regions. It uses a combination of de Bruijn graph and overlap-based assembly strategies, benefiting from SPAdes’ robust algorithm. For more details on Unicycler or the theory behind its usage, you can refer to the [Unicycler GitHub page](https://github.com/rrwick/Unicycler).
 
-In this module, we will use `Unicycler` to assemble our reads with its default parameters. For more details on Unicycler or the theory behind its usage, you can refer to the [Unicycler GitHub page](https://github.com/rrwick/Unicycler).
-
-<br>
-
-To perform the assembly, you will type a series of commands on the command line. Ensure that you type the commands carefully, as UNIX is case-sensitive and some command lines contain a lot of text.
-
-The input files for the Unicycler _de novo_ assembly are the `16B_1.fastq` and `16B_2.fastq` files that you previously used with `ariba`.
-
-The forward and reverse reads for the isolate 16B were generated using an Illumina HiSeq machine and are 75bp paired-end reads.
-
-The `Unicycler` package only requires a single command to process and assemble the reads into a genome. This command calls `SPAdes` internally and performs various additional steps to improve the quality of the final assembly.
+To perform the assembly, you will type a series of commands on the command line. Ensure that you type the commands carefully, as UNIX is case-sensitive and some command lines contain a lot of text. The input files for the Unicycler _de novo_ assembly are the `16B_1.fastq` and `16B_2.fastq` files that you previously used with `ariba`. The forward and reverse reads for the isolate 16B were generated using an Illumina HiSeq machine and are 75bp paired-end reads. The `Unicycler` package only requires a single command to process and assemble the reads into a genome. This command calls `SPAdes` internally and performs various additional steps to improve the quality of the final assembly.
 
 <br>
 
-To assemble the genome, run the following `Unicycler` command:
+The following parameters will be used when running `Unicycler`:
 
 - Allocate 4 CPUs to the assembler:
     - `-t 4`
@@ -380,17 +403,19 @@ Other parameters can be adjusted to optimise performance, but the default settin
 
 <br>
 
-To view the screen output of the assembly process, follow these steps:
+Run the `Unicycler` command:
 
-- Run the `Unicycler` command:
+<br>
 
 ```bash
 unicycler  -t 4 -1 16B_1.fastq -2 16B_2.fastq -o S_aureus_16B
 ```
 
-- The `Unicycler` pipeline will handle all necessary steps, including error correction, contig assembly, and scaffold generation. It will print detailed progress and results to the screen.
+<br>
 
-- Once the assembly is complete, you will see output indicating the statistics of the assembly, similar to:
+The `Unicycler` pipeline will handle all necessary steps, including error correction, contig assembly, and scaffold generation. It will print detailed progress and results to the screen. Once the assembly is complete, you will see output indicating the statistics of the assembly, similar to:
+
+<br>
 
 ```bash
 Assembly finished successfully.
@@ -401,12 +426,13 @@ N50: 1.52 Mb.
 
 <br>
 
-![Unicycler_16B](Unicycler_16B.png)
+<p align="center">
+    <img src="Unicycler_16B.png" alt="Unicycler_16B">
+</p>
 
 <br>
 
-
-- This output provides key metrics: the number of scaffolds and contigs, the total length of the assembly, and the N50
+This output provides key metrics: the number of scaffolds and contigs, the total length of the assembly, and the N50:
 
 - **Final assembly:** This line indicates the overall structure of the assembly. For example, it may show the number of scaffolds and contigs formed during the assembly process.
 
@@ -414,17 +440,26 @@ N50: 1.52 Mb.
 
 - **N50:** The N50 statistic is a measure commonly used to evaluate the assembly quality. It represents the contig length such that 50% of the entire assembly is contained in contigs of at least this length. In this example, an N50 of 1.52 Mb suggests that half of the assembly is in contigs that are at least 1.52 Mb in length. A higher N50 indicates a more contiguous and likely more accurate assembly.
 
-- These metrics provide insights into the assembly quality and completeness. In this case, with an N50 of 1.52 Mb and a total assembly size of 2.84 Mb, the assembly is reasonably contiguous and likely captures a substantial portion of the 16B genome.
+These metrics provide insights into the assembly quality and completeness. In this case, with an N50 of 1.52 Mb and a total assembly size of 2.84 Mb, the assembly is reasonably contiguous and likely captures a substantial portion of the 16B genome.
 
-- All the results are written into the specified output directory, e.g., `S_aureus_16B`.
+All the results are written into the specified output directory, e.g., `S_aureus_16B`. Use the UNIX `cd` command to move into this directory, and the `ls` command to list the contents.
 
-- Use the UNIX `cd` command to move into this directory, and the `ls` command to list the contents.
+<br>
 
-- The final assembled contigs are in the `assembly.fasta` file. This file contains the contigs in multi-FASTA format, where each contig sequence is a separate FASTA entry. The `assembly.gfa` file provides a graphical representation of the assembly, useful for visualising the relationships between contigs. Other files in the directory provide detailed logs and metrics from the assembly process.
+```bash
+cd S_auresu_16B/
+ls -l
+```
 
-- Comparing the assembly size (2.84 Mb) to a typical S. aureus genome size (approximately 2.8 Mb) indicates that the _de novo_ assembly likely encompasses over 99% of the isolate’s genome, considering typical genome sizes.
+<br>
+
+The final assembled contigs are in the `assembly.fasta` file. This file contains the contigs in multi-FASTA format, where each contig sequence is a separate FASTA entry. The `assembly.gfa` file provides a graphical representation of the assembly, useful for visualising the relationships between contigs. Other files in the directory provide detailed logs and metrics from the assembly process.
+
+Comparing the assembly size (2.84 Mb) to a typical S. aureus genome size (approximately 2.8 Mb) indicates that the _de novo_ assembly likely encompasses over 99% of the isolate’s genome, considering typical genome sizes.
 
 By examining these outputs, you can gain insights into the assembly quality and structure, which will be useful for further analysis, such as exploring the genomic context of antibiotic resistance genes.
+
+<br>
 
 ## [Step 8. Investigate genomic composition in Artemis](#investigate-genomic-composition-in-artemis)
 
@@ -457,6 +492,8 @@ For comparison, refer back to the circular diagram of MSSA476 from earlier in th
 ### Interpreting Assembly Structure
 
 Examining the GC deviation plot in `Artemis` for the 16B assembly reveals multiple shifts from high to low levels. These shifts indicate that the contigs displayed in the assembly may not be arranged in the correct order or orientation relative to the true origin and terminus of replication of the 16B chromosome.
+
+<br>
 
 ## [Step 9. Ordering the assembly against a reference chromosome](#ordering-the-assembly-against-a-reference-chromosome)
 
@@ -515,26 +552,69 @@ First, we will run `formatdb`.
 - Specify the input sequence to format
     - `-i MSSA476.dna`
 
+<br>
 
 ```bash
 formatdb -p F -i MSSA476.dna
 ```
 
-Next, we will run `blastall`.
+<br>
+
+Next we will run `blastall`
 
 - Specify the `blast` program to use
     - `-p blastn`
 - Specify the alignment output type (8, one line per entry)
     - `-m 8`
-- Specify the database file. This must be the file
+- Specify the database file. This must be the file used for the `formatdb` command
+    - `-d MSSA476.dna`
+- Specify the query file
+    - `-i 16B.ordered.fasta`
+- Specify the output file name
+    - `-o MSSA476.dna_vs_16B.ordered.fasta`
 
+<br>
+
+```bash
+blastall -p blastn -m 8 -d MSSA476.dna -i 16B.ordered.fasta -o MSSA476.dna_vs_16B.ordered.fasta
+```
+
+<br>
+
+We are now going to look at the `abacus` ordered 16B assembly in `act` with the `blastn` comparison file we have just generated.
+
+
+At the prompt type and return the command line:
+
+<br>
+
+```bash
+act MSSA476.embl MSSA476.dna_vs_16B.ordered.fasta 16B.ordered.fasta &
+```
+
+<br>
+
+Once the `act` window loads up, open `16B.ordered.tab` file into the `16B.ordered.fasta` entry by going to the *File* menu, and selecting the *16B.ordered.fasta* option, and right clicking onto the *Read An Entry* option. 
+
+Once ACT has opened, zoom out so you can see the whole of the sequences (you may have to re-size the ACT window) and reduce the size of the BLASTN footprint that is displayed, by moving the slider on the right-hand side of the comparison window down to the bottom of the bar.
+
+As before, display the GC Deviation (G-C)/(G+C) plots for both of the sequences (under the Graph menu there will be two sequences, top and bottom sequences, click on each to open the graphs for each). Remember to rescale the plot for a more appropriate window size (use 20000 as before, then move the graph slider of the right hand side of the screen down to the bottom of the bar).
+
+
+![ACT zoomed out](ACT_zoomed_out.png)
+
+
+In the `act` figure there are several regions of interest that are worth investing. The first region we are going to look at is the inverted region in the centre of the assembly that is covered by the hourglass shaped blue matches in the comparison panel. This 130 kb region spans the terminus of replication region, and is present at one end of a contig. At the other end of the putative inverted region there is a contig break. 
+
+![ACT focus region](ACT_focus_region.png)
+
+<br>
 
 ## [Mapping reads back to the ordered assembly](#Mapping-reads-back-to-the-ordered-assembly)
 
 In this next exercise you are going to use the same mapping method as you did in Mapping Module, to map the 16B strain forward and reverse reads against the pseudo-molecule that you created using `abacas`. We are then going to look at the aligned mapped reads in `act` by loading the mapped bam file with the `16B.ordered.fasta`.  
 
-
-First we will run `snippy`.
+First we will run `snippy` with the following parameters:
 
 - Specify the output directory
     - `--outdir 16B_mapping`
@@ -553,22 +633,20 @@ First we will run `snippy`.
 - Specify no screen output 
     - `--quiet`
 
+<br>
 
 ```bash
 snippy --outdir 16B_mapping --R1 16B_1.fastq --R2 16B_2.fastq --ref 16B.ordered.fasta --cpus 4 --ram 4 --force --quiet
 ```
 
-
 <br>
 
-The bam file contains all the mapping positions on the genome for each individual read is in the `16B_mapping` directory.
-
-Before we can use it in `act` we have to index is using the `samtools` `index` command.
-
+The bam file contains all the mapping positions on the genome for each individual read is in the `16B_mapping` directory. Before we can use it in `act` we have to index is using the `samtools` `index` command.
 
 - Specify the bam file to index
     - `16B_mapping/snps.bam`
 
+<br>
 
 ```bash
 samtools index 16B_mapping/snps.bam
@@ -576,37 +654,41 @@ samtools index 16B_mapping/snps.bam
 
 <br>
 
-
 To load the `bam` file into `act`, click *File* on the menu and them click the *16B.ordered.fasta* entry, and then the *Read BAM / VCF*.
 
 In the pop-up box click *Select*, select the `snps.bam` file from the `16B_mapping` directory, click *Open*, then click *OK*.
 
+<br>
 
 ![ACT bam load](ACT_bam_load.png)
-
-
 
 <br>
 
 If you are not already there, go to the inversion region, and the inversion point in the contig (the region below illustrated in the image). You should see the BAM view as a panel at the bottom of the screen.
 
+<br>
 
 ![CT bam inv 1](CT_bam_inv_1.png)
 
+<br>
 
 Zoom in further keeping the inversion site in the centre of the ACT screen.  
 
+<br>
 
 ![CT bam inv 2](CT_bam_inv_2.png)
 
+<br>
 
 The reads in the BAM view appear to break at the junction of the inversion indicated by the `blasts` match; no reads span the junction point (click on the reads around the junction to see their pair) suggesting that there may be problems with the assembly of the 16B DNA across this region. 
 
 To get another perspective of the mapping to this region, change the BAM view to show the inferred size of the insert. To do this right click on the BAM view window, move the cursor over *Views*, and click *Inferred Size*.
 
+<br>
 
 ![CT bam inv 3](CT_bam_inv_3.png)
 
+<br>
 
 From the inferred size view you can see that there are no reads with predicted inserts that span this region. This suggests that the inversion may not be present, and that the sequence generated by Velvet in this region has not assembled correctly, and needs further investigation. To check if this is a mis-assembly, you could change the parameters of the original Velvet runs, or alternatively design PCR primers and do a PCR to check for the orientation of this region in the genomic DNA.
 
@@ -616,22 +698,25 @@ In addition to allowing us to check for potential mis-assemblies we can also use
 
 In `act` change the read view back to *Stack view*, and zoom out to see the whole sequence
 
+<br>
 
 ![CT bam inv 4](CT_bam_inv_4.png)
 
+<br>
 
 From this view in `act` you can see that the average coverage across the whole 16B sequence is about 120 fold, and that there is subtle reduction in coverage from the origin to the terminus of replication. You can also see that the non-mapping sequences from the bin at the right-hand side of the sequence have a higher level of coverage than the rest of the sequence that matches to the MSSA476 chromosome.
 
 Zoom into this region to look in more detail.
 
+<br>
 
 ![CT bam inv 5](CT_bam_inv_5.png)
 
+<br>
 
 The non-mapping contigs are indicated by the yellow features. There are 7 contigs and the two larger sequences are 20.6 kb and 2.5 kb. The read coverage across these regions increases considerably from the average (120 fold), to about 400 fold for the 20.6 kb contig, and 1400 fold for the 2.5 kb contig. It is therefore likely that these two contigs are separate multicopy plasmids that are part of the 16B genome.
 
 <br>
-
 
 ## [Generating Annotation](#generating-annotation)
 
