@@ -33,9 +33,7 @@
         - [How do the resistomes predicted for each isolate compare with the phenotypic data?](#how-do-the-resistomes-predicted-for-each-isolate-compare-with-the-phenotypic-data)
 - [Generating a _de novo_ assembly](#generating-a-de-novo-assembly)
   - [Step 7. Assemble 16B reads using `Unicycler`](#step-7-assemble-16b-reads-using-unicycler)
-        - [How many contigs were assembled?](#how-many-contigs-were-assembled)
-        - [What is the total length (bp) of your assembly?](#what-is-the-total-length-bp-of-your-assembly)
-        - [What is the N50 of your assembly?](#what-is-the-n50-of-your-assembly)
+  - [Step 8. Assess the asembly quality using `QUAST`](#step-8-assess-the-asembly-quality-using-quast)
   - [Step 8. Investigate genomic composition in Artemis](#step-8-investigate-genomic-composition-in-artemis)
     - [What is Artemis?](#what-is-artemis)
     - [Exploring Genomic Composition](#exploring-genomic-composition)
@@ -445,7 +443,7 @@ unicycler -t 4 --kmers 65 -1 16B_1.fastq -2 16B_2.fastq -o S_aureus_16B
 
 <br>
 
-<b> `unicycler` may take approximately 20 minutes to run. </b>
+<b> `unicycler` may take 5 to 10 minutes to run. </b>
 
 <br>
 
@@ -453,17 +451,14 @@ The `Unicycler` pipeline will handle all necessary steps, including error correc
 
 <br>
 
-```bash
-INSERT OUTPUT LOG
-```
-
-<br>
-
 <p align="center">
-    <img src="Unicycler_16B.png" alt="Unicycler_16B">
+    <img src="images/Unicycler_16B.png" alt="unicycler_16B" style="width:70%">
 </p>
 
 <br>
+
+<!-- Maybe mention the number of contigs in each assembly graph. One graph contains most of the contigs. Two smaller graphs, one containing 2 contigs and one containing a single contig. The following section "Rotating complete replicons states that the contig which is 2,473 bp is circular, however a starting gene could not be identified." -->
+
 
 All the results are written into the specified output directory, e.g., `S_aureus_16B`. Use the UNIX `cd` command to move into this directory, and the `ls` command to list the contents.
 
@@ -476,31 +471,54 @@ ls -l
 
 <br>
 
-The final assembled contigs are in the `S_aureus_16B/assembly.fasta` file. This file contains the contigs in multi-FASTA format, where each contig sequence is a separate FASTA entry. The `assembly.gfa` file provides a graphical representation of the assembly, useful for visualising the relationships between contigs. Other files in the directory provide detailed logs and metrics from the assembly process. We can gain a better idea oif the quality of the assembly by comparing the assembled contigs to the complete genome of a closely related strain. In this example, we will use `QUAST` to compare the assmebly of 16B to MSSA476.
+<p align="center">
+    <img src="images/Unicycler_ls.png" alt="unicycler_ls" style="width:70%">
+</p>
 
 <br>
 
-Now run `QUAST` using the following parameters:
+The final assembled contigs are in the `assembly.fasta` file. This file contains the contigs in multi-FASTA format, where each contig sequence is a separate FASTA entry. The `assembly.gfa` file provides a graphical representation of the assembly, useful for visualising the relationships between contigs. Other files in the directory provide detailed logs and metrics from the assembly process.
 
-- Allocate 4 CPUs to the assembler:
+<br>
+
+## Step 8. Assess the asembly quality using `QUAST`
+
+We can gain a better idea of the quality of the assembly by calculating assembly statistics. In this example, we will use `QUAST`.
+
+<br>
+
+Run `QUAST` using the following parameters:
+
+- Allocate 4 CPUs to the program:
   - `--threads 4`
+- Specify the directory into which results are written:
+  - `-o S_aureus_16B`
+- Specify the assembly output file:
+  - `assembly.fasta`
+
+<!--
+
+We can gain a better idea of the quality of the assembly by comparing the assembled contigs to the complete genome of a closely related strain. In this example, we will use `QUAST` to compare the assmebly of 16B to MSSA476.
+
+Option to add:
+
 - Specify the reference genome `MSSA476.dna` which we will compare our assembled contigs to. This is located in the parent directory `../`:
   - `../MSSA476.dna`
 - Specify the input paired-end reads in FASTQ format:
   - `-1 16B_1.fastq`
   - `-2 16B_2.fastq`
-- Specify the directory into which results are written:
-  - `-o S_aureus_16B`
+
+-->
 
 <br>
 
 ```bash
-quast --threads 4 -R ../MSSA476.dna --output-dir quast.output assembly.fasta 
+quast --threads 4 --output-dir quast.output assembly.fasta 
 ```
 
 <br>
 
-An interactive report will be produced `report.html` which summarises the assembly statistics. This can be viewed in firefox:
+An interactive report will be produced `report.html` in the `quast.output` directory. This file summarises the assembly statistics and can be viewed in a web browser e.g. firefox:
 
 <br>
 
@@ -511,44 +529,62 @@ firefox report.html &
 <br>
 
 <p align="center">
-    <img src="QUAST_16B.png" alt="QUAST_16B">
+    <img src="images/QUAST_overview.png" alt="QUAST_overview"style="width:80%">
 </p>
 
 <br>
 
+This output provides key metrics which give insights into the assembly quality and completeness: the number of contigs, the total length of the assembly, and the N50:
 
-This output provides key metrics: the number of scaffolds and contigs, the total length of the assembly, and the N50:
+- **# contigs:** This line indicates the overall structure of the assembly. For example, it may show the number of scaffolds and contigs formed during the assembly process. Number of contigs of the size >= 500 bp. 
+- **Total length:** This value represents the total size of the assembled genome.
+- **N50:** The N50 statistic is a measure commonly used to evaluate the assembly quality. It represents the contig length such that 50% of the entire assembly is contained in contigs of at least this length. A higher N50 indicates a more contiguous and likely more accurate assembly.
 
-- **# contigs:** This line indicates the overall structure of the assembly. For example, it may show the number of scaffolds and contigs formed during the assembly process. NUmber of contigs of the size >= 500 bp. 
-- **Total length:** This value represents the total size of the assembled genome, in this case, 2.76 Mb (megabases).
-- **N50:** The N50 statistic is a measure commonly used to evaluate the assembly quality. It represents the contig length such that 50% of the entire assembly is contained in contigs of at least this length. In this example, an N50 of 1.52 Mb suggests that half of the assembly is in contigs that are at least 0.29 Mb in length. A higher N50 indicates a more contiguous and likely more accurate assembly.
+<!--
 
-These metrics provide insights into the assembly quality and completeness. In this case, with an N50 of 0.29 Mb and a total assembly size of 2.84 Mb, the assembly is reasonably contiguous and likely captures a substantial portion of the 16B genome.
-
-<br>
-
-##### How many contigs were assembled?
-<input type="text" placeholder="Answer" style="width:100%">
+Mention the GC content and how there are 3 contigs with a higher GC content. These are the same 3 contigs which are not part of the main assembly graph
 
 <br>
 
-##### What is the total length (bp) of your assembly?
-
-<input type="text" placeholder="Answer" style="width:100%">
-
-<br>
-
-##### What is the N50 of your assembly?
-
-You may need to expand the report.
-
-<input type="text" placeholder="Answer" style="width:100%">
+<p align="center">
+    <img src="images/QUAST_gc.png" alt="QUAST_gc"style="width:80%">
+</p>
 
 <br>
 
+-->
+
 <br>
 
-Comparing the assembly size (2.84 Mb) to a typical S. aureus genome size (approximately 2.8 Mb) indicates that the _de novo_ assembly likely encompasses over 99% of the isolate’s genome, considering typical genome sizes. By examining these outputs, you can gain insights into the assembly quality and structure, which will be useful for further analysis, such as exploring the genomic context of antibiotic resistance genes.
+At the top of the page, there is a link to view the genome in the **Icarus Contig Browser**. This provides a graphical representation of the assembly size, as well as the N50 and N90 highlighted. Zoom out for a view of the whole assembly. 
+
+<br>
+
+<p align="center">
+    <img src="images/QUAST_icarus.png" alt="QUAST_icarus"style="width:80%">
+</p>
+
+<br>
+
+<br>
+
+**How many contigs were assembled?**
+<input type="text" placeholder="Answer" style="width:100%; height: 30px;">
+
+<br>
+
+**What is the N50 of your assembly?**
+<input type="text" placeholder="Answer" style="width:100%; height: 30px;">
+
+<br>
+
+**What is the total length (bp) of your assembly?**
+<input type="text" placeholder="Answer" style="width:100%; height: 30px;">
+
+<br>
+
+**How does this compare to the size of a typical S aureus genome (appriximately 2.8Mb). What percentage of the genome is likely covered?**
+<input type="text" placeholder="Answer" style="width:100%; height: 30px;">
 
 <br>
 
