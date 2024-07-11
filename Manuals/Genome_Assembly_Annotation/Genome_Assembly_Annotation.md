@@ -35,7 +35,12 @@
   - [Step 5: Compile the `ariba` results](#step-5-compile-the-ariba-results)
   - [Step 6. Visualize in Phandango](#step-6-visualize-in-phandango)
   - [Questions](#questions)
+        - [What are the genes identified, and which antibiotics do they encode resistance for?](#what-are-the-genes-identified-and-which-antibiotics-do-they-encode-resistance-for)
+        - [How do the resistomes predicted for each isolate compare with the phenotypic data?](#how-do-the-resistomes-predicted-for-each-isolate-compare-with-the-phenotypic-data)
   - [Step 7. Generating a _de novo_ assembly](#step-7-generating-a-de-novo-assembly)
+        - [How many contigs were assembled?](#how-many-contigs-were-assembled)
+        - [What is the total length (bp) of your assembly?](#what-is-the-total-length-bp-of-your-assembly)
+        - [What is the N50 of your assembly?](#what-is-the-n50-of-your-assembly)
   - [Step 8. Investigate genomic composition in Artemis](#step-8-investigate-genomic-composition-in-artemis)
     - [What is Artemis?](#what-is-artemis)
     - [Exploring Genomic Composition](#exploring-genomic-composition)
@@ -369,11 +374,15 @@ In the browser window the tree is displayed on the left and represents relations
 
 ## Questions
 
-- What are the genes identified, and which antibiotics do they encode resistance for?
+##### What are the genes identified, and which antibiotics do they encode resistance for?
 
 To help you understand what what genes ResFinder is using for different antibiotics you can explore here: https://cge.food.dtu.dk/services/ResFinder/gene_overview.php
 
-- How do the resistomes predicted for each isolate compare with the phenotypic data?
+<input type="text" placeholder="Answer" style="width:100%">
+
+##### How do the resistomes predicted for each isolate compare with the phenotypic data?
+
+<input type="text" placeholder="Answer" style="width:100%">
 
 <br>
 
@@ -392,12 +401,14 @@ To perform the assembly, you will type a series of commands on the command line.
 The following parameters will be used when running `Unicycler`:
 
 - Allocate 4 CPUs to the assembler:
-    - `-t 4`
-- Specify the directory into which results are written:
-    - `-o S_aureus_16B`
+  - `-t 4`
+- Specify the kmer size to be used during the `SPAdes` assembly:
+  - `--kmers 65`
 - Specify the input paired-end reads in FASTQ format:
-    - `-1 16B_1.fastq`
-    - `-2 16B_2.fastq`
+  - `-1 16B_1.fastq`
+  - `-2 16B_2.fastq`
+- Specify the directory into which results are written:
+  - `-o S_aureus_16B`
 
 Other parameters can be adjusted to optimise performance, but the default settings are generally adequate for most bacterial genome assemblies.
 
@@ -408,8 +419,12 @@ Run the `Unicycler` command:
 <br>
 
 ```bash
-unicycler  -t 4 -1 16B_1.fastq -2 16B_2.fastq -o S_aureus_16B
+unicycler -t 4 --kmers 65 -1 16B_1.fastq -2 16B_2.fastq -o S_aureus_16B
 ```
+
+<br>
+
+<b> `unicycler` may take approximately 20 minutes to run. </b>
 
 <br>
 
@@ -418,10 +433,7 @@ The `Unicycler` pipeline will handle all necessary steps, including error correc
 <br>
 
 ```bash
-Assembly finished successfully.
-Final assembly: 1 scaffold, 5 contigs.
-Total length: 2.84 Mb.
-N50: 1.52 Mb.
+INSERT OUTPUT LOG
 ```
 
 <br>
@@ -432,32 +444,90 @@ N50: 1.52 Mb.
 
 <br>
 
-This output provides key metrics: the number of scaffolds and contigs, the total length of the assembly, and the N50:
-
-- **Final assembly:** This line indicates the overall structure of the assembly. For example, it may show the number of scaffolds and contigs formed during the assembly process.
-
-- **Total length:** This value represents the total size of the assembled genome, in this case, 2.84 Mb (megabases).
-
-- **N50:** The N50 statistic is a measure commonly used to evaluate the assembly quality. It represents the contig length such that 50% of the entire assembly is contained in contigs of at least this length. In this example, an N50 of 1.52 Mb suggests that half of the assembly is in contigs that are at least 1.52 Mb in length. A higher N50 indicates a more contiguous and likely more accurate assembly.
-
-These metrics provide insights into the assembly quality and completeness. In this case, with an N50 of 1.52 Mb and a total assembly size of 2.84 Mb, the assembly is reasonably contiguous and likely captures a substantial portion of the 16B genome.
-
 All the results are written into the specified output directory, e.g., `S_aureus_16B`. Use the UNIX `cd` command to move into this directory, and the `ls` command to list the contents.
 
 <br>
 
 ```bash
-cd S_auresu_16B/
+cd S_aureus_16B/
 ls -l
 ```
 
 <br>
 
-The final assembled contigs are in the `assembly.fasta` file. This file contains the contigs in multi-FASTA format, where each contig sequence is a separate FASTA entry. The `assembly.gfa` file provides a graphical representation of the assembly, useful for visualising the relationships between contigs. Other files in the directory provide detailed logs and metrics from the assembly process.
+The final assembled contigs are in the `S_aureus_16B/assembly.fasta` file. This file contains the contigs in multi-FASTA format, where each contig sequence is a separate FASTA entry. The `assembly.gfa` file provides a graphical representation of the assembly, useful for visualising the relationships between contigs. Other files in the directory provide detailed logs and metrics from the assembly process. We can gain a better idea oif the quality of the assembly by comparing the assembled contigs to the complete genome of a closely related strain. In this example, we will use `QUAST` to compare the assmebly of 16B to MSSA476.
 
-Comparing the assembly size (2.84 Mb) to a typical S. aureus genome size (approximately 2.8 Mb) indicates that the _de novo_ assembly likely encompasses over 99% of the isolate’s genome, considering typical genome sizes.
+<br>
 
-By examining these outputs, you can gain insights into the assembly quality and structure, which will be useful for further analysis, such as exploring the genomic context of antibiotic resistance genes.
+Now run `QUAST` using the following parameters:
+
+- Allocate 4 CPUs to the assembler:
+  - `--threads 4`
+- Specify the reference genome `MSSA476.dna` which we will compare our assembled contigs to. This is located in the parent directory `../`:
+  - `../MSSA476.dna`
+- Specify the input paired-end reads in FASTQ format:
+  - `-1 16B_1.fastq`
+  - `-2 16B_2.fastq`
+- Specify the directory into which results are written:
+  - `-o S_aureus_16B`
+
+<br>
+
+```bash
+quast --threads 4 -R ../MSSA476.dna --output-dir quast.output assembly.fasta 
+```
+
+<br>
+
+An interactive report will be produced `report.html` which summarises the assembly statistics. This can be viewed in firefox:
+
+<br>
+
+```bash
+firefox report.html &
+```
+
+<br>
+
+<p align="center">
+    <img src="QUAST_16B.png" alt="QUAST_16B">
+</p>
+
+<br>
+
+
+This output provides key metrics: the number of scaffolds and contigs, the total length of the assembly, and the N50:
+
+- **# contigs:** This line indicates the overall structure of the assembly. For example, it may show the number of scaffolds and contigs formed during the assembly process. NUmber of contigs of the size >= 500 bp. 
+- **Total length:** This value represents the total size of the assembled genome, in this case, 2.76 Mb (megabases).
+- **N50:** The N50 statistic is a measure commonly used to evaluate the assembly quality. It represents the contig length such that 50% of the entire assembly is contained in contigs of at least this length. In this example, an N50 of 1.52 Mb suggests that half of the assembly is in contigs that are at least 0.29 Mb in length. A higher N50 indicates a more contiguous and likely more accurate assembly.
+
+These metrics provide insights into the assembly quality and completeness. In this case, with an N50 of 0.29 Mb and a total assembly size of 2.84 Mb, the assembly is reasonably contiguous and likely captures a substantial portion of the 16B genome.
+
+<br>
+
+##### How many contigs were assembled?
+<input type="text" placeholder="Answer" style="width:100%">
+
+<br>
+
+##### What is the total length (bp) of your assembly?
+
+<input type="text" placeholder="Answer" style="width:100%">
+
+<br>
+
+##### What is the N50 of your assembly?
+
+You may need to expand the report.
+
+<input type="text" placeholder="Answer" style="width:100%">
+
+<br>
+
+<br>
+
+Comparing the assembly size (2.84 Mb) to a typical S. aureus genome size (approximately 2.8 Mb) indicates that the _de novo_ assembly likely encompasses over 99% of the isolate’s genome, considering typical genome sizes. By examining these outputs, you can gain insights into the assembly quality and structure, which will be useful for further analysis, such as exploring the genomic context of antibiotic resistance genes.
 
 <br>
 
@@ -469,19 +539,29 @@ We are now going to use `Artemis` to explore the genomic composition of our asse
 
 `Artemis` is a genome viewer and annotation tool widely used in bioinformatics for visualising bacterial and archaeal genomes. It allows you to explore genome sequences, annotate genes, and analyse genomic features through an intuitive graphical interface.
 
-To begin, open `Artemis` by typing `art &` on the command line of your terminal window and press return. Once the initial `Artemis` window appears, proceed to open the `contigs.fa` file via *File* → *Open*.
+To begin, open `Artemis` by typing `art &` on the command line of your terminal window and press return. Once the initial `Artemis` window appears, proceed to open the `assembly.fasta` file via *File* → *Open*.
 
-Once opened, zoom out to view the entire sequence in your window. The individual contigs in the multi-FASTA file are alternately coloured orange and brown and displayed on the forward DNA line in the sequence view window. To obtain a summary of `contigs.fa`, click *View*, then *Overview*. Here, you will see that there are 35 contigs in total (35 Number of features in active entry).
+Once opened, zoom out to view the entire sequence in your window. The individual contigs in the multi-FASTA file are alternately coloured orange and brown and displayed on the forward DNA line in the sequence view window. To obtain a summary of `assembly.fasta`, click *View*, then *Overview*. Here, you will see that there are 35 contigs in total (35 Number of features in active entry).
 
-![Artemis 1](Artemis_1.png)
+<br>
+
+<p align="center">
+    <img src="Artemis_1.png" alt="Artemis_1">
+</p>
+
+<br>
 
 ### Exploring Genomic Composition
 
-Next, we'll examine the GC Deviation plot to gain insights into the genomic composition of our assembly. From the *Graph* menu in `Artemis`, open *GC Deviation (G-C)/(G+C)* by clicking on the corresponding button.
+Next, we'll examine the GC Deviation plot to gain insights into the genomic composition of our assembly. From the *Graph* menu in `Artemis`, open *GC Deviation (G-C)/(G+C)* by clicking on the corresponding button. Adjust the plot to a suitable window size for this zoomed-out view by right-clicking on the graph, selecting *Maximum Window Size*, and choosing *20000*. Then, adjust the graph slider on the right-hand side of the screen to the bottom of the bar.
 
-Adjust the plot to a suitable window size for this zoomed-out view by right-clicking on the graph, selecting *Maximum Window Size*, and choosing *20000*. Then, adjust the graph slider on the right-hand side of the screen to the bottom of the bar.
+<br>
 
-![Artemis 2](Artemis_2.png)
+<p align="center">
+    <img src="Artemis_2.png" alt="Artemis_2">
+</p>
+
+<br>
 
 ### Understanding GC Deviation
 
@@ -499,20 +579,14 @@ Examining the GC deviation plot in `Artemis` for the 16B assembly reveals multip
 
 At the Wellcome Sanger Institute, a tool called `abacas` (Assefa _et al_., 2009) was developed to order contigs against a reference sequence. Any spaces between the contigs (gaps) can be filled in with “N” characters to ‘pad’ the sequence with equivalent sized regions to those on the reference that may be missing in the assembly. The result is called a pseudo-molecule. This can be loaded into `act` along with the reference sequence and then be analyzed.
 
-The sequence we are going to use as a reference belongs to an ST1 MSSA strain, MSSA476 (EMBL accession number BX571857). Before we begin, make sure you are back in the Module 6 directory.
+The sequence we are going to use as a reference belongs to an ST1 MSSA strain, MSSA476 (EMBL accession number BX571857). Before we begin, make sure you are back in the `Module 6 directory`. To check where you are, use the UNIX `pwd` command. If you were in the `S_aureus_16B` directory, use the `cd ../` command to move into the parental directory.
 
-<br>
+We are going to reorder the 16B assembly against the MSSA476 reference using `abacas`. We do this by calling the `abacas.1.3.1.pl` script with the following parameters:
 
-To check where you are, use the UNIX `pwd` command. If you were in the `S_aureus.49` directory, use the `cd ..` command to move into the directory above.
-
-We are going to reorder the 16B assembly against the MSSA476 reference using `abacas`.
-
-- Specify the `abacas` script
-    - `abacas.1.3.1.pl`
 - Specify the reference sequence in a single fasta file
     - `-r MSSA476.dna`
 - Specify the contigs in multi-fasta format (contigs.fa in S_aureus_16B.49 directory)
-    - `-q S_aureus_16B.49/contigs.fa`
+    - `-q S_aureus_16B/assembly.fasta`
 - Specify the MUMmer program to use: nucmer (nucleotide-nucleotide comparison)
     - `-p nucmer`
 - Specify the default nucmer parameters, which are faster
@@ -522,14 +596,15 @@ We are going to reorder the 16B assembly against the MSSA476 reference using `ab
 - Specify the program to append contigs in bin to the pseudo-molecule
     - `-a`
 - Specify the prefix for the output file name
-    - `-o 16B.ordered`
+    - `-o S_aureus_16B.ordered`
 
 To see a complete list of the options available, you can type the command: `abacas.1.3.1.pl -h`
 
-```bash
-abacas.1.3.1.pl -r MSSA476.dna -q S_aureus_16B.49/contigs.fa -p nucmer -b -d -a -o 16B.ordered
-```
+<br>
 
+```bash
+abacas.1.3.1.pl -r MSSA476.dna -q S_aureus_16B/assembly.fasta -p nucmer -d -b -a -o S_aureus_16B.ordered
+```
 
 <br>
 
