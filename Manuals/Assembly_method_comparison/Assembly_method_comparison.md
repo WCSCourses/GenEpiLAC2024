@@ -30,7 +30,7 @@ Mapping reads to a reference genome can impose biases, as this approach does not
 
 This exercise acts as a supplement to the main Assembly module, and aims to demonstrate the effect of using different tools and datatypes on bacterial assemblies. We will use Illumina and Oxford Nanopore data from a single _Staphylococcus aureus_ genomes and compare the outputs of different assembly tools and approaches. 
 
-<be>
+<br>
 
 # Introduction
 
