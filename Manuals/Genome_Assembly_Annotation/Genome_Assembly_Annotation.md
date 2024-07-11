@@ -14,10 +14,10 @@
 # Table of contents <!-- omit in toc -->
 - [Module Overview and Aims](#module-overview-and-aims)
 - [Background](#background)
-  - [An outbreak sample](#an-outbreak-sample)
-  - [Analyses](#analyses)
-  - [The research questions](#the-research-questions)
-  - [Finding the data](#finding-the-data)
+- [An outbreak sample](#an-outbreak-sample)
+- [Analyses](#analyses)
+- [The research questions](#the-research-questions)
+- [Finding the data](#finding-the-data)
   - [Examining the resistome of 16B](#examining-the-resistome-of-16b)
     - [Using the genome to predict antibiotic resistance phenotype](#using-the-genome-to-predict-antibiotic-resistance-phenotype)
     - [Resistance phenotype of 16B](#resistance-phenotype-of-16b)
@@ -71,11 +71,11 @@ Aims of this exercise:
 
 *Staphylococcus aureus* is a bacterial pathogen that has garnered attention in recent years due to its capacity to evolve into highly virulent and antibiotic-resistant strains. Its prevalence in hospital settings poses a significant burden on healthcare systems worldwide, being the leading cause of hospital-acquired infections. The rise of antibiotic resistance among *S. aureus* strains, particularly to β-lactam antibiotics like methicillin, has reached alarming levels in regions such as Europe, the US, and Japan, where 40-60% of hospital-acquired *S. aureus* infections are now methicillin-resistant. The emergence of methicillin-resistant *S. aureus* (MRSA) dates back to the 1960s, and since then, various successful clones have disseminated globally.
 
-## [An outbreak sample](#an-outbreak-sample)
+# An outbreak sample
 
 In this module, we will assemble the genome of a strain of *Staphylococcus aureus*, 16B, which was sequenced as part of an MRSA outbreak investigation (Köser _et al_., 2012, N Engl J Med. 366:2267-75). Through multi locus sequence typing (MLST), the isolate was identified as belonging to sequence type 1 (ST1), a lineage of *S. aureus* more frequently associated with community infections rather than hospital-acquired infections. ST1 strains typically exhibit lower antibiotic resistance compared to those commonly found in hospitals.
 
-## [Analyses](#analyses)
+# Analyses
 
 We will conduct a comprehensive analysis starting with querying the resistome of 16B against a resistance gene database. Additionally, we will perform genome assembly and comparative analysis against the chromosomes of two other ST1 isolates: MSSA476, isolated in the UK (Holden _et al_., 2004, PNAS. 101:9786-91), and MW2, isolated in the USA (Baba _et al_., 2002, Lancet 359:1819-27). Both MSSA476 and MW2 have been fully sequenced, annotated, and deposited in EMBL, providing valuable reference genomes for our comparative genomic study.
 
@@ -87,26 +87,37 @@ We will conduct a comprehensive analysis starting with querying the resistome of
 
 <br>
 
-## [The research questions](#the-research-questions)
+# The research questions
 
-The three ST1 isolates are closely related but exhibit different antibiotic resistance profiles: 16B is resistant to penicillin, fusidic acid, methicillin and erythromycin; MSSA476 is resistant to penicillin and fusidic acid; and MW2 is resistant to penicillin and methicillin. 
+The three ST1 isolates are closely related but exhibit different antibiotic resistance profiles:
+- 16B is resistant to penicillin, fusidic acid, methicillin and erythromycin
+- MSSA476 is resistant to penicillin and fusidic acid
+- MW2 is resistant to penicillin and methicillin
 
-Using a comparative genomic approach we will identify regions of difference, the genetic basis of the antibiotic resistance in 16B, and the genetic mechanisms that drive the evolution of resistance.
+**Using a comparative genomic approach we will identify regions of difference, the genetic basis of the antibiotic resistance in 16B, and the genetic mechanisms that drive the evolution of resistance.**
 
-## Finding the data 
+<br>
 
-Navigate to the `Module_6_Genome_Assembly_Analysis` directory
+# Finding the data 
+
+Navigate to the `Module_5_Genome_Assembly_And_Annotation/Part_2_Genome_Annotation/` directory:
 
 ```bash
-cd Module_6_Genome_Assembly_Analysis
+cd Module_5_Genome_Assembly_And_Annotation/Part_2_Genome_Annotation/
 ```
 
-We can confirm where we are 
+<br>
+
+We can confirm where we are:
+
 ```bash
 pwd
 ```
 
-We can also examine the contents of this file
+<br>
+
+We can also examine the contents of this file:
+
 
 ```bash
 ls -l
@@ -115,7 +126,7 @@ ls -l
 <br>
 
 <p align="center">
-    <img src="Terminal-1.png" alt="directory_contents">
+    <img src="images/Terminal-1.png" alt="directory_contents">
 </p>
 
 <br>
@@ -129,8 +140,8 @@ The folder contains:
 - fasta format files for the chromosomes of MW2 and MSSA476 (`MW2.dna` and `MSSA476.dna`)
 - EMBL format files of the annotation of the chromosomes of MW2 and MSSA476 (`MW2.embl` and `MSSA476.embl`) 
 - EMBL format files of mobile genetic elements of the chromosomes of MW2 and MSSA476 (`MW2_MGEs.tab` and `MSSA476_MGEs.tab`) 
-- a folder containing the pdf files of the Köser _et al_., Holden _et al_., and Baba _et al_. manuscripts if you want to find out a bit more about the genomes and origins of the isolates
-- a folder containing an annotation database
+- a directory `Extra_files`, containing the pdf files of the Köser _et al_., Holden _et al_., and Baba _et al_. manuscripts if you want to find out a bit more about the genomes and origins of the isolates
+- a directory `bakta_database`, containing an annotation database
 
 <br>
 
