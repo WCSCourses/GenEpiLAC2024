@@ -18,20 +18,21 @@
 - [Analyses](#analyses)
 - [The research questions](#the-research-questions)
 - [Finding the data](#finding-the-data)
-  - [Examining the resistome of 16B](#examining-the-resistome-of-16b)
-    - [Using the genome to predict antibiotic resistance phenotype](#using-the-genome-to-predict-antibiotic-resistance-phenotype)
-    - [Resistance phenotype of 16B](#resistance-phenotype-of-16b)
-    - [Determining the antibiotic resistance genotype](#determining-the-antibiotic-resistance-genotype)
-  - [Step 1: Download the `ResFinder` database](#step-1-download-the-resfinder-database)
-  - [Step 2: Run `ariba` on 16B](#step-2-run-ariba-on-16b)
-  - [Step 3: Run `ariba` on MW2](#step-3-run-ariba-on-mw2)
-  - [Step 4: Run `ariba` on MSSA476](#step-4-run-ariba-on-mssa476)
-  - [Step 5: Compile the `ariba` results](#step-5-compile-the-ariba-results)
-  - [Step 6. Visualize in Phandango](#step-6-visualize-in-phandango)
+- [Examining the resistome](#examining-the-resistome)
+  - [Using the genome to predict antibiotic resistance phenotype](#using-the-genome-to-predict-antibiotic-resistance-phenotype)
+  - [Resistance phenotype of 16B, MW2 and MSSA476](#resistance-phenotype-of-16b-mw2-and-mssa476)
+  - [Determining the antibiotic resistance genotype](#determining-the-antibiotic-resistance-genotype)
+    - [Step 1: Download the `ResFinder` database](#step-1-download-the-resfinder-database)
+    - [Step 2: Run `ariba` on 16B](#step-2-run-ariba-on-16b)
+    - [Step 3: Run `ariba` on MW2](#step-3-run-ariba-on-mw2)
+    - [Step 4: Run `ariba` on MSSA476](#step-4-run-ariba-on-mssa476)
+    - [Step 5: Compile the `ariba` results](#step-5-compile-the-ariba-results)
+    - [Step 6. Visualize in Phandango](#step-6-visualize-in-phandango)
   - [Questions](#questions)
         - [What are the genes identified, and which antibiotics do they encode resistance for?](#what-are-the-genes-identified-and-which-antibiotics-do-they-encode-resistance-for)
         - [How do the resistomes predicted for each isolate compare with the phenotypic data?](#how-do-the-resistomes-predicted-for-each-isolate-compare-with-the-phenotypic-data)
-  - [Step 7. Generating a _de novo_ assembly](#step-7-generating-a-de-novo-assembly)
+- [Generating a _de novo_ assembly](#generating-a-de-novo-assembly)
+  - [Step 7. Assemble 16B reads using `Unicycler`](#step-7-assemble-16b-reads-using-unicycler)
         - [How many contigs were assembled?](#how-many-contigs-were-assembled)
         - [What is the total length (bp) of your assembly?](#what-is-the-total-length-bp-of-your-assembly)
         - [What is the N50 of your assembly?](#what-is-the-n50-of-your-assembly)
@@ -82,7 +83,7 @@ We will conduct a comprehensive analysis starting with querying the resistome of
 <br>
 
 <p align="center">
-    <img src="Circular_1.png" alt="MSSA476 circular">
+    <img src="images/Circular.png" alt="MSSA476 circular">
 </p>
 
 <br>
@@ -116,7 +117,7 @@ pwd
 
 <br>
 
-We can also examine the contents of this file:
+We can also examine the contents of this directory:
 
 
 ```bash
@@ -126,28 +127,28 @@ ls -l
 <br>
 
 <p align="center">
-    <img src="images/Terminal-1.png" alt="directory_contents">
+    <img src="images/Terminal_ls.png" alt="directory_contents" style="width:60%">
 </p>
 
 <br>
 
-The folder contains:
+The directory contains:
 
-- three pairs of sequencing reads :
+- Three pairs of sequencing reads :
   - `16B_1.fastq`, `16B_2.fastq`
   - `MSSA476_1.fastq`, `MSSA476_2.fastq`
   - `MW2_1.fastq`, `MW2_2.fastq`
 - fasta format files for the chromosomes of MW2 and MSSA476 (`MW2.dna` and `MSSA476.dna`)
 - EMBL format files of the annotation of the chromosomes of MW2 and MSSA476 (`MW2.embl` and `MSSA476.embl`) 
 - EMBL format files of mobile genetic elements of the chromosomes of MW2 and MSSA476 (`MW2_MGEs.tab` and `MSSA476_MGEs.tab`) 
-- a directory `Extra_files`, containing the pdf files of the Köser _et al_., Holden _et al_., and Baba _et al_. manuscripts if you want to find out a bit more about the genomes and origins of the isolates
-- a directory `bakta_database`, containing an annotation database
+- A directory `Extra_files`, containing the pdf files of the Köser _et al_., Holden _et al_., and Baba _et al_. manuscripts if you want to find out a bit more about the genomes and origins of the isolates
+- A directory `bakta_database`, containing an annotation database
 
 <br>
 
-## [Examining the resistome of 16B](#examining-the-resistome-of-16B)
+# Examining the resistome
 
-### Using the genome to predict antibiotic resistance phenotype
+## Using the genome to predict antibiotic resistance phenotype
 
 One of the benefits of whole genome sequencing bacterial pathogens is that you capture the genomic inventory of the organism. This has been capitalized on in clinical microbiology for the _in silico_ prediction of antibiotic resistance directly from whole genome sequencing data. This is being developed as a alternative to phenotypic sensitivity testing of microorganisms in the laboratory, where microorganisms are routinely sequenced.
 
@@ -155,11 +156,11 @@ For many microorganisms the genetic basis of antibiotic resistance has been exte
 
 A recent review from a EUCAST subcommittee summarized the current development status of WGS for bacterial antimicrobial susceptibility testing (AST) for a range or organisms: Ellington MJ, _et al_., (2017) The role of whole genome sequencing in antimicrobial susceptibility testing of bacteria: report from the EUCAST Subcommittee. Clin Microbiol Infect. 23:2-22. PubMed PMID: 27890457.
 
-### Resistance phenotype of 16B
+## Resistance phenotype of 16B, MW2 and MSSA476
 
-From the phenotypic data you have been given you know that 16B exhibits resistance to penicillin, fusidic acid, methicillin and erythromycin, however you do not know what genes are responsible for this is in this isolate. In the first part of this exercise you are going to use a piece of software, `ariba`, and a publicly available curated antibiotic resistance gene database from ResFinder, to rapidly predict the resistome of 16B from the Illumina sequence reads. You will also do this for this other ST1 _S. aureus_ isolates MW2 and MSSA476, and correlate the phenotypic metadata with the genetic information.
+From the phenotypic data you have been given you know that 16B exhibits resistance to penicillin, fusidic acid, methicillin and erythromycin, however you do not know what genes are responsible for this in this isolate. In the first part of this exercise you are going to use a piece of software, `ariba`, and a publicly available curated antibiotic resistance gene database from ResFinder, to rapidly predict the resistome of 16B from the Illumina sequence reads. You will also do this for this other ST1 _S. aureus_ isolates MW2 and MSSA476, and correlate the phenotypic metadata with the genetic information.
 
-### Determining the antibiotic resistance genotype
+## Determining the antibiotic resistance genotype
 
 `ariba` (Antimicrobial Resistance Identifier by Assembly) is a freely available tool [on GitHub](https://github.com/sanger-pathogens/ariba). This tool requires a FASTA input of reference sequences, which can be either a multi-FASTA file or a database of antibiotic resistance genes or non-coding sequences. The database serves as one of your inputs, while the other input is paired sequence reads. `ariba` reports which of the reference sequences were found and provides detailed information on the quality of the assemblies and any variants between the sequencing reads and the reference sequences.
 
@@ -182,7 +183,7 @@ The first part of this exercise will follow six steps:
 
 <br>
 
-## [Step 1: Download the `ResFinder` database](#Download-the-resfinder-database) 
+### Step 1: Download the `ResFinder` database
 
 To download the database you use the `ariba` `getref` command. 
 
@@ -198,7 +199,7 @@ In the command below we:
 <br>
 
 ```bash
-conda activate ~/miniconda/envs/ariba
+conda activate ariba
 ```
 
 <br>
@@ -247,13 +248,7 @@ WARNING. Problem with at least one variant. Problem variants are removed. Please
 
 <br>
 
-<p align="center">
-    <img src="Terminal-2.png" alt="ariba_warning">
-</p>
-
-<br>
-
-## [Step 2: Run `ariba` on 16B](#run-ariba-on-16B)
+### Step 2: Run `ariba` on 16B
 
 Next using the 16B fastq files run local assemblies and call variants using the `ariba` `run` command. As the command is running, identified variants will be printed to screen.
 
@@ -272,7 +267,13 @@ ariba run out.resfinder.prepareref 16B_1.fastq 16B_2.fastq 16B_out.run
 
 <br>
 
-## [Step 3: Run `ariba` on MW2](#run-ariba-on-MW2)
+<p align="center">
+    <img src="images/Ariba_16B.png" alt="ariba_output_16B" style="width:60%">
+</p>
+
+<br>
+
+### Step 3: Run `ariba` on MW2
 
 Repeat the `ariba` run on the MW2 fastq files. 
 
@@ -291,7 +292,13 @@ ariba run out.resfinder.prepareref MW2_1.fastq MW2_2.fastq MW2_out.run
 
 <br>
 
-## [Step 4: Run `ariba` on MSSA476](#run-ariba-on-MSSA476)
+<p align="center">
+    <img src="images/Ariba_MW2.png" alt="ariba_output_MW2" style="width:60%">
+</p>
+
+<br>
+
+### Step 4: Run `ariba` on MSSA476
 
 Repeat the `ariba` run on the MSSA476 fastq files.
 
@@ -310,7 +317,14 @@ ariba run out.resfinder.prepareref MSSA476_1.fastq MSSA476_2.fastq MSSA476_out.r
 
 <br>
 
-## [Step 5: Compile the `ariba` results](#compile-the-ariba-results)
+<p align="center">
+    <img src="images/Ariba_MSSA476.png" alt="ariba_output_MSSA476" style="width:60%">
+</p>
+
+<br>
+
+
+### Step 5: Compile the `ariba` results
 
 Next you need to compile the `ariba` results from the three isolates using the the `ariba` `summary` command.
 
@@ -327,13 +341,31 @@ ariba summary out.summary 16B_out.run/report.tsv MW2_out.run/report.tsv MSSA476_
 
 <br>
 
-## [Step 6. Visualize in Phandango](#visualize-in-phandango)
+We must now deactivate the `ariba` `conda` environment. Failure to deactivate the environment will prevent usage of downstream tools.
 
-The `ariba` summary command generates three files:
+<br>
+
+```bash
+conda deactivate
+```
+
+<br>
+
+### Step 6. Visualize in Phandango
+
+The `ariba` summary command generates three files. You can see these in your directory with the `ls -l` command:
 
 - `out.summary.csv` - summary of identifying genes and matches in the isolates 
 - `out.summary.phandango.csv` - a version of summary file for viewing in Phandango
 - `out.summary.phandango.tre` - tree based on matches in the out.summary.csv file
+
+<br>
+
+<p align="center">
+    <img src="images/Ariba_summary.png" alt="ariba_summary_output_files" style="width:60%">
+</p>
+
+<br>
 
 To visualize the results open up the Firefox web browser, and type in the URL: https://jameshadfield.github.io/phandango/
 
@@ -342,12 +374,20 @@ From a file view window drag and drop the two `phandango` files, `out.summary.ph
 <br>
 
 <p align="center">
-    <img src="Phandango_1.png" alt="phandango_image">
+    <img src="images/Phandango_input.png" alt="phandango_input" style="width:70%">
 </p>
 
 <br>
 
 In the browser window the tree is displayed on the left and represents relationships of the isolates based on the shared resistance determinants displayed in the right-hand panel, where the column indicate genes, and the green blocks indicate matches. The pink blocks indicate that the isolates are negative for those genes.
+
+<br>
+
+<p align="center">
+    <img src="images/Phandango_output.png" alt="phandango_output" style="width:70%">
+</p>
+
+<br>
 
 ## Questions
 
@@ -359,11 +399,13 @@ To help you understand what what genes ResFinder is using for different antibiot
 
 ##### How do the resistomes predicted for each isolate compare with the phenotypic data?
 
+You can find the resistance phenotypes here: [Resistance phenotype of 16B, MW2 and MSSA476](#resistance-phenotype-of-16b-mw2-and-mssa476)
+
 <input type="text" placeholder="Answer" style="width:100%">
 
 <br>
 
-## [Step 7. Generating a _de novo_ assembly](#generating-a-de-novo-assembly)
+# Generating a _de novo_ assembly
 
 Having identified antibiotic resistance genes using `ariba`, you are now going to continue the exercise exploring the genome of 16B to identify the genomic context of the genes and see if you can find any missing genes. The first step is to generate a _de novo_ assembly of 16B using the `fastq` files. Make sure you are still in the Module 6 directory.
 
@@ -374,6 +416,8 @@ To generate the _de novo_ assembly, you are going to use an assembly package cal
 To perform the assembly, you will type a series of commands on the command line. Ensure that you type the commands carefully, as UNIX is case-sensitive and some command lines contain a lot of text. The input files for the Unicycler _de novo_ assembly are the `16B_1.fastq` and `16B_2.fastq` files that you previously used with `ariba`. The forward and reverse reads for the isolate 16B were generated using an Illumina HiSeq machine and are 75bp paired-end reads. The `Unicycler` package only requires a single command to process and assemble the reads into a genome. This command calls `SPAdes` internally and performs various additional steps to improve the quality of the final assembly.
 
 <br>
+
+## Step 7. Assemble 16B reads using `Unicycler`
 
 The following parameters will be used when running `Unicycler`:
 
