@@ -7,39 +7,33 @@
 
 # Genome Assembly and Analysis - Paraguay 2023 <!-- omit in toc -->
 
-### Module Leads: Mat Beale and Jordan Ashworth<!-- omit in toc -->
+### Module Leads: Jordan Ashworth and Mat Beale <!-- omit in toc -->
 
 <br>
 
 # Table of contents <!-- omit in toc -->
 - [Module Overview and Aims](#module-overview-and-aims)
-- [Background](#background)
-- [An outbreak sample](#an-outbreak-sample)
-- [Analyses](#analyses)
-- [The research questions](#the-research-questions)
-- [Finding the data](#finding-the-data)
+  - [Background](#background)
+  - [An outbreak sample](#an-outbreak-sample)
+  - [Analyses](#analyses)
+  - [The research questions](#the-research-questions)
+  - [Finding the data](#finding-the-data)
 - [Examining the resistome](#examining-the-resistome)
-  - [Using the genome to predict antibiotic resistance phenotype](#using-the-genome-to-predict-antibiotic-resistance-phenotype)
-  - [Resistance phenotype of 16B, MW2 and MSSA476](#resistance-phenotype-of-16b-mw2-and-mssa476)
-  - [Determining the antibiotic resistance genotype](#determining-the-antibiotic-resistance-genotype)
-    - [Step 1: Download the `ResFinder` database](#step-1-download-the-resfinder-database)
-    - [Step 2: Run `ariba` on 16B](#step-2-run-ariba-on-16b)
-    - [Step 3: Run `ariba` on MW2](#step-3-run-ariba-on-mw2)
-    - [Step 4: Run `ariba` on MSSA476](#step-4-run-ariba-on-mssa476)
-    - [Step 5: Compile the `ariba` results](#step-5-compile-the-ariba-results)
-    - [Step 6. Visualize in Phandango](#step-6-visualize-in-phandango)
-  - [Questions](#questions)
-        - [What are the genes identified, and which antibiotics do they encode resistance for?](#what-are-the-genes-identified-and-which-antibiotics-do-they-encode-resistance-for)
-        - [How do the resistomes predicted for each isolate compare with the phenotypic data?](#how-do-the-resistomes-predicted-for-each-isolate-compare-with-the-phenotypic-data)
+  - [Step 1: Download the `ResFinder` database](#step-1-download-the-resfinder-database)
+  - [Step 2: Run `ariba` on 16B](#step-2-run-ariba-on-16b)
+  - [Step 3: Run `ariba` on MW2](#step-3-run-ariba-on-mw2)
+  - [Step 4: Run `ariba` on MSSA476](#step-4-run-ariba-on-mssa476)
+  - [Step 5: Compile the `ariba` results](#step-5-compile-the-ariba-results)
+  - [Step 6. Visualize in Phandango](#step-6-visualize-in-phandango)
 - [Generating a _de novo_ assembly](#generating-a-de-novo-assembly)
   - [Step 7. Assemble 16B reads using `Unicycler`](#step-7-assemble-16b-reads-using-unicycler)
   - [Step 8. Assess the asembly quality using `QUAST`](#step-8-assess-the-asembly-quality-using-quast)
-  - [Step 8. Investigate genomic composition in Artemis](#step-8-investigate-genomic-composition-in-artemis)
+  - [Step 9. Investigate genomic composition in Artemis](#step-9-investigate-genomic-composition-in-artemis)
     - [What is Artemis?](#what-is-artemis)
     - [Exploring Genomic Composition](#exploring-genomic-composition)
     - [Understanding GC Deviation](#understanding-gc-deviation)
     - [Interpreting Assembly Structure](#interpreting-assembly-structure)
-  - [Step 9. Ordering the assembly against a reference chromosome](#step-9-ordering-the-assembly-against-a-reference-chromosome)
+  - [Step 10. Ordering the assembly against a reference chromosome](#step-10-ordering-the-assembly-against-a-reference-chromosome)
   - [Mapping reads back to the ordered assembly](#mapping-reads-back-to-the-ordered-assembly)
   - [Generating Annotation](#generating-annotation)
     - [Running `bakta`](#running-bakta)
@@ -66,15 +60,15 @@ Aims of this exercise:
 
 <br>
 
-# Background
+## Background
 
 *Staphylococcus aureus* is a bacterial pathogen that has garnered attention in recent years due to its capacity to evolve into highly virulent and antibiotic-resistant strains. Its prevalence in hospital settings poses a significant burden on healthcare systems worldwide, being the leading cause of hospital-acquired infections. The rise of antibiotic resistance among *S. aureus* strains, particularly to β-lactam antibiotics like methicillin, has reached alarming levels in regions such as Europe, the US, and Japan, where 40-60% of hospital-acquired *S. aureus* infections are now methicillin-resistant. The emergence of methicillin-resistant *S. aureus* (MRSA) dates back to the 1960s, and since then, various successful clones have disseminated globally.
 
-# An outbreak sample
+## An outbreak sample
 
 In this module, we will assemble the genome of a strain of *Staphylococcus aureus*, 16B, which was sequenced as part of an MRSA outbreak investigation (Köser _et al_., 2012, N Engl J Med. 366:2267-75). Through multi locus sequence typing (MLST), the isolate was identified as belonging to sequence type 1 (ST1), a lineage of *S. aureus* more frequently associated with community infections rather than hospital-acquired infections. ST1 strains typically exhibit lower antibiotic resistance compared to those commonly found in hospitals.
 
-# Analyses
+## Analyses
 
 We will conduct a comprehensive analysis starting with querying the resistome of 16B against a resistance gene database. Additionally, we will perform genome assembly and comparative analysis against the chromosomes of two other ST1 isolates: MSSA476, isolated in the UK (Holden _et al_., 2004, PNAS. 101:9786-91), and MW2, isolated in the USA (Baba _et al_., 2002, Lancet 359:1819-27). Both MSSA476 and MW2 have been fully sequenced, annotated, and deposited in EMBL, providing valuable reference genomes for our comparative genomic study.
 
@@ -86,7 +80,7 @@ We will conduct a comprehensive analysis starting with querying the resistome of
 
 <br>
 
-# The research questions
+## The research questions
 
 The three ST1 isolates are closely related but exhibit different antibiotic resistance profiles:
 - 16B is resistant to penicillin, fusidic acid, methicillin and erythromycin
@@ -97,7 +91,7 @@ The three ST1 isolates are closely related but exhibit different antibiotic resi
 
 <br>
 
-# Finding the data 
+## Finding the data 
 
 Navigate to the `Module_5_Genome_Assembly_And_Annotation/Part_2_Genome_Annotation/` directory:
 
@@ -146,7 +140,7 @@ The directory contains:
 
 # Examining the resistome
 
-## Using the genome to predict antibiotic resistance phenotype
+## Using the genome to predict antibiotic resistance phenotype <!-- omit in toc -->
 
 One of the benefits of whole genome sequencing bacterial pathogens is that you capture the genomic inventory of the organism. This has been capitalized on in clinical microbiology for the _in silico_ prediction of antibiotic resistance directly from whole genome sequencing data. This is being developed as a alternative to phenotypic sensitivity testing of microorganisms in the laboratory, where microorganisms are routinely sequenced.
 
@@ -154,11 +148,11 @@ For many microorganisms the genetic basis of antibiotic resistance has been exte
 
 A recent review from a EUCAST subcommittee summarized the current development status of WGS for bacterial antimicrobial susceptibility testing (AST) for a range or organisms: Ellington MJ, _et al_., (2017) The role of whole genome sequencing in antimicrobial susceptibility testing of bacteria: report from the EUCAST Subcommittee. Clin Microbiol Infect. 23:2-22. PubMed PMID: 27890457.
 
-## Resistance phenotype of 16B, MW2 and MSSA476
+## Resistance phenotype of 16B, MW2 and MSSA476 <!-- omit in toc -->
 
 From the phenotypic data you have been given you know that 16B exhibits resistance to penicillin, fusidic acid, methicillin and erythromycin, however you do not know what genes are responsible for this in this isolate. In the first part of this exercise you are going to use a piece of software, `ariba`, and a publicly available curated antibiotic resistance gene database from ResFinder, to rapidly predict the resistome of 16B from the Illumina sequence reads. You will also do this for this other ST1 _S. aureus_ isolates MW2 and MSSA476, and correlate the phenotypic metadata with the genetic information.
 
-## Determining the antibiotic resistance genotype
+## Determining the antibiotic resistance genotype <!-- omit in toc -->
 
 `ariba` (Antimicrobial Resistance Identifier by Assembly) is a freely available tool [on GitHub](https://github.com/sanger-pathogens/ariba). This tool requires a FASTA input of reference sequences, which can be either a multi-FASTA file or a database of antibiotic resistance genes or non-coding sequences. The database serves as one of your inputs, while the other input is paired sequence reads. `ariba` reports which of the reference sequences were found and provides detailed information on the quality of the assemblies and any variants between the sequencing reads and the reference sequences.
 
@@ -181,7 +175,7 @@ The first part of this exercise will follow six steps:
 
 <br>
 
-### Step 1: Download the `ResFinder` database
+## Step 1: Download the `ResFinder` database
 
 To download the database you use the `ariba` `getref` command. 
 
@@ -246,7 +240,7 @@ WARNING. Problem with at least one variant. Problem variants are removed. Please
 
 <br>
 
-### Step 2: Run `ariba` on 16B
+## Step 2: Run `ariba` on 16B
 
 Next using the 16B fastq files run local assemblies and call variants using the `ariba` `run` command. As the command is running, identified variants will be printed to screen.
 
@@ -271,7 +265,7 @@ ariba run out.resfinder.prepareref 16B_1.fastq 16B_2.fastq 16B_out.run
 
 <br>
 
-### Step 3: Run `ariba` on MW2
+## Step 3: Run `ariba` on MW2
 
 Repeat the `ariba` run on the MW2 fastq files. 
 
@@ -296,7 +290,7 @@ ariba run out.resfinder.prepareref MW2_1.fastq MW2_2.fastq MW2_out.run
 
 <br>
 
-### Step 4: Run `ariba` on MSSA476
+## Step 4: Run `ariba` on MSSA476
 
 Repeat the `ariba` run on the MSSA476 fastq files.
 
@@ -322,7 +316,7 @@ ariba run out.resfinder.prepareref MSSA476_1.fastq MSSA476_2.fastq MSSA476_out.r
 <br>
 
 
-### Step 5: Compile the `ariba` results
+## Step 5: Compile the `ariba` results
 
 Next you need to compile the `ariba` results from the three isolates using the the `ariba` `summary` command.
 
@@ -349,7 +343,7 @@ conda deactivate
 
 <br>
 
-### Step 6. Visualize in Phandango
+## Step 6. Visualize in Phandango
 
 The `ariba` summary command generates three files. You can see these in your directory with the `ls -l` command:
 
@@ -387,19 +381,15 @@ In the browser window the tree is displayed on the left and represents relations
 
 <br>
 
-## Questions
-
-##### What are the genes identified, and which antibiotics do they encode resistance for?
-
+**What are the genes identified, and which antibiotics do they encode resistance for?**
 To help you understand what what genes ResFinder is using for different antibiotics you can explore here: https://cge.food.dtu.dk/services/ResFinder/gene_overview.php
+<input type="text" placeholder="Answer" style="width:100%; height: 30px;">
 
-<input type="text" placeholder="Answer" style="width:100%">
+<br>
 
-##### How do the resistomes predicted for each isolate compare with the phenotypic data?
-
+**How do the resistomes predicted for each isolate compare with the phenotypic data?**
 You can find the resistance phenotypes here: [Resistance phenotype of 16B, MW2 and MSSA476](#resistance-phenotype-of-16b-mw2-and-mssa476)
-
-<input type="text" placeholder="Answer" style="width:100%">
+<input type="text" placeholder="Answer" style="width:100%; height: 30px;">
 
 <br>
 
@@ -588,7 +578,7 @@ At the top of the page, there is a link to view the genome in the **Icarus Conti
 
 <br>
 
-## [Step 8. Investigate genomic composition in Artemis](#investigate-genomic-composition-in-artemis)
+## Step 9. Investigate genomic composition in Artemis
 
 We are now going to use `Artemis` to explore the genomic composition of our assembly.
 
@@ -632,7 +622,7 @@ Examining the GC deviation plot in `Artemis` for the 16B assembly reveals multip
 
 <br>
 
-## [Step 9. Ordering the assembly against a reference chromosome](#ordering-the-assembly-against-a-reference-chromosome)
+## [Step 10. Ordering the assembly against a reference chromosome](#ordering-the-assembly-against-a-reference-chromosome)
 
 At the Wellcome Sanger Institute, a tool called `abacas` (Assefa _et al_., 2009) was developed to order contigs against a reference sequence. Any spaces between the contigs (gaps) can be filled in with “N” characters to ‘pad’ the sequence with equivalent sized regions to those on the reference that may be missing in the assembly. The result is called a pseudo-molecule. This can be loaded into `act` along with the reference sequence and then be analyzed.
 
