@@ -28,20 +28,16 @@
 - [Generating a _de novo_ assembly](#generating-a-de-novo-assembly)
   - [Step 7. Assemble 16B reads using `Unicycler`](#step-7-assemble-16b-reads-using-unicycler)
   - [Step 8. Assess the asembly quality using `QUAST`](#step-8-assess-the-asembly-quality-using-quast)
-  - [Step 9. Investigate genomic composition in Artemis](#step-9-investigate-genomic-composition-in-artemis)
-    - [What is Artemis?](#what-is-artemis)
-    - [Exploring Genomic Composition](#exploring-genomic-composition)
-    - [Understanding GC Deviation](#understanding-gc-deviation)
-    - [Interpreting Assembly Structure](#interpreting-assembly-structure)
-  - [Step 10. Ordering the assembly against a reference chromosome](#step-10-ordering-the-assembly-against-a-reference-chromosome)
-  - [Mapping reads back to the ordered assembly](#mapping-reads-back-to-the-ordered-assembly)
-  - [Generating Annotation](#generating-annotation)
-    - [Running `bakta`](#running-bakta)
-    - [Visualizing the `bakta` annotation](#visualizing-the-bakta-annotation)
-    - [Region 1](#region-1)
-    - [Region 2](#region-2)
-    - [Region 3](#region-3)
-  - [Examining the evolution of drug resistance in ST1 _S. aureus_](#examining-the-evolution-of-drug-resistance-in-st1-s-aureus)
+- [Investigating genomic composition](#investigating-genomic-composition)
+  - [Step 9. Ordering the assembly against a reference genome using `abacas`](#step-9-ordering-the-assembly-against-a-reference-genome-using-abacas)
+  - [Step 10. Identify highly similar regions using `blastn`](#step-10-identify-highly-similar-regions-using-blastn)
+  - [Step 11.](#step-11)
+  - [Step 12. Mapping reads back to the ordered assembly using `snippy`](#step-12-mapping-reads-back-to-the-ordered-assembly-using-snippy)
+- [Generating the genome annotation](#generating-the-genome-annotation)
+  - [Step 13.  `bakta`](#step-13--bakta)
+  - [Step 14. Visualizing the `bakta` annotation](#step-14-visualizing-the-bakta-annotation)
+- [Examining the evolution of drug resistance in ST1 _S. aureus_](#examining-the-evolution-of-drug-resistance-in-st1-s-aureus)
+  - [Step 15.](#step-15)
 
 <br>
 
@@ -395,7 +391,7 @@ You can find the resistance phenotypes here: [Resistance phenotype of 16B, MW2 a
 
 # Generating a _de novo_ assembly
 
-Having identified antibiotic resistance genes using `ariba`, you are now going to continue the exercise exploring the genome of 16B to identify the genomic context of the genes and see if you can find any missing genes. The first step is to generate a _de novo_ assembly of 16B using the `fastq` files. Make sure you are still in the Module 6 directory.
+Having identified antibiotic resistance genes using `ariba`, you are now going to continue the exercise exploring the genome of 16B to identify the genomic context of the genes and see if you can find any missing genes. The first step is to generate a _de novo_ assembly of 16B using the `fastq` files. Make sure you are still in the `Part_2_Genome_Annotation/` directory.
 
 To generate the _de novo_ assembly, you are going to use an assembly package called `Unicycler` (Wick et al., 2017, PLoS Comput Biol. 13(10): e1005595). `Unicycler` is a comprehensive assembly pipeline that uses `SPAdes` as its core assembler, offering seamless integration and better handling of bacterial genome assembly, especially with short reads and mixed read types (paired-end, long reads).
 
@@ -578,8 +574,15 @@ At the top of the page, there is a link to view the genome in the **Icarus Conti
 
 <br>
 
-## Step 9. Investigate genomic composition in Artemis
+# Investigating genomic composition
 
+Understanding the genomic composition of a newly assembled bacterial genome is a crucial step in genomic analysis. This investigation provides insights into the structure and organisation of the genome, revealing important information about the genetic elements present, such as genes, regulatory sequences, and mobile genetic elements. By examining the genomic composition, researchers can identify regions of interest, such as antibiotic resistance genes, virulence factors, and other functional elements that contribute to the bacterium's phenotype.
+
+Additionally, analysing the genomic composition allows for the detection of genomic rearrangements, such as inversions, translocations, and duplications, which can have significant implications for bacterial evolution and adaptation. This step is essential for ensuring the accuracy and completeness of the assembly, as well as for understanding the biological and clinical relevance of the genomic features identified.
+
+Following this investigation, the next step involves ordering the assembled contigs against a reference genome. This process helps in arranging the contigs into a more accurate representation of the genome, facilitating easier comparison with known sequences and aiding in the identification of structural variations and conserved regions. By aligning the contigs to a reference, we can better understand the genomic context and enhance the reliability of our subsequent analyses.
+
+<!--
 We are now going to use `Artemis` to explore the genomic composition of our assembly.
 
 ### What is Artemis?
@@ -619,22 +622,23 @@ For comparison, refer back to the circular diagram of MSSA476 from earlier in th
 ### Interpreting Assembly Structure
 
 Examining the GC deviation plot in `Artemis` for the 16B assembly reveals multiple shifts from high to low levels. These shifts indicate that the contigs displayed in the assembly may not be arranged in the correct order or orientation relative to the true origin and terminus of replication of the 16B chromosome.
+--------------->
 
-<br>
+## Step 9. Ordering the assembly against a reference genome using `abacas`
 
-## [Step 10. Ordering the assembly against a reference chromosome](#ordering-the-assembly-against-a-reference-chromosome)
+At the Wellcome Sanger Institute, a tool called `abacas` (Assefa _et al_., 2009) was developed to order contigs against a reference sequence. Any spaces between the contigs (gaps) can be filled in with “N” characters to ‘pad’ the sequence with equivalent sized regions to those on the reference that may be missing in the assembly. The result is called a pseudo-molecule. This is particularly useful for ordering fragmented contigs in a draft assembly against a well-assembled reference genome, thus providing a more contiguous representation of the genome.
 
-At the Wellcome Sanger Institute, a tool called `abacas` (Assefa _et al_., 2009) was developed to order contigs against a reference sequence. Any spaces between the contigs (gaps) can be filled in with “N” characters to ‘pad’ the sequence with equivalent sized regions to those on the reference that may be missing in the assembly. The result is called a pseudo-molecule. This can be loaded into `act` along with the reference sequence and then be analyzed.
+The sequence we are going to use as a reference belongs to an ST1 MSSA strain, MSSA476 (EMBL accession number BX571857). Before we begin, make sure you are back in the `Part_2_Genome_Annotation` directory. To check where you are, use the UNIX `pwd` command. If you were in the `S_aureus_16B` directory, use the `cd ../` command to move into the parental directory.
 
-The sequence we are going to use as a reference belongs to an ST1 MSSA strain, MSSA476 (EMBL accession number BX571857). Before we begin, make sure you are back in the `Module 6 directory`. To check where you are, use the UNIX `pwd` command. If you were in the `S_aureus_16B` directory, use the `cd ../` command to move into the parental directory.
+The tool `abacas` uses `MUMMER` to map contigs to a reference genome. This process aligns contigs to their most similar regions in the reference genome, and it primarily aims to reconstruct the overall order and orientation of contigs to form a more complete genome assembly. 
 
 We are going to reorder the 16B assembly against the MSSA476 reference using `abacas`. We do this by calling the `abacas.1.3.1.pl` script with the following parameters:
 
 - Specify the reference sequence in a single fasta file
     - `-r MSSA476.dna`
-- Specify the contigs in multi-fasta format (contigs.fa in S_aureus_16B.49 directory)
+- Specify the assembled contigs in multi-fasta format
     - `-q S_aureus_16B/assembly.fasta`
-- Specify the MUMmer program to use: nucmer (nucleotide-nucleotide comparison)
+- Specify the MUMmer program to use: nucmer (for nucleotide-nucleotide comparison)
     - `-p nucmer`
 - Specify the default nucmer parameters, which are faster
     - `-d`
@@ -655,21 +659,15 @@ abacas.1.3.1.pl -r MSSA476.dna -q S_aureus_16B/assembly.fasta -p nucmer -d -b -a
 
 <br>
 
-Once `abacas` is done, we are going to use `act` to look at the newly ordered contigs.
+## Step 10. Identify highly similar regions using `blastn`
 
-![abacas 1](abacas_1.png)
+Now that the contigs are ordered, the next step is to perform a detailed comparison to identify smaller matches between the ordered assembly and the reference genome. Local alignment focuses on finding regions of high similarity within by identifying the most similar subregions rather than aligning the entire length of the sequences. This is useful for finding and aligning functional domains, motifs, or regions of interest within larger, more varied sequences. It is also useful when aligning sequences of different lengths or when only specific parts of the sequences are expected to be similar.
 
-Before opening the files in `act`, we need to generate a `blastn` comparison file instead of using the comparison file that `abacas` generates. This is because the `abacas` generated file is based on MUMMER and only aligns the contigs without reporting smaller matches within contigs.
+To achieve this, we will use `blastn` to generate a more granular comparison. We will utilise the locally installed version of `blast` to perform this task.
 
-Previously, we have used pre-generated comparison files for `act`. This time, you are going to generate it yourself using the locally installed version of `blast`.
+First, we will run `formatdb` to format one of the sequences as a `blast` database:
 
-<br>
-
-We will run two programs: `formatdb`, which formats one of the sequences as a `blast` database; and `blastall`, which runs the `blast` comparison.
-
-First, we will run `formatdb`.
-
-- Specify the sequence type (protein: True or False). Ours is DNA sequence, therefore, we use F
+- Specify the sequence type (protein: True or False). Ours is a DNA sequence, so we use F
     - `-p F`
 - Specify the input sequence to format
     - `-i MSSA476.dna`
@@ -703,6 +701,8 @@ blastall -p blastn -m 8 -d MSSA476.dna -i 16B.ordered.fasta -o MSSA476.dna_vs_16
 
 <br>
 
+## Step 11. 
+
 We are now going to look at the `abacus` ordered 16B assembly in `act` with the `blastn` comparison file we have just generated.
 
 
@@ -732,7 +732,7 @@ In the `act` figure there are several regions of interest that are worth investi
 
 <br>
 
-## [Mapping reads back to the ordered assembly](#Mapping-reads-back-to-the-ordered-assembly)
+## Step 12. Mapping reads back to the ordered assembly using `snippy`
 
 In this next exercise you are going to use the same mapping method as you did in Mapping Module, to map the 16B strain forward and reverse reads against the pseudo-molecule that you created using `abacas`. We are then going to look at the aligned mapped reads in `act` by loading the mapped bam file with the `16B.ordered.fasta`.  
 
@@ -840,7 +840,7 @@ The non-mapping contigs are indicated by the yellow features. There are 7 contig
 
 <br>
 
-## [Generating Annotation](#generating-annotation)
+# Generating the genome annotation
 
 Now we have the contigs ordered against the reference, and have mapped back the reads to identify a possible mis-assembly, and also identified putative plasmid sequences. However we are still not yet in a position to drill down into the biology of the strain. For this we need to add some annotation to the newly assembled genome. 
 
@@ -851,7 +851,7 @@ Both of these program are installed on the disk image, but we are going to use `
 There are two steps in running `bakta`, the first is downloading a database for it to use for annotation, the second is to run the `bakta` annotation on a query sequence using the database. The downloading step takes a while to run (it involves download a file of ~1.6 Gb), so we have already down loaded is for you. 
 
 
-### Running `bakta`
+## Step 13.  `bakta`
 
 
 To run `bakta` to annotate your sequence.
@@ -913,7 +913,7 @@ For more information on the annotation generated by `bakta`, the run options and
 
 
 
-### Visualizing the `bakta` annotation
+## Step 14. Visualizing the `bakta` annotation
 
 
 `bakta` has generated a number of output files in different foramt that contain the annotation for 16B ordered assembly. We are going to use the EMBL format file and view it in ACT. 
@@ -926,7 +926,7 @@ In ACT, open the `16B.ordered.embl` file into the `16B.ordered.fasta` entry by g
 
 <br>
 
-### Region 1
+### Region 1 <!-- omit in toc -->
 
 
 ![Region 1](Region_1.png)
@@ -944,7 +944,7 @@ Beyond the origin of replication there is a second region that is a novel indel 
 <br>
 
 
-### Region 2
+### Region 2 <!-- omit in toc -->
 
 
 ![Region 2](Region_2.png)
@@ -955,7 +955,7 @@ From the `act` figure it would appear that there is a large insert in the 16B as
 <br>
 
 
-### Region 3
+### Region 3 <!-- omit in toc -->
 
 
 ![Region 3](Region_3.png)
@@ -972,7 +972,7 @@ In this region near at the right hand side of the assembly, we have the non-mapp
 <br>
 
 
-## [Examining the evolution of drug resistance in ST1 _S. aureus_](#Examining-the-evolution-of-drug-resistance-in-ST1-S-aureus)
+# Examining the evolution of drug resistance in ST1 _S. aureus_
 
 
 Up until now we have compared the 16B assembly to only one other ST1 _S. aureus_ strain, MSSA476. We are now going introduce another strain to the comparison, MW2, and start looking at the genetic differences between the isolates that may impact on their biology. Although MW2 was isolated in a different country (USA), many thousands of miles away from 16B and MSSA476 (both UK), it still belongs to the same clone, and probably share a common ancestor tens rather than hundreds of years ago. A clinically important phenotypic difference between these isolates are their antibiotic resistances:
@@ -986,6 +986,8 @@ As you will hopefully have just discovered, it is possible to use genome sequenc
 <br>
 
 Before we begin this exercise close down any `act` session you have open.
+
+## Step 15.
 
 In order to examine the regions of difference in the 16B assembly with MW2 we are going generate a comparison file that we can load in ACT, as we did previously for MSSA476.
 
