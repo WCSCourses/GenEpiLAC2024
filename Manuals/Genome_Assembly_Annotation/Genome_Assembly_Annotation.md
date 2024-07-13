@@ -679,7 +679,7 @@ Several files are created by `abacas` and output into the `Part_2_Genome_Annotat
 
 <br>
 
-Of these output files, we will be using `S_aureus_16B.ordered.fasta`. This contains a single scaffold as the contigs have been joined by strings of Ns in the order at which they appear in the reference genome. As this is in fasta format, we can confirm the number of sequences in the output file as 1 by counting (`-c`) the number of lines in the file that begin with `^` the forward arrow `>` and represent a fasta header. `grep` is one way we can do this:
+Of these output files, we will be using `S_aureus_16B.ordered.fasta`. This contains a single scaffold as the contigs have been joined by strings of Ns in the order at which they appear in the reference genome. As this is in fasta format, we can confirm the number of sequences in the output file as 1 by counting (`-c`) the number of lines in the file that begin with (`^`) `>` and represent a fasta header. `grep` is one way we can do this:
 
 <br>
 
@@ -707,29 +707,39 @@ First, we will run `formatdb` to format one of the sequences as a `blast` databa
 <br>
 
 ```bash
-formatdb -p F -i MSSA476.dna
+makeblastdb -in MSSA476.dna -dbtype nucl -out MSSA476
 ```
 
 <br>
 
-Next we will run `blastall`
+<p align="center">
+    <img src="images/makeblastdb.png" alt="makeblastdb" style="width:80%">
+</p>
 
-- Specify the `blast` program to use
-    - `-p blastn`
-- Specify the alignment output type (8, one line per entry)
-    - `-m 8`
-- Specify the database file. This must be the file used for the `formatdb` command
-    - `-d MSSA476.dna`
+<br>
+
+Next we will run `blastn` with the following parameters:
+
 - Specify the query file
-    - `-i 16B.ordered.fasta`
+    - `-query S_aureus_16B.ordered.fasta`
+- Specify the database file. This must be the file used for the `makeblastdb` command
+    - `-db MSSA476`
 - Specify the output file name
     - `-o MSSA476.dna_vs_16B.ordered.fasta`
+- Specify the alignment output type. This option produces tabular output with one line per alignment and includes columns for query ID, subject ID, percentage identity, alignment length, mismatches, gap opens, query start, query end, subject start, subject end, e-value, and bit score.
+    - `-outfmt 6`
 
 <br>
 
 ```bash
-blastall -p blastn -m 8 -d MSSA476.dna -i 16B.ordered.fasta -o MSSA476.dna_vs_16B.ordered.fasta
+blastn -query S_aureus_16B.ordered.fasta -db MSSA476 -out MSSA476.dna_vs_16B.ordered.fasta -outfmt 6
 ```
+
+<br>
+
+<p align="center">
+    <img src="images/blastn_ls.png" alt="blastn_ls" style="width:80%">
+</p>
 
 <br>
 
@@ -747,6 +757,14 @@ act MSSA476.embl MSSA476.dna_vs_16B.ordered.fasta 16B.ordered.fasta &
 ```
 
 <br>
+
+<p align="center">
+    <img src="images/ACT_overview.png" alt="ACT_overview" style="width:80%">
+</p>
+
+<br>
+
+
 
 Once the `act` window loads up, open `16B.ordered.tab` file into the `16B.ordered.fasta` entry by going to the *File* menu, and selecting the *16B.ordered.fasta* option, and right clicking onto the *Read An Entry* option. 
 
