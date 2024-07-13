@@ -632,7 +632,7 @@ The sequence we are going to use as a reference belongs to an ST1 MSSA strain, M
 
 The tool `abacas` uses `MUMMER` to map contigs to a reference genome. This process aligns contigs to their most similar regions in the reference genome, and it primarily aims to reconstruct the overall order and orientation of contigs to form a more complete genome assembly. 
 
-We are going to reorder the 16B assembly against the MSSA476 reference using `abacas`. We do this by calling the `abacas.1.3.1.pl` script with the following parameters:
+We are going to reorder the 16B assembly against the MSSA476 reference using `abacas`. We do this by calling the `abacas.pl` script with the following parameters:
 
 - Specify the reference sequence in a single fasta file
     - `-r MSSA476.dna`
@@ -649,12 +649,44 @@ We are going to reorder the 16B assembly against the MSSA476 reference using `ab
 - Specify the prefix for the output file name
     - `-o S_aureus_16B.ordered`
 
-To see a complete list of the options available, you can type the command: `abacas.1.3.1.pl -h`
+To see a complete list of the options available, you can type the command: `abacas.pl -h`
 
 <br>
 
 ```bash
-abacas.1.3.1.pl -r MSSA476.dna -q S_aureus_16B/assembly.fasta -p nucmer -d -b -a -o S_aureus_16B.ordered
+abacas.pl -r MSSA476.dna -q S_aureus_16B/assembly.fasta -p nucmer -d -b -a -o S_aureus_16B.ordered
+```
+
+<br>
+
+The output to screen should look similar to what is shown below.
+
+<br>
+
+<p align="center">
+    <img src="images/Abacas_output.png" alt="Abacas_output"style="width:80%">
+</p>
+
+<br>
+
+Several files are created by `abacas` and output into the `Part_2_Genome_Annotation` directory. These all have the prefix `S_aureus_16B.ordered`. You can view the contents of your current directory with the `ls` command. 
+
+<br>
+
+<p align="center">
+    <img src="images/Abacas_ls.png" alt="Abacas_ls"style="width:80%">
+</p>
+
+<br>
+
+Of these output files, we will be using `S_aureus_16B.ordered.fasta`. This contains a single scaffold as the contigs have been joined by strings of Ns in the order at which they appear in the reference genome. As this is in fasta format, we can confirm the number of sequences in the output file as 1 by counting (`-c`) the number of lines in the file that begin with `^` the forward arrow `>` and represent a fasta header. `grep` is one way we can do this:
+
+<br>
+
+```bash
+grep -c '^>' `S_aureus_16B.ordered.fasta`
+
+1
 ```
 
 <br>
