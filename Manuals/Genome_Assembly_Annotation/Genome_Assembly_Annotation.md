@@ -31,7 +31,7 @@
 - [Investigating genomic composition](#investigating-genomic-composition)
   - [Step 9. Ordering the assembly against a reference genome using `abacas`](#step-9-ordering-the-assembly-against-a-reference-genome-using-abacas)
   - [Step 10. Identify highly similar regions using `blastn`](#step-10-identify-highly-similar-regions-using-blastn)
-  - [Step 11.](#step-11)
+  - [Step 11. Explore local genomeic matches in `act`](#step-11-explore-local-genomeic-matches-in-act)
   - [Step 12. Mapping reads back to the ordered assembly using `snippy`](#step-12-mapping-reads-back-to-the-ordered-assembly-using-snippy)
 - [Generating the genome annotation](#generating-the-genome-annotation)
   - [Step 13.  `bakta`](#step-13--bakta)
@@ -743,14 +743,27 @@ blastn -query S_aureus_16B.ordered.fasta -db MSSA476 -out MSSA476.dna_vs_16B.ord
 
 <br>
 
-## Step 11. 
+## Step 11. Explore local genomeic matches in `act`
 
 We are now going to look at the `abacus` ordered 16B assembly in `act` with the `blastn` comparison file we have just generated.
 
 
-At the prompt type and return the command line:
+We will run `act` with the following parameters:
+
+- Specify the annotation file for the reference genome used (MSSA476):
+  - `MSSA476.embl`
+- The blastn result containing hits between MSSA476 and 16B
+  - `MSSA476.dna_vs_16B.ordered.fasta.tsv`
+- The ordered genomic assembly for 16B
+  - `16B.ordered.fasta`
 
 <br>
+
+*******CHANGE ALL S_aureus.16B.ordered.fasta to 16B.ordered.fasta*******
+*******CHANGE ALL S_aureus.16B.ordered.fasta to 16B.ordered.fasta*******
+*******CHANGE ALL S_aureus.16B.ordered.fasta to 16B.ordered.fasta*******
+*******CHANGE ALL S_aureus.16B.ordered.fasta to 16B.ordered.fasta*******
+*******CHANGE ALL S_aureus.16B.ordered.fasta to 16B.ordered.fasta*******
 
 ```bash
 act MSSA476.embl MSSA476.dna_vs_16B.ordered.fasta.tsv 16B.ordered.fasta &
@@ -764,8 +777,6 @@ act MSSA476.embl MSSA476.dna_vs_16B.ordered.fasta.tsv 16B.ordered.fasta &
 
 <br>
 
-
-
 Once the `act` window loads up, open `16B.ordered.tab` file into the `16B.ordered.fasta` entry by going to the *File* menu, and selecting the *16B.ordered.fasta* option, and right clicking onto the *Read An Entry* option. 
 
 Once ACT has opened, zoom out so you can see the whole of the sequences (you may have to re-size the ACT window) and reduce the size of the BLASTN footprint that is displayed, by moving the slider on the right-hand side of the comparison window down to the bottom of the bar.
@@ -773,12 +784,21 @@ Once ACT has opened, zoom out so you can see the whole of the sequences (you may
 As before, display the GC Deviation (G-C)/(G+C) plots for both of the sequences (under the Graph menu there will be two sequences, top and bottom sequences, click on each to open the graphs for each). Remember to rescale the plot for a more appropriate window size (use 20000 as before, then move the graph slider of the right hand side of the screen down to the bottom of the bar).
 
 
-![ACT zoomed out](ACT_zoomed_out.png)
+<br>
 
+<p align="center">
+    <img src="images/ACT_gc.png" alt="ACT_gc" style="width:80%">
+</p>
+
+<br>
 
 In the `act` figure there are several regions of interest that are worth investing. The first region we are going to look at is the inverted region in the centre of the assembly that is covered by the hourglass shaped blue matches in the comparison panel. This 130 kb region spans the terminus of replication region, and is present at one end of a contig. At the other end of the putative inverted region there is a contig break. 
 
-![ACT focus region](ACT_focus_region.png)
+<br>
+
+<p align="center">
+    <img src="images/ACT_focus.png" alt="ACT_focus" style="width:80%">  
+</p>
 
 <br>
 
