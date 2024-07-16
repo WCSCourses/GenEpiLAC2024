@@ -725,20 +725,20 @@ Next we will run `blastn` with the following parameters:
 - Specify the database file. This must be the file used for the `makeblastdb` command
     - `-db MSSA476`
 - Specify the output file name
-    - `-o MSSA476.dna_vs_16B.ordered.fasta`
+    - `-o MSSA476.dna_vs_16B.ordered.fasta.tsv`
 - Specify the alignment output type. This option produces tabular output with one line per alignment and includes columns for query ID, subject ID, percentage identity, alignment length, mismatches, gap opens, query start, query end, subject start, subject end, e-value, and bit score.
     - `-outfmt 6`
 
 <br>
 
 ```bash
-blastn -query S_aureus_16B.ordered.fasta -db MSSA476 -out MSSA476.dna_vs_16B.ordered.fasta -outfmt 6
+blastn -query S_aureus_16B.ordered.fasta -db MSSA476 -out MSSA476.dna_vs_16B.ordered.fasta.tsv -outfmt 6
 ```
 
 <br>
 
 <p align="center">
-    <img src="images/blastn_ls.png" alt="blastn_ls" style="width:80%">
+    <img src="images/blastn_ls.png" alt="blastn_ls" style="width:70%">
 </p>
 
 <br>
@@ -753,7 +753,7 @@ At the prompt type and return the command line:
 <br>
 
 ```bash
-act MSSA476.embl MSSA476.dna_vs_16B.ordered.fasta 16B.ordered.fasta &
+act MSSA476.embl MSSA476.dna_vs_16B.ordered.fasta.tsv 16B.ordered.fasta &
 ```
 
 <br>
@@ -1061,7 +1061,7 @@ We are now going to load up the three sequences and relevant comparison files in
 If you prefer to do it from the command line you can type:
 
 ```bash
-act MSSA476.embl MSSA476.dna_vs_16B.ordered.fasta 16B.ordered.embl 16B.ordered.fasta_vs_MW2.dna MW2.embl &
+act MSSA476.embl MSSA476.dna_vs_16B.ordered.fasta.tsv 16B.ordered.embl 16B.ordered.fasta_vs_MW2.dna MW2.embl &
 ```
 
 <br>
