@@ -603,6 +603,10 @@ cp clean2.full.SNPs.aln.treefile clean2.full.SNPs.aln.tre
 ```
 
 <br>
+
+You can recheck the tree using `figtree`.
+
+<br>
 <br>
 
 ## Tree Visualisation using Microreact
@@ -636,8 +640,9 @@ Click `continue` to view the tree
 
 <br>
 <br>
+<br>
 
-### Accounting for recombination with `gubbins`
+## Accounting for recombination with `gubbins`
 We can use `gubbins` to infer recombining sites by looking for increased SNP density that occurs in specific ancestral nodes
 
 ```
@@ -658,11 +663,12 @@ run_gubbins.py -c 4 -p gubbins clean.full.aln
 ```
 
 ![run_gubbins_hanging](gubbins-run-hanging-screen__2024.png)
+
 <br>
 
 ![run_gubbins_hanging](gubbins-run-finished-screen__2024.png)
 
-<br>
+
 <br>
 
 Note: `gubbins` can take a long time to run on some computers. If `gubbins` takes more than 10 mins to complete, we have already run it for you - the files are available in the GitHub folder at `~/github_repository/Modules/Mapping_and_Phylo/gubbins_backup_2024.tar.gz`. 
