@@ -583,7 +583,29 @@ Examine the tree:
 <br>
 <br>
 
-### Tree Visualisation using Microreact
+## Adjusting a dataset to remove a poor quality genome
+The unpolished long-read assembly `CTMA_1441.long_nopolish` is filled with uncorrected errors. We therefore should not use it in our analysis. We should rerun `snippy-core` to build the alignment without it:
+```
+snippy-core --ref references/Vibrio_cholerae_O1_biovar_eltor_str_N16961_v2.fa old.snippy.runs_2024/* new-sample-1 new-sample-2
+
+snippy-clean_full_aln core.full.aln > clean2.full.aln
+```
+
+<br>
+
+And now build a new phylogeny:
+```
+snp-sites -o clean2.full.SNPs.aln clean2.full.aln
+
+iqtree -s clean2.full.SNPs.aln -fconst $( snp-sites -C clean.full.aln ) -m GTR+F+I -T 2 -mem 2G -B 1000 -o M66
+
+cp clean2.full.SNPs.aln.treefile clean2.full.SNPs.aln.tre
+```
+
+<br>
+<br>
+
+## Tree Visualisation using Microreact
 
 We can also visualise our tree using a webtool called `Microreact`
 
@@ -594,7 +616,7 @@ We can also visualise our tree using a webtool called `Microreact`
 
  <br>
 
- - Select the file upload, or drag the tree file `clean.full.SNPs.aln.tre` onto the upload screen
+ - Select the file upload, or drag the tree file `clean2.full.SNPs.aln.tre` onto the upload screen
 
 ![microreact.2](Microreact-upload.png)
 
@@ -639,16 +661,23 @@ run_gubbins.py -c 4 -p gubbins clean.full.aln
 <br>
 
 ![run_gubbins_hanging](gubbins-run-finished-screen__2024.png)
+
+<br>
 <br>
 
-
-Note. `gubbins` can take a long time to run on some computers. If `gubbins` takes more than 10 mins to complete, we have already run it for you - the files are available at `~/Module_4_Mapping_Phylogeny/gubbins_backups/`. 
+Note: `gubbins` can take a long time to run on some computers. If `gubbins` takes more than 10 mins to complete, we have already run it for you - the files are available in the GitHub folder at `~/github_repository/Modules/Mapping_and_Phylo/gubbins_backup_2024.tar.gz`. 
 
 ```
-ls -lh gubbins_backups/
-cp gubbins_backups/* ./
+ls -lh ~/github_repository/Modules/Mapping_and_Phylo/
+cp ~/github_repository/Modules/Mapping_and_Phylo/gubbins_backup_2024.tar.gz .
+tar -zxf gubbins_backup_2024.tar.gz
+ls -lh gubbins_backup_2024
+cp gubbins_backup_2024/* .
 ```
 
+Note: You may notice there is a directory called `gubbins_backups` - this is from a previous year, and will not be used today. 
+
+<br>
 <br>
 
 Lets look at what gubbins has done
@@ -656,7 +685,7 @@ Lets look at what gubbins has done
 ls -l gubbins.*
 ```
 
-![gubbins.backup.files](gubbins_backup_files.png)
+![gubbins.backup.files](gubbins_backup_files__2024.png)
 
 
 <br>
@@ -667,7 +696,8 @@ For example `gubbins.recombination_predictions.gff` is a `gff` file that contain
 head gubbins.recombination_predictions.gff
 ```
 
-![gubbins.3](gubbins_view-gff.png)
+![gubbins.3](gubbins_view-gff__2024.png)
+
 
 <br>
 
@@ -675,7 +705,7 @@ head gubbins.recombination_predictions.gff
 ```
 head gubbins.filtered_polymorphic_sites.fasta
 ```
-![gubbins.4](gubbins_polymorphic-sites.png)
+![gubbins.4](gubbins_polymorphic-sites__2024.png)
 
 <br>
 
