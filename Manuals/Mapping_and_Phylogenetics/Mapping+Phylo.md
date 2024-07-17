@@ -769,12 +769,14 @@ Phandango should automatically display blocks of recombination in <span style="c
 We can cluster genomes for epidemiology in a variety of ways, depending on the goal and genetic distances involved. Here will use `fastBAPS`, which is an optimised  implementation of the original `hierBAPS` algorithm for hierarchical partitioning and Bayesian clustering of genomes. `fastBAPS` can be run in `R` as well as from the command line.
 
 In the command below, we:
-* specify a set of SNPs/alleles for use by the model 
+* specify a set of SNPs/alleles for use by the model. 
   * `-i gubbins.filtered_polymorphic_sites.fasta`
-* specify the name of the output file 
+* specify the name of the output file. 
   * `-o fastbaps.clusters.csv`
-* specify that we want hierarchical clustering at two different levels (i.e. BAPS will attempt to subdivide "level 1 clusters" to form "level 2 clusters") 
+* specify that we want hierarchical clustering at two different levels (i.e. BAPS will attempt to subdivide "level 1 clusters" to form "level 2 clusters"). 
   * `--levels 2`
+* specify a model for delineating genomes - we will use a relaxed clustering model which should maximise the number of clusters we get at level 2.
+  * `-p optimise.baps`
 ```
 run_fastbaps -i gubbins.filtered_polymorphic_sites.fasta -o fastbaps.clusters --levels 2
 ```
@@ -800,9 +802,7 @@ head fastbaps.clusters.fixid.csv
 ![fastbaps.fixid.code](fastbaps.fixid__2024.png)
 
 
-
-
-
+<br>
 <br>
 
 Go to the `microreact` webpage, and try uploading the new gubbins filtered tree and the fastbaps clusters
