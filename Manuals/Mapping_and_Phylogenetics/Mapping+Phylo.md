@@ -677,8 +677,6 @@ Note: `gubbins` can take a long time to run on some computers. If `gubbins` take
 ls -lh ~/github_repository/Modules/Mapping_and_Phylo/
 cp ~/github_repository/Modules/Mapping_and_Phylo/gubbins_backup_2024.tar.gz .
 tar -zxf gubbins_backup_2024.tar.gz
-ls -lh gubbins_backup_2024
-cp gubbins_backup_2024/* .
 ```
 
 Note: You may notice there is a directory called `gubbins_backups` - this is from a previous year, and will not be used today. 
@@ -741,8 +739,12 @@ python midpoint.root.py gubbins.final_tree.tre > gubbins.final_tree.midpoint.tre
 You can visualise this in `figtree` or `microreact` as above. How does it compare to the unrooted version? 
 
 <br>
+<br>
 
+### Visualising recombination blocks using phandango
 We can also visualise the tree together with the recombination blocks inferred by `gubbins` using a webtool called `phandango` 
+
+<br>
 
 Using your browser, navigate to (https://jameshadfield.github.io/phandango/#/)
 
@@ -758,12 +760,12 @@ Drag and drop the recombination gff file `gubbins.recombination_predictions.gff`
 
 Phandango should automatically display blocks of recombination in <span style="color:red"> *red* </span> (ancestral) and <span style="color:blue"> *blue* </span>(specific to a sample)
 
-![phandango.1](gubbins-phandango-plot.png)
+![phandango.1](gubbins-phandango-plot__2024.png)
 
 <br>
 <br>
 
-### Clustering genomes using `fastBAPS`
+## Clustering genomes using `fastBAPS`
 We can cluster genomes for epidemiology in a variety of ways, depending on the goal and genetic distances involved. Here will use `fastBAPS`, which is an optimised  implementation of the original `hierBAPS` algorithm for hierarchical partitioning and Bayesian clustering of genomes. `fastBAPS` can be run in `R` as well as from the command line.
 
 In the command below, we:
@@ -779,7 +781,7 @@ run_fastbaps -i gubbins.filtered_polymorphic_sites.fasta -o fastbaps.clusters --
 
 We can view the output using `head` or `cat`
 
-![fastbaps.command](run-fastbaps.png)
+![fastbaps.command](run-fastbaps__2024.png)
 
 <br>
 
@@ -795,7 +797,7 @@ sed s/Isolates/ID/ fastbaps.clusters > fastbaps.clusters.fixid.csv
 head fastbaps.clusters.fixid.csv
 ```
 
-![fastbaps.fixid.code](fastbaps.fixid.png)
+![fastbaps.fixid.code](fastbaps.fixid__2024.png)
 
 
 
@@ -818,11 +820,12 @@ Click `Continue`
 
 You should now see a tree coloured by your fastbaps groups. You can use the toggles to change the colouring and to add metadata blocks.
 
-![microreact.fastbaps.final](microreact.fastbaps.finaltree.png)
+![microreact.fastbaps.final](microreact.fastbaps.finaltree__2024.png)
 
 
 <br>
 
+<br>
 <br>
 
 END
