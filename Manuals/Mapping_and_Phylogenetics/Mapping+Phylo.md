@@ -543,8 +543,11 @@ Our maximum likelihood tree is labelled `clean.full.SNPs.aln.treefile`. The `tre
 cp clean.full.SNPs.aln.treefile clean.full.SNPs.aln.tre
 ```
 
+<br>
 
-We can look at the raw text 
+### Visualise a phylogenetic tree
+
+To examine our tree, we can look at the text file: 
 ```
 cat clean.full.SNPs.aln.tre
 ```
@@ -572,6 +575,16 @@ You should now have a visualisation of the tree we just generated
 
 <br>
 
+Examine the tree: 
+ - How are `new-sample-1` and `new-sample-2` related to each other?
+ - What do you notice about the different versions of the assembled genomes `CTMA_1441`?
+    - What does this tell you about the different assembly methods?
+
+<br>
+<br>
+
+### Tree Visualisation using Microreact
+
 We can also visualise our tree using a webtool called `Microreact`
 
  - Open Firefox and navigate to https://microreact.org/
@@ -596,7 +609,7 @@ Microreact may not recognise the file, so let's tell micoreact this this is a tr
 
 Click `continue` to view the tree
 
-![microreact.4](microreact-my-first-tree.png)
+![microreact.4](microreact-my-first-tree__2024.png)
 
 
 <br>
@@ -609,7 +622,7 @@ We can use `gubbins` to infer recombining sites by looking for increased SNP den
 run_gubbins.py -h
 ```
 
-![gubbins.1](gubbins-help.png)
+![gubbins.1](gubbins-help__2024.png)
 
 <br>
 
@@ -622,10 +635,14 @@ This command can take a few minutes to run.
 run_gubbins.py -c 4 -p gubbins clean.full.aln
 ```
 
-![run_gubbins_hanging](gubbins-run-hanging-screen.png)
+![run_gubbins_hanging](gubbins-run-hanging-screen__2024.png)
 <br>
 
-NB. If gubbins takes more than 10 mins to complete, we have already run it for you - the files are available at `~/Module_4_Mapping_Phylogeny/gubbins_backups/`. 
+![run_gubbins_hanging](gubbins-run-finished-screen__2024.png)
+<br>
+
+
+Note. `gubbins` can take a long time to run on some computers. If `gubbins` takes more than 10 mins to complete, we have already run it for you - the files are available at `~/Module_4_Mapping_Phylogeny/gubbins_backups/`. 
 
 ```
 ls -lh gubbins_backups/
