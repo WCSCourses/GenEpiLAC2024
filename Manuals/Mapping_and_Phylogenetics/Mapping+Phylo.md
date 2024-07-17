@@ -411,20 +411,33 @@ We can add this genome to a collection of genomes mapped using `snippy-core`.
 
 For this exercise, we will again retrieve our data from the github folder:
 
+```
+cp ../github_repository/Modules/Mapping_and_Phylo/old.snippy.runs_2024.tar.gz .
+```
+Check the files are there:
+```
+ls -lh
+```
 
+![snippy-context.copy-git.ls](snippy-context.copy-git.ls__2024.png)
+
+
+(Note that there is an existing file in our directory called `old.snippy.runs.2023.tar.gz - we will not be using this).
+
+<br>
 
 First, let’s extract the old `snippy` runs from our archive file
 ```
-tar -zxf old.snippy.runs.2024.tar.gz
+tar -zxf old.snippy.runs_2024.tar.gz
 ```
-We can see that we now have a new directory `old.snippy.runs`
+We can see that we now have a new directory `old.snippy.runs_2024`
 ```
 ls -lh
 ```
 ![snippy-context.tar.ls1](untar.old-snippy-files.ls__2024.png)
 
 ```
-ls -lh old.snippy.runs
+ls -lh old.snippy.runs_2024
 ```
 ![snippy-context.tar.ls2](untar.old-snippy-files.ls2__2024.png)
 
@@ -433,39 +446,41 @@ ls -lh old.snippy.runs
 Now lets use `snippy-core` to summarise all these genomes along with the new ones and create a multiple sequence alignment
 
 ```
-snippy-core --ref new-sample-1/ref.fa old.snippy.runs/* new-sample-1 new-sample-2 CTMA_1441.short CTMA_1441.long
+snippy-core --ref references/Vibrio_cholerae_O1_biovar_eltor_str_N16961_v2.fa old.snippy.runs_2024/* new-sample-1 new-sample-2 CTMA_1441.short CTMA_1441.long_polish CTMA_1441.long_nopolish
 ```
-![snippy-core.run1](snippy-core-run.png)
+![snippy-core.run1](snippy-core-run__2024.png)
 
 `Snippy` has now created a number of files, including a ‘core SNP alignment’
 ```
 ls -l core.*
 ```
-![snippy-core.run2](snippy-core.ls1.png)
+![snippy-core.run2](snippy-core.ls1__2024.png)
 
 We have various files that summarise our variants, e.g.
 ```
 head core.tab 
 ```
-![snippy-core.run3](snippy-core_head-tab.png)
+![snippy-core.run3](snippy-core_head-tab__2024.png)
 
 And our multiple sequence alignment containing all genomes:
 ```
 head core.full.aln
 ```
-![snippy-core.run4](snippy-core_head.core.aln.png)
+![snippy-core.run4](snippy-core_head.core.aln__2024.png)
 
 This file masks sequences with low confidence in different ways, but for some applications we want everything masked in the same way. Let’s change that so anything uncertain is marked as ’N’ using the `snippy-clean_full_aln` script that comes with `snippy`.
 ```
 snippy-clean_full_aln core.full.aln > clean.full.aln
 ```
-![snippy-core.run5](snippy-core_clean.aln.png)
+![snippy-core.run5](snippy-core_clean.aln__2024.png)
 
 <br>
 
 ## Phylogenetics
 
 Now that we have a clean multiple sequence alignment, we are now going to use `IQ-TREE` to build a maximum likelihood phylogeny.
+
+<br>
 
 ### Make a SNP-only alignment using `snp-sites`
 
@@ -475,7 +490,7 @@ We will use `snp-sites` to do this. You can view the options for `snp-sites`
 ```
 snp-sites
 ```
-![snp-sites.1](snp-sites.help.png)
+![snp-sites.1](snp-sites.help__2024.png)
 
 First, remove all the invariant sites and create a SNP-only multiple sequence alignment.
 ```
@@ -485,7 +500,7 @@ We can see how many invariant sites were removed (and what proportion of A, T, G
 ```
 snp-sites -C clean.full.aln
 ```
-![snp-sites.2](snp-sites_run.png)
+![snp-sites.2](snp-sites_run__2024.png)
 
 <br>
 
@@ -494,7 +509,7 @@ We can look at the options for `IQ-TREE` below
 ```
 iqtree -h
 ```
-![iqtree.1](iqtree-help.png)
+![iqtree.1](iqtree-help__2024.png)
 
 <br>
 
@@ -510,7 +525,7 @@ In the command below, we:
 iqtree -s clean.full.SNPs.aln -fconst $( snp-sites -C clean.full.aln ) -m GTR+F+I -T 2 -mem 2G -B 1000 -o M66
 ```
 
-![iqtree.2](iqtree-run.1.png)
+![iqtree.2](iqtree-run.1__2024.png)
 
 <br>
 
@@ -518,7 +533,7 @@ Look at folder
 ```
 ls -lh clean.full.*
 ```
-![iqtree.3](iqtree_-ls-after.png)
+![iqtree.3](iqtree_-ls-after__2024.png)
 
 <br>
 
@@ -533,7 +548,7 @@ We can look at the raw text
 ```
 cat clean.full.SNPs.aln.tre
 ```
-![iqtree.4](iqtree_less-newick-file.png)
+![iqtree.4](iqtree_less-newick-file__2024.png)
 
 But this is not very helpful - it's just raw text in 'newick' format. 
 
@@ -541,15 +556,18 @@ Instead, we can visualise this using `figtree`
 ```
 figtree clean.full.SNPs.aln.tre &
 ```
+(Note: Remember to include the `&` symbol at the end - this allows figtree to run in the background, and allows you to still use the command prompt)
 
-![figtree.1](figtree_launch.png)
+<br>
+
+![figtree.1](figtree_launch__2024.png)
 
 Ignore the java error messages. The popup box is asking you how to describe the 'bootstrap values'. You can click 'OK' here.
 
 You should now have a visualisation of the tree we just generated
 
 
-![figtree.2](figtree_initial.tree.png)
+![figtree.2](figtree_initial.tree__2024.png)
 
 
 <br>
