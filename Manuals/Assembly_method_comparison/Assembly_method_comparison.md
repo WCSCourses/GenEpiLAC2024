@@ -8,7 +8,7 @@
 
 # Assembly Method Comparisons - Costa Rica 2024 <!-- omit in toc -->
 
-### Module Leads: Matt Holden & Mat Beale <!-- omit in toc -->
+### Module Leads: Jordan Ashworth & Mat Beale <!-- omit in toc -->
 <br>
 
     
