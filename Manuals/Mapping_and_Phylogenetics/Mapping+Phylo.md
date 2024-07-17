@@ -1,7 +1,7 @@
 <img src="https://coursesandconferences.wellcomeconnectingscience.org/wp-content/themes/wcc_courses_and_conferences/dist/assets/svg/logo.svg" width="200" height="200">
 
 
-[<<< Go back to Manual Contents Page](https://github.com/WCSCourses/GenEpiLAC2024/blob/main/Manuals/Manual_main.md)
+[<<< Go back to Manual Contents Page]cd M 
 
 <br>
 
@@ -218,7 +218,7 @@ You can view the options for snippy using the following code:
 ```
 snippy -h
 ```
-![snippy.h](snippy_-h.png)
+![snippy.h](snippy_-h__2024.png)
 
 <br>
 
@@ -338,45 +338,82 @@ Examine the results of snippy for `new-sample-2` using `grep`, `ls` and `less`
 
 ## Use an existing assembly as input to snippy
 
-### Map an existing short-read assembly 
-
 Sometimes we only have assemblies available, or we want to integrate long-read data into our analysis of short-read genomes. Snippy allows us to do this using the `--ctgs` argument. This takes an existing assembly file and simulates short reads, before calling variants against the reference.
 
-We will do this for the same sample assembled using both short- and long-reads to compare their placements. The assemblies are in the `assemblies` directory:
-```
-ls -lh assemblies/
-```
+We are going to integrate assemblies from a genome called "CTMA_1441" into our mapping analysis analysis. This genome was published in 2020 (https://pubmed.ncbi.nlm.nih.gov/32586863/), and used both short and long reads. For the purposes of this exercise, we have assembled it using three different approaches:
 
-![snippy.longread.assemblies.dir]()
+ - Short read assembly (SPAdes) from Illumina reads 
+ - Long read assembly (Dragonflye) from Oxford Nanopore reads
+ - Hybrid assembly from long reads (Dragonflye), followed by short read polishing
+
+Note that we will explore the differences between these assembly methods more in a later module. 
 
 <br>
 
-We can add the short-read assembly to snippy like this:
+### Locate existing assemblies
+
+The reads are hosted in the course GitHub repository. If that has been updated on your local VM, the files should be available to access. Let's check:
+
 ```
-snippy --outdir CTMA_1441.short --ctgs assemblies/CTMA_1441.unicycler-short.fasta references/Vibrio_cholerae_O1_biovar_eltor_str_N16961_v2.fa --cpus 4 --ram 4 --force --quiet
+ls -lh ~/github_repository/Modules/Mapping_and_Phylo/
 ```
+
+![github.repo.ls](github.repo.ls__2024.png)
+
+If the files are missing, check with the instructors.
+
+<br>
+
+Assuming they are available, we can copy the assemblies to our current working directory to make things easier:
+
+```
+cp ~/github_repository/Modules/Mapping_and_Phylo/CTMA_1441.* .
+```
+
+<br>
+
+### Map an existing short-read assembly 
+
+The short read assembly is called `CTMA_1441.unicycler-short.fasta`. We can add the short-read assembly to snippy like this:
+```
+snippy --outdir CTMA_1441.short --ctgs CTMA_1441.unicycler-short.fasta --ref references/Vibrio_cholerae_O1_biovar_eltor_str_N16961_v2.fa --cpus 4 --ram 4 --force --quiet
+```
+
+<br>
+
+![snippy_assembly_example](snippy_assembly_example__2024.png)
 
 <br>
 
 ### Map a long-read assembly to reference 
-We now need to map the long read assembly (`CTMA_1441.dragonflye-long.fasta`) to our reference
+We now need to map the two long read assemblies to our analysis:
+ - `CTMA_1441.filtreads.dragonflye.long_4.1_polish.contigs.fa` 
+ - `CTMA_1441.filtreads.dragonflye.long_4.1_nopolish.contigs.fa`
 
-Adapt the code examples provided above to run `snippy` on the long-read assembly using the output directory `CTMA_1441.long`
+<br>
 
-Examine the results of snippy for `CTMA_1441.long` using `grep`, `ls` and `less`
+Adapt the code examples provided above to run `snippy` on the long-read assemblies using the output directories `CTMA_1441.long_polish` and `CTMA_1441.long_nopolish`.
+
+Examine the results of snippy for each assembly using `grep`, `ls` and `less`.
 
 
 <br>
 
 
-What do you notice about the number of variable sites identified with the long-read assembly?
+What do you notice about the number of variable sites identified with the different  assemblies?
 
 <br>
 
 ## Contextualise new genomes with a collection
 Now lets look at this new genome in context with a collection. 
 
-We can add this genome to a collection of genomes mapped using `snippy-core`. First, let’s extract the old `snippy` runs from our archive file
+We can add this genome to a collection of genomes mapped using `snippy-core`. 
+
+For this exercise, we will again retrieve our data from the github folder:
+
+
+
+First, let’s extract the old `snippy` runs from our archive file
 ```
 tar -zxf old.snippy.runs.2024.tar.gz
 ```
