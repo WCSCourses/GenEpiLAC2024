@@ -34,7 +34,7 @@
   - [Step 11. Explore local genomeic matches in `act`](#step-11-explore-local-genomeic-matches-in-act)
   - [Step 12. Mapping reads back to the ordered assembly using `snippy`](#step-12-mapping-reads-back-to-the-ordered-assembly-using-snippy)
 - [Generating the genome annotation](#generating-the-genome-annotation)
-  - [Step 13.  `bakta`](#step-13--bakta)
+  - [Step 13. Genomic annotation using `bakta`](#step-13-genomic-annotation-using-bakta)
   - [Step 14. Visualizing the `bakta` annotation](#step-14-visualizing-the-bakta-annotation)
 - [Examining the evolution of drug resistance in ST1 _S. aureus_](#examining-the-evolution-of-drug-resistance-in-st1-s-aureus)
   - [Step 15.](#step-15)
@@ -792,7 +792,23 @@ As before, display the GC Deviation (G-C)/(G+C) plots for both of the sequences 
 
 <br>
 
+<br>
+
+**QUESTION?**
+EXTRA CONTEXT
+<input type="text" placeholder="Answer" style="width:100%; height: 30px;">
+
+<br>
+
+**QUESTION?**
+EXTRA CONTEXT
+<input type="text" placeholder="Answer" style="width:100%; height: 30px;">
+
+<br>
+
 In the `act` figure there are several regions of interest that are worth investing. The first region we are going to look at is the inverted region in the centre of the assembly that is covered by the hourglass shaped blue matches in the comparison panel. This 130 kb region spans the terminus of replication region, and is present at one end of a contig. At the other end of the putative inverted region there is a contig break. 
+
+*******ADD FURTHER DETAILS*******
 
 <br>
 
@@ -802,7 +818,23 @@ In the `act` figure there are several regions of interest that are worth investi
 
 <br>
 
+<br>
+
+**QUESTION?**
+EXTRA CONTEXT
+<input type="text" placeholder="Answer" style="width:100%; height: 30px;">
+
+<br>
+
+**QUESTION?**
+EXTRA CONTEXT
+<input type="text" placeholder="Answer" style="width:100%; height: 30px;">
+
+<br>
+
 ## Step 12. Mapping reads back to the ordered assembly using `snippy`
+
+****The `snippy` process takes approximately 20 minytes - Move to earlier in the practival for results to be analysed at this point****
 
 In this next exercise you are going to use the same mapping method as you did in Mapping Module, to map the 16B strain forward and reverse reads against the pseudo-molecule that you created using `abacas`. We are then going to look at the aligned mapped reads in `act` by loading the mapped bam file with the `16B.ordered.fasta`.  
 
@@ -921,7 +953,7 @@ Both of these program are installed on the disk image, but we are going to use `
 There are two steps in running `bakta`, the first is downloading a database for it to use for annotation, the second is to run the `bakta` annotation on a query sequence using the database. The downloading step takes a while to run (it involves download a file of ~1.6 Gb), so we have already down loaded is for you. 
 
 
-## Step 13.  `bakta`
+## Step 13. Genomic annotation using `bakta`
 
 
 To run `bakta` to annotate your sequence.
