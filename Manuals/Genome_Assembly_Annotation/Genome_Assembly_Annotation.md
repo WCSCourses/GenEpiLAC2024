@@ -834,7 +834,11 @@ EXTRA CONTEXT
 
 ## Step 12. Mapping reads back to the ordered assembly using `snippy`
 
+<br>
+
 ****The `snippy` process takes approximately 20 minytes - Move to earlier in the practival for results to be analysed at this point****
+
+<br>
 
 In this next exercise you are going to use the same mapping method as you did in Mapping Module, to map the 16B strain forward and reverse reads against the pseudo-molecule that you created using `abacas`. We are then going to look at the aligned mapped reads in `act` by loading the mapped bam file with the `16B.ordered.fasta`.  
 
@@ -865,18 +869,7 @@ snippy --outdir 16B_mapping --R1 16B_1.fastq --R2 16B_2.fastq --ref 16B.ordered.
 
 <br>
 
-The bam file contains all the mapping positions on the genome for each individual read is in the `16B_mapping` directory. Before we can use it in `act` we have to index is using the `samtools` `index` command.
-
-- Specify the bam file to index
-    - `16B_mapping/snps.bam`
-
-<br>
-
-```bash
-samtools index 16B_mapping/snps.bam
-```
-
-<br>
+This produces a number of files, including: **COMPLETE**
 
 To load the `bam` file into `act`, click *File* on the menu and them click the *16B.ordered.fasta* entry, and then the *Read BAM / VCF*.
 
