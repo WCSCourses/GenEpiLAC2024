@@ -370,7 +370,9 @@ We are most interested in the HTML files, which contain the FastQC reports for o
 
 Use the following command as an example:
 
-    firefox ARIMSS995-11_1_fastqc.html &
+    firefox ARIMSS995-11_*.html &
+
+> **Note**: Don't worry if error messages appear on the command line, just hit enter to get back the prompt.
 
 You should then see something like this:
 
