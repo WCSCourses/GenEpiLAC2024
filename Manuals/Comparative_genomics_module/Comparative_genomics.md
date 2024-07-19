@@ -319,7 +319,7 @@ Use the *File manager* to drag and drop files into the `act' file window:
 
 
 
-![act start up 1](act_start_1.png)
+![act_GAS_start](act_GAS_start.png)
 
 
 
