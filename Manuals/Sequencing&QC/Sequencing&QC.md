@@ -305,7 +305,7 @@ Going back to FastqQC, we can launch the graphical interface by simply executing
 
 > With this command we will be running fastqc in all the files that have the `.fastq.gz` extension. Nonetheless we will be focusing only in samples ARIMSS995-11 and untrimmed.
 
->  --- Comment: instead of compressing the files again with gzip, you could also use the command `fastqc *.fastq*`. By adding a star symbol after `.fastq`, fastqc will run in all files that include `.fastq` as part of the extension (zipped and unzipped) ---
+> **Note**: instead of compressing the files again with gzip, you could also use the command `fastqc *.fastq*`. By adding a star symbol after `.fastq`, fastqc will run in all files that include `.fastq` as part of the extension (zipped and unzipped)
          
 
 You will see some messages like this on your screen:
