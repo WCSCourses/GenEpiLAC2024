@@ -483,7 +483,7 @@ See summarized report in a browser:
 
 ## [Short quiz on Linux](#short-quiz-on-Linux)
 
-If after this module you have time and you feel you need to practice more some of the commands you've learnt in the pre/course "Introduction to Linux for biologists", here's a short quiz to do so: 
+If after this module you have time and you feel you need to practice more some of the commands you've learnt in the pre-course "Introduction to Linux for biologists", here's a short quiz to do so: 
 
 1. Extract the first 15 lines from file “reference_Ss046.fasta” and save the output into “output.fa” 
 2. How many files are there in the Linux directory? 
