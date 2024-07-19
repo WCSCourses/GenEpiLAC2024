@@ -419,9 +419,8 @@ If you have extra time, you could try trimming the 'untrimmed' sample!
 
 The file for this part of the exercise is in a Google Drive link, so let's download it to our VM:
 
-```
 [https://drive.google.com/file/d/1QqNDYqGfQbkcJrP4nchXvdL94BCvAUQf/view?usp=sharing](https://drive.google.com/file/d/1QqNDYqGfQbkcJrP4nchXvdL94BCvAUQf/view?usp=sharing)
-```
+
 
 Now we want to move that file into our current working directory (Module_1_Sequencing_QC):
 
