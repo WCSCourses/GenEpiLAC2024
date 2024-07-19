@@ -36,8 +36,8 @@
 - [Generating the genome annotation](#generating-the-genome-annotation)
   - [Step 13. Genomic annotation using `bakta`](#step-13-genomic-annotation-using-bakta)
   - [Step 14. Visualizing the `bakta` annotation](#step-14-visualizing-the-bakta-annotation)
-- [Examining the evolution of drug resistance in ST1 _S. aureus_](#examining-the-evolution-of-drug-resistance-in-st1-s-aureus)
-  - [Step 15.](#step-15)
+- [Examining the evolution of drug resistance in ST1 *S. aureus*](#examining-the-evolution-of-drug-resistance-in-st1-s-aureus)
+  - [Step 15. Comparing annotations of 16B vs MSSA476 vs MW2 in `act`](#step-15-comparing-annotations-of-16b-vs-mssa476-vs-mw2-in-act)
 
 <br>
 
@@ -157,17 +157,6 @@ From the phenotypic data you have been given you know that 16B exhibits resistan
 We have installed `ariba` on the virtual machine. You will use it to download the `ResFinder` database locally and then use `ariba` to examine the resistome of your isolates. Further information about `ariba` can be found in the [ariba wiki](https://github.com/sanger-pathogens/ariba/wiki) (Hunt M, et al., 2017. "ariba: rapid antimicrobial resistance genotyping directly from sequencing reads." Microb Genom. 3:e000131).
 
 The results can then be visualised using [Phandango](http://jameshadfield.github.io/phandango/), an interactive web tool for viewing your outputs.
-
-<br>
-
-The first part of this exercise will follow six steps:
-
-1. **Download the ResFinder Database:** Use `ariba` to download and format the ResFinder database.
-2. **Analyse 16B Reads:** Run `ariba` on the 16B FASTQ reads to identify antibiotic resistance genes.
-3. **Analyse MW2 Reads:** Run `ariba` on the MW2 FASTQ reads to identify antibiotic resistance genes.
-4. **Analyse MSSA476 Reads:** Run `ariba` on the MSSA476 FASTQ reads to identify antibiotic resistance genes.
-5. **Compile the Results:** Gather and compile the results from the 16B, MW2, and MSSA476 analyses.
-6. **Visualise in Phandango:** Use Phandango to visualise and interpret the compiled outputs.
 
 <br>
 
@@ -679,13 +668,21 @@ Several files are created by `abacas` and output into the `Part_2_Genome_Annotat
 
 <br>
 
-Of these output files, we will be using `16B.ordered.fasta`. This contains a single scaffold as the contigs have been joined by strings of Ns in the order at which they appear in the reference genome. As this is in fasta format, we can confirm the number of sequences in the output file as 1 by counting (`-c`) the number of lines in the file that begin with (`^`) `>` and represent a fasta header. `grep` is one way we can do this:
+Of these output files, we will be using `16B.ordered.fasta`. This contains a single scaffold as the contigs have been joined by strings of Ns in the order at which they appear in the reference genome. As this is in fasta format, we can confirm the number of sequences in the output file as 1 by counting (`-c`) the number of lines in the file that begin with (`^`) the greater than sign `>` and represent a fasta header. `grep` is one way we can do this:
 
 <br>
 
 ```bash
-grep -c '^>' S_aureus_16B.ordered.fasta
+grep -c '^>' 16B.ordered.fasta
+```
 
+<br>
+
+Should return:
+
+<br>
+
+```bash
 1
 ```
 
@@ -697,12 +694,14 @@ Now that the contigs are ordered, the next step is to perform a detailed compari
 
 To achieve this, we will use `blastn` to generate a more granular comparison. We will utilise the locally installed version of `blast` to perform this task.
 
-First, we will run `formatdb` to format one of the sequences as a `blast` database:
+First, we will run `makeblastdb` to format one of the sequences as a `blast` database:
 
-- Specify the sequence type (protein: True or False). Ours is a DNA sequence, so we use F
-    - `-p F`
 - Specify the input sequence to format
-    - `-i MSSA476.dna`
+    - `-in MSSA476.dna`
+- Specify the sequence type of the database
+    - `-dbtype nucl`
+- Specify the database name
+    - `-out MSSA476`
 
 <br>
 
@@ -788,7 +787,7 @@ As before, display the GC Deviation (G-C)/(G+C) plots for both of the sequences 
 
 In the `act` figure there are several regions of interest that are worth investing. The first region we are going to look at is the inverted region in the centre of the assembly that is covered by the hourglass shaped blue matches in the comparison panel. This 130 kb region spans the terminus of replication region, and is present at one end of a contig. At the other end of the putative inverted region there is a contig break. 
 
-*******ADD FURTHER DETAILS*******
+<!--- ADD FURTHER DETAILS --->
 
 <br>
 
@@ -799,12 +798,6 @@ In the `act` figure there are several regions of interest that are worth investi
 <br>
 
 ## Step 12. Mapping reads back to the ordered assembly using `snippy`
-
-<br>
-
-****The `snippy` process takes approximately 20 minutes to run.****
-
-<br>
 
 In this next exercise you are going to use the same mapping method as you did in Mapping Module, to map the 16B strain forward and reverse reads against the pseudo-molecule that you created using `abacas`. We are then going to look at the aligned mapped reads in `act` by loading the mapped bam file with the `16B.ordered.fasta`.  
 
@@ -837,13 +830,23 @@ snippy --outdir 16B_mapping --R1 16B_1.fastq --R2 16B_2.fastq --ref 16B.ordered.
 
 This produces a number of files, including: **COMPLETE**
 
+<br>
+
+<p align="center">
+    <img src="images/snippy_ls.png" alt="snippy_ls" style="width:80%">  
+</p>
+
+<br>
+
 To load the `bam` file into `act`, click *File* on the menu and them click the *16B.ordered.fasta* entry, and then the *Read BAM / VCF*.
 
 In the pop-up box click *Select*, select the `snps.bam` file from the `16B_mapping` directory, click *Open*, then click *OK*.
 
 <br>
 
-![ACT bam load](ACT_bam_load.png)
+<p align="center">
+    <img src="images/ACT_bam_load.png" alt="ACT_bam_load" style="width:80%">  
+</p>
 
 <br>
 
@@ -851,7 +854,9 @@ If you are not already there, go to the inversion region, and the inversion poin
 
 <br>
 
-![CT bam inv 1](CT_bam_inv_1.png)
+<p align="center">
+    <img src="images/ACT_bam_inv_1.png" alt="ACT_bam_inv_1" style="width:80%">  
+</p>
 
 <br>
 
@@ -859,7 +864,9 @@ Zoom in further keeping the inversion site in the centre of the ACT screen.
 
 <br>
 
-![CT bam inv 2](CT_bam_inv_2.png)
+<p align="center">
+    <img src="images/ACT_bam_inv_2.png" alt="ACT_bam_inv_2" style="width:80%">  
+</p>
 
 <br>
 
@@ -869,7 +876,9 @@ To get another perspective of the mapping to this region, change the BAM view to
 
 <br>
 
-![CT bam inv 3](CT_bam_inv_3.png)
+<p align="center">
+    <img src="images/ACT_bam_inv_3.png" alt="ACT_bam_inv_3" style="width:80%">  
+</p>
 
 <br>
 
@@ -883,7 +892,9 @@ In `act` change the read view back to *Stack view*, and zoom out to see the whol
 
 <br>
 
-![CT bam inv 4](CT_bam_inv_4.png)
+<p align="center">
+    <img src="images/ACT_bam_inv_4.png" alt="ACT_bam_inv_4" style="width:80%">  
+</p>
 
 <br>
 
@@ -893,7 +904,9 @@ Zoom into this region to look in more detail.
 
 <br>
 
-![CT bam inv 5](CT_bam_inv_5.png)
+<p align="center">
+    <img src="images/ACT_bam_inv_5.png" alt="ACT_bam_inv_5" style="width:80%">  
+</p>
 
 <br>
 
@@ -948,13 +961,12 @@ bakta --db bakta_database/db-light 16B.ordered.fasta
 
 <br>
 
-
 The first step of `bakta` is to annotate non-protein encoding regions including tRNAs, tmRNA, rRNA, ncRNA. It then predicts protein coding sequences and annotates these from match to proteins with predicted function, and includes annotation of hypothetical proteins with matches to protein domains. Matches to plasmids origins of replication are included where found and provides a summary of the genomic annotation.
 
 <br>
 
 <p align="center">
-    <img src="images/bakta_output.png" alt="bakta_output" style="width:80%">  
+    <img src="images/bakta_output.png" alt="bakta_output" style="width:70%">  
 </p>
 
 <br>
@@ -964,7 +976,7 @@ The results are written to multiple output files in the directory `16B_annotatio
 <br>
 
 <p align="center">
-    <img src="images/bakta_ls.png" alt="bakta_ls" style="width:80%">  
+    <img src="images/bakta_ls.png" alt="bakta_ls" style="width:70%">  
 </p>
 
 <br>
@@ -975,22 +987,27 @@ For more information on the annotation generated by `bakta`, the run options and
 
 ## Step 14. Visualizing the `bakta` annotation
 
-
 `bakta` has generated a number of output files in different foramt that contain the annotation for 16B ordered assembly. We are going to use the EMBL format file and view it in ACT. 
 
 In ACT, open the `16B.ordered.embl` file into the `16B.ordered.fasta` entry by going to the *File* menu, and selecting the *16B.ordered.fasta* option, and right clicking onto the *Read An Entry* option. 
 
+<br>
 
-![ACT 3 regions](ACT_3_regions.png)
-
+<p align="center">
+    <img src="images/ACT_3_regions.png" alt="ACT_3_regions" style="width:80%">  
+</p>
 
 <br>
 
 ### Region 1 <!-- omit in toc -->
 
+<br>
 
-![Region 1](Region_1.png)
+<p align="center">
+    <img src="images/ACT_region_1.png" alt="ACT_region_1" style="width:80%">  
+</p>
 
+<br>
 
 In this region near at the left hand side of the reference chromosome and near the origin of replication, you can see that this contig spans the origin of replication and therefore matches two separate regions of the reference (left and right ends of the MSSA476 chromosome). 
 
@@ -1000,6 +1017,8 @@ Beyond the origin of replication there is a second region that is a novel indel 
 
 Have a look at the annotation generated by `bakta` of the CDSs in this region in 16B.
 
+<br>
+
 **What sort of functions do the proteins in this region encode?**
 <input type="text" placeholder="Answer" style="width:100%; height: 30px;">
 
@@ -1007,7 +1026,9 @@ Have a look at the annotation generated by `bakta` of the CDSs in this region in
 
 Have a look at the annotation of the CDSs in the MSSA476 reference that match this regions.
 
-**What do you the identity of this region is?**
+<br>
+
+**What is the identity of this region?**
 <input type="text" placeholder="Answer" style="width:100%; height: 30px;">
 
 <br>
@@ -1019,36 +1040,53 @@ Have a look at the annotation of the CDSs in the MSSA476 reference that match th
 
 ### Region 2 <!-- omit in toc -->
 
+<br>
 
-![Region 2](Region_2.png)
+<p align="center">
+    <img src="images/ACT_region_2.png" alt="ACT_region_2" style="width:80%">  
+</p>
 
+<br>
 
 From the `act` figure it would appear that there is a large insert in the 16B assembly relative to the MSSA476. If you zoom in and look at the sequence you will see that is composed of Ns rather than bases (in the figure you can make out regions with Ns, as they do not have any black lines that indicate stop codons on the forward and reverse translations). In this case ABACAS has mis-predicted a gap in this region, and therefore `bakta` has not  annotation this region as it does not contain sequence.
 
 <br>
 
-
 ### Region 3 <!-- omit in toc -->
-
-
-![Region 3](Region_3.png)
-
-
-In this region near at the right hand side of the assembly, we have the non-mapping contigs (yellow). Previously we have seen that the two largest contigs are likely to be separate plasmids. 
-
-- Have a look at the annotation generated by `bakta` of the CDSs of the contigs in this region. 
-- What sort of functions do the proteins in this encode? 
-- Does the annotation confirm them as plasmids?
-- Can you find any genes of interest for antibiotic resistance that `ariba` identified?
-
 
 <br>
 
+<p align="center">
+    <img src="images/ACT_region_3.png" alt="ACT_region_3" style="width:80%">  
+</p>
 
-# Examining the evolution of drug resistance in ST1 _S. aureus_
+<br>
 
+In this region near at the right hand side of the assembly, we have the non-mapping contigs (yellow). Previously we have seen that the two largest contigs are likely to be separate plasmids. 
 
-Up until now we have compared the 16B assembly to only one other ST1 _S. aureus_ strain, MSSA476. We are now going introduce another strain to the comparison, MW2, and start looking at the genetic differences between the isolates that may impact on their biology. Although MW2 was isolated in a different country (USA), many thousands of miles away from 16B and MSSA476 (both UK), it still belongs to the same clone, and probably share a common ancestor tens rather than hundreds of years ago. A clinically important phenotypic difference between these isolates are their antibiotic resistances:
+<br>
+
+Have a look at the annotation generated by `bakta` of the CDSs of the contigs in this region.
+
+<br>
+
+**What sort of functions do the proteins in this encode?**
+<input type="text" placeholder="Answer" style="width:100%; height: 30px;">
+
+<br>
+
+**Does the annotation confirm them as plasmids?**
+<input type="text" placeholder="Answer" style="width:100%; height: 30px;">
+
+<br>
+
+**Can you find any genes of interest for antibiotic resistance that `ariba` identified?**
+<input type="text" placeholder="Answer" style="width:100%; height: 30px;">
+
+<br>
+
+# Examining the evolution of drug resistance in ST1 *S. aureus*
+Up until now we have compared the 16B assembly to only one other ST1 *S. aureus* strain, MSSA476. We are now going introduce another strain to the comparison, MW2, and start looking at the genetic differences between the isolates that may impact on their biology. Although MW2 was isolated in a different country (USA), many thousands of miles away from 16B and MSSA476 (both UK), it still belongs to the same clone, and probably share a common ancestor tens rather than hundreds of years ago. A clinically important phenotypic difference between these isolates are their antibiotic resistances:
 
 - 16B – penicillin<sup>R</sup>, fusidic acid<sup>R</sup>, methicillin<sup>R</sup>, erythromycin<sup>R</sup>
 - MSSA476 – penicillin<sup>R</sup>, fusidic acid<sup>R</sup>
@@ -1060,28 +1098,35 @@ As you will hopefully have just discovered, it is possible to use genome sequenc
 
 Before we begin this exercise close down any `act` session you have open.
 
-## Step 15.
+<br>
+
+## Step 15. Comparing annotations of 16B vs MSSA476 vs MW2 in `act`
 
 In order to examine the regions of difference in the 16B assembly with MW2 we are going generate a comparison file that we can load in ACT, as we did previously for MSSA476.
 
-At the prompt type and return the command line:
+As before, run `makeblastdb` to format one of the sequences as a `blast` database, this time specifying our ordered asssembly as the input:
+
+<br>
 
 ```bash
-formatdb -p F -i 16B.ordered.fasta
+makeblastdb -in 16B.ordered.fasta -dbtype nucl -out 16B.ordered
 ```
 
+<br>
 
-Next type and return the command line:
+Next we run `blastn` with `MW2.dna` as the query, against the `16B.ordered` database:
+
+<br>
 
 ```bash
-blastall -p blastn -m 8 -d 16B.ordered.fasta -i MW2.dna -o 16B.ordered.fasta_vs_MW2.dna
+blastn -query MW2.dna -db 16B.ordered -out 16B.ordered.fasta_vs_MW2.dna.tsv -outfmt 6
 ```
 
+<br>
 
-We are now going to load up the three sequences and relevant comparison files into `act`. You can do this either from the command line or by clicking on the ACT icon. 
+We are now going to load up the three sequences and relevant comparison files into `act`. You can do this either from the command line or by clicking on the ACT icon. If you prefer to do it from the command line you can type:
 
-
-If you prefer to do it from the command line you can type:
+<br>
 
 ```bash
 act MSSA476.embl MSSA476.dna_vs_16B.ordered.fasta.tsv 16B.ordered.embl 16B.ordered.fasta_vs_MW2.dna MW2.embl &
@@ -1089,45 +1134,62 @@ act MSSA476.embl MSSA476.dna_vs_16B.ordered.fasta.tsv 16B.ordered.embl 16B.order
 
 <br>
 
-
-
 Now that you have included the MW2 sequence to the comparison you should see an `act` view with three DNA panels and two comparison panels separating them. In this zoomed out view, MSSA476 is on the top, 16B is in the middle and MW2 on the bottom. You will also notice that in the `act` menu at the top there are now three entry options. 
 
+<br>
 
+<p align="center">
+    <img src="images/ACT_3way_1.png" alt="ACT_3way_1" style="width:80%">  
+</p>
 
-![ACT 3way 1](ACT_3way_1.png)
-
-
-
+<br>
 
 To help you with your investigations, we have also provided two additional annotation files that contain misc_features which mark the extent of MGEs identified in the MSSA476 and MW2 chromosomes. These can be loaded into the appropriate entry (from the menu click *File*, the entry you want, then *Read An Entry*). The misc_features are colour coded in the ACT view according to the type of MGE (see legend on on the circular diagram of MSSA476).
 
+<br>
 
+<p align="center">
+    <img src="images/ACT_3way_2.png" alt="ACT_3way_2" style="width:80%">  
+</p>
 
-![ACT 3way 2](ACT_3way_2.png)
+<br>
 
+Here is the Region 1 that we have looked at previously, now with MW2 at the bottom. The regions of 16B that lacking annotation transferred from MSSA476, contains a matches to a region of the MW2.
 
+<br>
 
+**Does the identity of this MW2 region correspond to what you have seen from the NCBI BLAST searches?**
+<input type="text" placeholder="Answer" style="width:100%; height: 30px;">
 
-Here is the Region 1 that we have looked at previously, now with MW2 at the bottom. The regions of 16B that lacking annotation transferred from MSSA476, contains a matches to a region of the MW2. Does the identity of this MW2 region correspond to what you have seen from the NCBI BLAST searches? What has occurred in this region of the 16B chromosome that could explain the structure of this region in comparison to the other strains?
+<br>
 
+**What has occurred in this region of the 16B chromosome that could explain the structure of this region in comparison to the other strains?**
+<input type="text" placeholder="Answer" style="width:100%; height: 30px;">
 
+<br>
 
+<p align="center">
+    <img src="images/ACT_3way_3.png" alt="ACT_3way_3" style="width:80%">  
+</p>
 
-![ACT 3way 3](ACT_3way_3.png)
-
-
+<br>
 
 Compare the other regions containing MGEs. 
 
-- How do these regions vary in the three strains, and what do they encode? 
-- Does this explain the differences in the antibiotics phenotypes of the isolates? 
-- Can you find any other important genes associated with MGEs that are vary in the isolates that are clinical relevant (clue, think toxins).
+<br>
 
-
-
+**How do these regions vary in the three strains, and what do they encode?**
+<input type="text" placeholder="Answer" style="width:100%; height: 30px;">
 
 <br>
+
+**Does this explain the differences in the antibiotics phenotypes of the isolates?**
+<input type="text" placeholder="Answer" style="width:100%; height: 30px;">
+
+<br>
+
+**Can you find any other important genes associated with MGEs that are vary in the isolates that are clinical relevant?** (clue, think toxins)
+<input type="text" placeholder="Answer" style="width:100%; height: 30px;">
 
 <br>
 
@@ -1136,4 +1198,3 @@ Compare the other regions containing MGEs.
 [<<< Go back to Manual Contents Page](https://github.com/WCSCourses/GenEpiLAC2024/blob/main/Manuals/Manual_main.md)
 
 <br>
-
