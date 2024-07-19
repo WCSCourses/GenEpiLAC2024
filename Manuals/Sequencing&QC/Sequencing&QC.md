@@ -447,7 +447,7 @@ ls nanoplot/CTMA_1441_longds
 You'll see different .html and .txt files with different plots and information which are summarized in the report: 
 
 ```
-fireforx CTMA_1441_longds_NanoPlot_report.html &
+firefox CTMA_1441_longds_NanoPlot_report.html &
 ```
 
 **How many reads are there in CTMA_1441_longds.fastq.gz?**
