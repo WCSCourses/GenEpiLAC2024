@@ -430,6 +430,8 @@ Now we want to move that file into our current working directory (Module_1_Seque
 mv /home/manager/Downloads/CTMA_1441_longds.fastq.gz .
 ```
 
+Remember to check that you have moved correctly this file!
+
 Let's check the quality of the reads we have downloaded:
 
 ```
