@@ -684,7 +684,7 @@ Of these output files, we will be using `S_aureus_16B.ordered.fasta`. This conta
 <br>
 
 ```bash
-grep -c '^>' `S_aureus_16B.ordered.fasta`
+grep -c '^>' S_aureus_16B.ordered.fasta
 ```
 
 <br>
