@@ -169,7 +169,7 @@ Feature plots can be displayed by selecting a CDS feature then clicking `View > 
 **Load additional files**
 You should be able to see the results from Prosite searches, run on the translation of each CDS, as pale-green boxes on the grey DNA lines. The results from the Pfam protein motif searches are not yet shown, but can be viewed by loading the appropriate file. Click on `File > Read an Entry` and select the file PF.tab. Each Pfam match will appear as a coloured blue feature in the main display panel on the grey DNA lines. To see the details click the feature then click `View > Selection` or click `Edit > Selected Features in Editor`. Please ask if you are unsure about Prosite and Pfam.
 
-Further information on specific Prosite or Pfam entries can be found on the web at: http://ca.expasy.org/prosite and http://xfam.org/
+Further information on specific Prosite or Pfam entries can be found on the web at: [http://ca.expasy.org/prosite](https://prosite.expasy.org) and [http://xfam.org/](http://pfam.xfam.org)
 
 In addition to looking at the fine detail of the annotated features it is also possible to look at the characteristics of the DNA covering the region displayed. This can be done by adding various plots to the display, showing different characteristics of the DNA. Some of the plots can be used to look at the protein coding potential of translation frames within the DNA, such as GC frame plot, and others can be used to search for horizontally acquired DNA.
 
