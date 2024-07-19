@@ -509,7 +509,7 @@ An interactive report will be produced `report.html` in the `quast.output` direc
 <br>
 
 ```bash
-firefox report.html &
+firefox ./quast.ouput/report.html &
 ```
 
 <br>
