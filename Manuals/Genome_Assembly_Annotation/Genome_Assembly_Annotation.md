@@ -413,7 +413,7 @@ The following parameters will be used when running `Unicycler`:
   - `-1 16B_1.fastq`
   - `-2 16B_2.fastq`
 - Specify the directory into which results are written:
-  - `-o S_aureus_16B`
+  - `-o 16B_assembly`
 
 Other parameters can be adjusted to optimise performance, but the default settings are generally adequate for most bacterial genome assemblies.
 
@@ -424,7 +424,7 @@ Run the `Unicycler` command:
 <br>
 
 ```bash
-unicycler -t 4 --kmers 65 -1 16B_1.fastq -2 16B_2.fastq -o S_aureus_16B
+unicycler -t 4 --kmers 65 -1 16B_1.fastq -2 16B_2.fastq -o 16B_assembly
 ```
 
 <br>
@@ -446,12 +446,12 @@ The `Unicycler` pipeline will handle all necessary steps, including error correc
 <!-- Maybe mention the number of contigs in each assembly graph. One graph contains most of the contigs. Two smaller graphs, one containing 2 contigs and one containing a single contig. The following section "Rotating complete replicons states that the contig which is 2,473 bp is circular, however a starting gene could not be identified." -->
 
 
-All the results are written into the specified output directory, e.g., `S_aureus_16B`. Use the UNIX `cd` command to move into this directory, and the `ls` command to list the contents.
+All the results are written into the specified output directory, e.g., `16B_assembly`. Use the UNIX `cd` command to move into this directory, and the `ls` command to list the contents.
 
 <br>
 
 ```bash
-cd S_aureus_16B/
+cd 16B_assembly/
 ls -l
 ```
 
@@ -628,7 +628,7 @@ Examining the GC deviation plot in `Artemis` for the 16B assembly reveals multip
 
 At the Wellcome Sanger Institute, a tool called `abacas` (Assefa _et al_., 2009) was developed to order contigs against a reference sequence. Any spaces between the contigs (gaps) can be filled in with “N” characters to ‘pad’ the sequence with equivalent sized regions to those on the reference that may be missing in the assembly. The result is called a pseudo-molecule. This is particularly useful for ordering fragmented contigs in a draft assembly against a well-assembled reference genome, thus providing a more contiguous representation of the genome.
 
-The sequence we are going to use as a reference belongs to an ST1 MSSA strain, MSSA476 (EMBL accession number BX571857). Before we begin, make sure you are back in the `Part_2_Genome_Annotation` directory. To check where you are, use the UNIX `pwd` command. If you were in the `S_aureus_16B` directory, use the `cd ../` command to move into the parental directory.
+The sequence we are going to use as a reference belongs to an ST1 MSSA strain, MSSA476 (EMBL accession number BX571857). Before we begin, make sure you are back in the `Part_2_Genome_Annotation` directory. To check where you are, use the UNIX `pwd` command. If you were in the `16B_assembly` directory, use the `cd ../` command to move into the parental directory.
 
 The tool `abacas` uses `MUMMER` to map contigs to a reference genome. This process aligns contigs to their most similar regions in the reference genome, and it primarily aims to reconstruct the overall order and orientation of contigs to form a more complete genome assembly. 
 
@@ -637,7 +637,7 @@ We are going to reorder the 16B assembly against the MSSA476 reference using `ab
 - Specify the reference sequence in a single fasta file
     - `-r MSSA476.dna`
 - Specify the assembled contigs in multi-fasta format
-    - `-q S_aureus_16B/assembly.fasta`
+    - `-q 16B_assembly/assembly.fasta`
 - Specify the MUMmer program to use: nucmer (for nucleotide-nucleotide comparison)
     - `-p nucmer`
 - Specify the default nucmer parameters, which are faster
@@ -647,14 +647,14 @@ We are going to reorder the 16B assembly against the MSSA476 reference using `ab
 - Specify the program to append contigs in bin to the pseudo-molecule
     - `-a`
 - Specify the prefix for the output file name
-    - `-o S_aureus_16B.ordered`
+    - `-o 16B.ordered`
 
 To see a complete list of the options available, you can type the command: `abacas.pl -h`
 
 <br>
 
 ```bash
-abacas.pl -r MSSA476.dna -q S_aureus_16B/assembly.fasta -p nucmer -d -b -a -o S_aureus_16B.ordered
+abacas.pl -r MSSA476.dna -q 16B_assembly/assembly.fasta -p nucmer -d -b -a -o 16B.ordered
 ```
 
 <br>
@@ -669,7 +669,7 @@ The output to screen should look similar to what is shown below.
 
 <br>
 
-Several files are created by `abacas` and output into the `Part_2_Genome_Annotation` directory. These all have the prefix `S_aureus_16B.ordered`. You can view the contents of your current directory with the `ls` command. 
+Several files are created by `abacas` and output into the `Part_2_Genome_Annotation` directory. These all have the prefix `16B.ordered`. You can view the contents of your current directory with the `ls` command. 
 
 <br>
 
@@ -679,12 +679,14 @@ Several files are created by `abacas` and output into the `Part_2_Genome_Annotat
 
 <br>
 
-Of these output files, we will be using `S_aureus_16B.ordered.fasta`. This contains a single scaffold as the contigs have been joined by strings of Ns in the order at which they appear in the reference genome. As this is in fasta format, we can confirm the number of sequences in the output file as 1 by counting (`-c`) the number of lines in the file that begin with (`^`) `>` and represent a fasta header. `grep` is one way we can do this:
+Of these output files, we will be using `16B.ordered.fasta`. This contains a single scaffold as the contigs have been joined by strings of Ns in the order at which they appear in the reference genome. As this is in fasta format, we can confirm the number of sequences in the output file as 1 by counting (`-c`) the number of lines in the file that begin with (`^`) `>` and represent a fasta header. `grep` is one way we can do this:
 
 <br>
 
 ```bash
 grep -c '^>' S_aureus_16B.ordered.fasta
+
+1
 ```
 
 <br>
@@ -719,7 +721,7 @@ makeblastdb -in MSSA476.dna -dbtype nucl -out MSSA476
 Next we will run `blastn` with the following parameters:
 
 - Specify the query file
-    - `-query S_aureus_16B.ordered.fasta`
+    - `-query 16B.ordered.fasta`
 - Specify the database file. This must be the file used for the `makeblastdb` command
     - `-db MSSA476`
 - Specify the output file name
@@ -730,7 +732,7 @@ Next we will run `blastn` with the following parameters:
 <br>
 
 ```bash
-blastn -query S_aureus_16B.ordered.fasta -db MSSA476 -out MSSA476.dna_vs_16B.ordered.fasta.tsv -outfmt 6
+blastn -query 16B.ordered.fasta -db MSSA476 -out MSSA476.dna_vs_16B.ordered.fasta.tsv -outfmt 6
 ```
 
 <br>
@@ -756,12 +758,6 @@ We will run `act` with the following parameters:
   - `16B.ordered.fasta`
 
 <br>
-
-*******CHANGE ALL S_aureus.16B.ordered.fasta to 16B.ordered.fasta*******
-*******CHANGE ALL S_aureus.16B.ordered.fasta to 16B.ordered.fasta*******
-*******CHANGE ALL S_aureus.16B.ordered.fasta to 16B.ordered.fasta*******
-*******CHANGE ALL S_aureus.16B.ordered.fasta to 16B.ordered.fasta*******
-*******CHANGE ALL S_aureus.16B.ordered.fasta to 16B.ordered.fasta*******
 
 ```bash
 act MSSA476.embl MSSA476.dna_vs_16B.ordered.fasta.tsv 16B.ordered.fasta &
@@ -790,20 +786,6 @@ As before, display the GC Deviation (G-C)/(G+C) plots for both of the sequences 
 
 <br>
 
-<br>
-
-**QUESTION?**
-EXTRA CONTEXT
-<input type="text" placeholder="Answer" style="width:100%; height: 30px;">
-
-<br>
-
-**QUESTION?**
-EXTRA CONTEXT
-<input type="text" placeholder="Answer" style="width:100%; height: 30px;">
-
-<br>
-
 In the `act` figure there are several regions of interest that are worth investing. The first region we are going to look at is the inverted region in the centre of the assembly that is covered by the hourglass shaped blue matches in the comparison panel. This 130 kb region spans the terminus of replication region, and is present at one end of a contig. At the other end of the putative inverted region there is a contig break. 
 
 *******ADD FURTHER DETAILS*******
@@ -816,25 +798,11 @@ In the `act` figure there are several regions of interest that are worth investi
 
 <br>
 
-<br>
-
-**QUESTION?**
-EXTRA CONTEXT
-<input type="text" placeholder="Answer" style="width:100%; height: 30px;">
-
-<br>
-
-**QUESTION?**
-EXTRA CONTEXT
-<input type="text" placeholder="Answer" style="width:100%; height: 30px;">
-
-<br>
-
 ## Step 12. Mapping reads back to the ordered assembly using `snippy`
 
 <br>
 
-****The `snippy` process takes approximately 20 minytes - Move to earlier in the practival for results to be analysed at this point****
+****The `snippy` process takes approximately 20 minutes to run.****
 
 <br>
 
@@ -946,14 +914,33 @@ There are two steps in running `bakta`, the first is downloading a database for 
 
 ## Step 13. Genomic annotation using `bakta`
 
+`bakta` uses a number of databases to annotate a genome. These databases are located in `bakta_database/db-light`. First we need to ensure these databases are up-to-date. Update the `amrfinder` database by running the following command:
 
-To run `bakta` to annotate your sequence.
+<br>
+
+```bash
+amrfinder_update --force_update --database /home/manager/Module_5_Genome_Assembly_And_Annotation/Part_2_Genome_Annotation/bakta_database/db-light/amrfinderplus-db
+```
+
+<br>
+
+<!---
+`bakta` may also need updating:
+<br>
+```bash
+mamba install bioconda::bakta
+```
+<br>
+--->
+
+Run `bakta` with the following commands to anotate the ordered assembly for 16B:
 
 - Specify the database directory
     - `--db bakta_database/db-light`
 - Specify the multifasta file to be annotated
     - `16B.ordered.fasta`
 
+<br>
 
 ```bash
 bakta --db bakta_database/db-light 16B.ordered.fasta
@@ -962,49 +949,29 @@ bakta --db bakta_database/db-light 16B.ordered.fasta
 <br>
 
 
-The first step of `bakta` is to annotate non-protein encoding regions including tRNAs, tmRNA, rRNA, ncRNA.
-
-![bakta 1](bakta_1.png)
-
+The first step of `bakta` is to annotate non-protein encoding regions including tRNAs, tmRNA, rRNA, ncRNA. It then predicts protein coding sequences and annotates these from match to proteins with predicted function, and includes annotation of hypothetical proteins with matches to protein domains. Matches to plasmids origins of replication are included where found and provides a summary of the genomic annotation.
 
 <br>
 
-
-It then predicts protein coding sequences and annotates these from match to proteins with predicted function, and includes annotation of hypothetical proteins with matches to protein domains
-
-![bakta 2](bakta_2.png)
-
+<p align="center">
+    <img src="images/bakta_output.png" alt="bakta_output" style="width:80%">  
+</p>
 
 <br>
 
-
-Matches to plasmids origins of replication are included where found and provides a summary of the genomic annotation.
-
-
-![bakta 3](bakta_3.png)
-
+The results are written to multiple output files in the directory `16B_annotation/`
 
 <br>
 
-
-
-![bakta 4](bakta_4.png)
-
-
-The results are written to multiple output files in the directory in which `bakta` was run.
-
-
-![bakta 5](bakta_5.png)
-
-
+<p align="center">
+    <img src="images/bakta_ls.png" alt="bakta_ls" style="width:80%">  
+</p>
 
 <br>
-
-
 
 For more information on the annotation generated by `bakta`, the run options and the output it generates see here: https://github.com/oschwengers/bakta   
 
-
+<br>
 
 ## Step 14. Visualizing the `bakta` annotation
 
@@ -1029,13 +996,26 @@ In this region near at the left hand side of the reference chromosome and near t
 
 Beyond the origin of replication there is a second region that is a novel indel region in 16B. The region spans two contigs. This ~22 kb region, contains `blastn` hits in the middle of the sequence, that match sequence in the MSSA476 reference (top) that is also present in the 16B assembly. This suggest that the ~22 kb region shares some similarity with the region downstream. 
 
-- Have a look at the annotation generated by `bakta` of the CDSs in this region in 16B. 
-- What sort of functions do the proteins in this region encode? 
-- Have a look at the annotation of the CDSs in the MSSA476 reference that match this regions. 
-- What do you the identity of this region is?
-- Can you find any genes of interest for antibiotic resistance that `ariba` identified?
 <br>
 
+Have a look at the annotation generated by `bakta` of the CDSs in this region in 16B.
+
+**What sort of functions do the proteins in this region encode?**
+<input type="text" placeholder="Answer" style="width:100%; height: 30px;">
+
+<br>
+
+Have a look at the annotation of the CDSs in the MSSA476 reference that match this regions.
+
+**What do you the identity of this region is?**
+<input type="text" placeholder="Answer" style="width:100%; height: 30px;">
+
+<br>
+
+**Can you find any genes of interest for antibiotic resistance that `ariba` identified?**
+<input type="text" placeholder="Answer" style="width:100%; height: 30px;">
+
+<br>
 
 ### Region 2 <!-- omit in toc -->
 
