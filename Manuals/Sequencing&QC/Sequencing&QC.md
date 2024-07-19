@@ -453,7 +453,7 @@ firefox nanoplot/CTMA_1441_longds/CTMA_1441_longds_NanoPlot-report.html &
 **How many reads are there in CTMA_1441_longds.fastq.gz?**
 **What is the median read length, N50 and median quality score?**
 
-Now, let's imporve the quality of our long reads using Filtlong. We will remove the worst reads (short length and low accuracy) with --keep_percent 90 and just keep those reads which are longer than 1000 kb (--min-length 1000):
+Now, let's improve the quality of our long reads using Filtlong. We will remove the worst reads (short length and low accuracy) with --keep_percent 90 and just keep those reads which are longer than 1000 kb (--min-length 1000):
 
 ```
 filtlong --min_length 1000 --keep_percent 90 CTMA_1441_longds.fastq.gz | gzip > CTMA_1441_longds_filt.fastq.gz
