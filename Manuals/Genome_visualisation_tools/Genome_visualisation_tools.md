@@ -44,7 +44,7 @@ To launch Artemis, open your terminal window and type:
 art &
 ```
 
-A small start-up window will appear (see figure below). The directory for Module 3 contains all files you will need for this module. Please ask if you cannot find it on your computer. Now follow the sequence of numbers in the figure below to load up the *Salmonella* Typhi chromosome sequence. Ask a demonstrator for help if you have any problems.
+A small start-up window will appear (see figure below). The directory for Module 2 contains all files you will need for this module. Please ask if you cannot find it on your computer. Now follow the sequence of numbers in the figure below to load up the *Salmonella* Typhi chromosome sequence. Ask a demonstrator for help if you have any problems.
 
 ![Artemis1](Artemis1.png)
 
