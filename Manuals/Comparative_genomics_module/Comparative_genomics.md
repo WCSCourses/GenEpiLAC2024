@@ -49,12 +49,12 @@ More details on `act` can be found here: http://sanger-pathogens.github.io/Artem
 <br>
 
 # [Finding the data](#finding-the-data)
-Navigate to the `Module_5_Comparative_Genomics` directory
+Navigate to the `Module_3_Comparative_Genomics` directory
 
 <br>
 
 ```
-cd Module_5_Comparative_Genomics
+cd Module_3_Comparative_Genomics
 ```
 
 We can confirm where we are: 
