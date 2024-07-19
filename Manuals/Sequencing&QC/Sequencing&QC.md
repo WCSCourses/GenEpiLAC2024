@@ -430,7 +430,7 @@ Now we want to move that file into our current working directory (Module_1_Seque
 mv /home/manager/Downloads/CTMA_1441_longds.fastq.gz .
 ```
 
-Let's see the what is the quality of the reads we have downloaded:
+Let's check the quality of the reads we have downloaded:
 
 ```
 NanoPlot -o nanoplot/CTMA_1441_longds --tsv_stats --info_in_report --N50 --no_static --prefix CTMA_1441_longds --fastq CTMA_1441_longds.fastq.gz
