@@ -778,7 +778,7 @@ In the command below, we:
 * specify a model for delineating genomes - we will use a relaxed clustering model which should maximise the number of clusters we get at level 2.
   * `-p optimise.baps`
 ```
-run_fastbaps -i gubbins.filtered_polymorphic_sites.fasta -o fastbaps.clusters --levels 2
+run_fastbaps -i gubbins.filtered_polymorphic_sites.fasta -o fastbaps.clusters --levels 2 -p optimise.baps
 ```
 
 We can view the output using `head` or `cat`
