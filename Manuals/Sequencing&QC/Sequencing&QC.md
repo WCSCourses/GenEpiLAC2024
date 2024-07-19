@@ -219,21 +219,6 @@ It is very common to have some quality metrics fail after running FastQC, and th
 
 For this module, we will be working with files which are inside the folder "Module_1_Sequencing_QC". Do you remember how to change to this directory? Give it a try!
 
-## [Short quiz on Linux](#short-quiz-on-Linux)
-
-1. Extract the first 15 lines from file “reference_Ss046.fasta” and save the output into “output.fa” 
-2. How many files are there in the Linux directory? 
-3. Create a new file called “Linux_directory.txt” which contains a list of the file names present in the Linux directory.
-4. Get the list of countries that contributed *S. sonnei* genome sequences for the publication previously mentioned and save it to “countries.txt” 
-5. Extract the Assembly accessions of the sequences in “Ssonei.txt” and save it to “assemblies.txt”. How many are there?
-6. Given a file with different sequences of Latin America, how do you count the ones submitted by Chile? (we know they should have the word “CHI” in the line).
-7.  .............is the command used to create a new directory.
-8. Command used to create an empty file.
-9. Which is the command used to remove or delete files without a confirmation prompt?
-10. "cat" is the command used to ...................
-11. ............. command is used to count the total number of lines, words and characters in a file. 
-12. Which command would you use to know the location of your current working directory?
-
 ## [Sequencing and QC](#sequencing-and-QC)
 
 Inside the directory "Module_1_Sequencing_QC", we have 10 compressed fastq files as fastq.gz. You can check that the files are there. Do you remember how to do that?
@@ -441,3 +426,20 @@ In the folder with reports, run:
 See summarized report in a browser:
 
     firefox multiqc_report.html &
+
+## [Short quiz on Linux](#short-quiz-on-Linux)
+
+If after this module you have time and you feel you need to practice more some of the commands you've learnt in the pre/course "Introduction to Linux for biologists", here's a short quiz to do so: 
+
+1. Extract the first 15 lines from file “reference_Ss046.fasta” and save the output into “output.fa” 
+2. How many files are there in the Linux directory? 
+3. Create a new file called “Linux_directory.txt” which contains a list of the file names present in the Linux directory.
+4. Get the list of countries that contributed *S. sonnei* genome sequences for the publication previously mentioned and save it to “countries.txt” 
+5. Extract the Assembly accessions of the sequences in “Ssonei.txt” and save it to “assemblies.txt”. How many are there?
+6. Given a file with different sequences of Latin America, how do you count the ones submitted by Chile? (we know they should have the word “CHI” in the line).
+7.  .............is the command used to create a new directory.
+8. Command used to create an empty file.
+9. Which is the command used to remove or delete files without a confirmation prompt?
+10. "cat" is the command used to ...................
+11. ............. command is used to count the total number of lines, words and characters in a file. 
+12. Which command would you use to know the location of your current working directory?
