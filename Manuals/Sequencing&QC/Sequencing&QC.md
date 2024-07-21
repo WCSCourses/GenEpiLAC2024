@@ -1,3 +1,9 @@
+<img src="https://coursesandconferences.wellcomeconnectingscience.org/wp-content/themes/wcc_courses_and_conferences/dist/assets/svg/logo.svg" width="200" height="200">
+
+[<<< Go back to Manual Contents Page](https://github.com/WCSCourses/GenEpiLAC2024/blob/main/Manuals/Manual_main.md)
+
+<br>
+
 # Module 1 - Sequencing & QC - Costa Rica 2024 <!-- omit in toc -->
 
 ## Table of contents <!-- omit in toc -->
@@ -496,3 +502,7 @@ If after this module you have time and you feel you need to practice more some o
 9. "cat" is the command used to ...................
 10. ............. command is used to count the total number of lines, words and characters in a file. 
 11. Which command would you use to know the location of your current working directory?
+
+[<<< Go back to Manual Contents Page](https://github.com/WCSCourses/GenEpiLAC2024/blob/main/Manuals/Manual_main.md)
+
+<br>
