@@ -380,3 +380,9 @@ i.  Paste the url from step *f* and select `Data (CSV or TSV)` under `File kind`
 j.  You should get a screen like this!
 
 ![](img/bonus_final_mr.png)
+
+
+<br>
+<br>
+
+[<<< Go back to Manual Contents Page](https://github.com/WCSCourses/GenEpiLAC2024/blob/main/Manuals/Manual_main.md)
