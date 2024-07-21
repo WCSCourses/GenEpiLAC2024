@@ -17,6 +17,6 @@
   - [Part 1](https://github.com/WCSCourses/GenEpiLAC2024/blob/main/Manuals/Assembly_method_comparison/Assembly_method_comparison.md), Assembly Methods Comparison
   - [Part 2](https://github.com/WCSCourses/GenEpiLAC2024/blob/main/Manuals/Genome_Assembly_Annotation/Genome_Assembly_Annotation.md), Genome Annotation
 - Introduction to epidemiology and genomic collaborative surveillance 
-- [Module 6](), Web tools for genomic epidemiology
+- [Module 6](https://github.com/WCSCourses/GenEpiLAC2024/blob/main/Manuals/Web_tools_for_genomic_epidemiology/manual.md), Web tools for genomic epidemiology
 - Group Task
 - [Appendices](https://github.com/WCSCourses/GenEpiLAC2024/blob/main/Manuals/Genome_visualisation_tools/Appendix_Artemis_2024.pdf)
