@@ -404,7 +404,7 @@ Now, we are going to look at how we can remove poor data and adapter contaminati
 
 We will need to do some minor trimming (quality 25, length 50) as well as checking/removing Illumina adapter sequences:
 ```
-trim_galore -q 25 --length 50 --paired ARIMSS995-11_1.fastq.gz ARIMSS995-11_2.fastq.gz
+trim_galore -q 25 --length 50 --paired --illumina --fastqc ARIMSS995-11_1.fastq.gz ARIMSS995-11_2.fastq.gz
 ```
 
 -q 25 = trim the 3’ end of the reads – remove nucleotides less than Phred Quality 25
@@ -412,6 +412,10 @@ trim_galore -q 25 --length 50 --paired ARIMSS995-11_1.fastq.gz ARIMSS995-11_2.fa
 --length 50 = after adapter and quality trimming, remove reads less than length 50bp
 
 --paired = the names of the paired FASTQ files to analyses in order
+
+--illumina = adapter sequence to be trimmed is the first 13bp of the Illumina universal adapter AGATCGGAAGAGC instead of the default auto-detection of adapter sequence
+
+--fastqc = run FastQC in the default mode on the FastQ file once trimming is complete
 
 Once trim_galore has finished, check the outputs. You should see that two new FASTQ (.fq) files have been created by trim_galore:
 
