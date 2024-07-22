@@ -587,7 +587,9 @@ Examine the tree:
 The unpolished long-read assembly `CTMA_1441.long_nopolish` is filled with uncorrected errors. We therefore should not use it in our analysis. We should rerun `snippy-core` to build the alignment without it:
 ```
 snippy-core --ref references/Vibrio_cholerae_O1_biovar_eltor_str_N16961_v2.fa old.snippy.runs_2024/* new-sample-1 new-sample-2
+```
 
+```
 snippy-clean_full_aln core.full.aln > clean2.full.aln
 ```
 
@@ -596,9 +598,13 @@ snippy-clean_full_aln core.full.aln > clean2.full.aln
 And now build a new phylogeny:
 ```
 snp-sites -o clean2.full.SNPs.aln clean2.full.aln
+```
 
+```
 iqtree -s clean2.full.SNPs.aln -fconst $( snp-sites -C clean2.full.aln ) -m GTR+F+I -T 2 -mem 2G -B 1000 -o M66
+```
 
+```
 cp clean2.full.SNPs.aln.treefile clean2.full.SNPs.aln.tre
 ```
 
@@ -659,7 +665,7 @@ Note: the `-c` option tells the program to use 4 CPUs. Note: the `-p` option tel
 This command can take a few minutes to run.
 
 ```
-run_gubbins.py -c 4 -p gubbins clean.full.aln
+run_gubbins.py -c 4 -p gubbins clean2.full.aln
 ```
 
 ![run_gubbins_hanging](gubbins-run-hanging-screen__2024.png)
@@ -795,7 +801,9 @@ First, we'll need to make the `csv` file with our clusters compatible with `micr
 
 ```
 sed s/Isolates/ID/ fastbaps.clusters > fastbaps.clusters.fixid.csv
+```
 
+```
 head fastbaps.clusters.fixid.csv
 ```
 
