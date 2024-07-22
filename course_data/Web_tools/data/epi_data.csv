@@ -1,0 +1,41 @@
+id,ST,City,Hospital,Collection Date,Source,Infection Type,Sex,Age,Ward
+CNRVC170178,258,San Jose,"Hospital Nacional de Geriatria y Gerontologia Raul Blanco Cervantes, San Jose, Costa Rica",01/03/2022,Clinical,,M,79,
+CNRVC170206,258,San Jose,"Hospital San Juan de Dios, San Jose, Costa Rica",09/03/2022,Clinical,,F,71,
+CNRVC170207,258,San Jose,"Hospital Maximiliano Peralta Jimenez, San Jose, Costa Rica",16/03/2022,Clinical,,F,70,
+CNRVC170180,258,San Jose,"Hospital Nacional de Geriatria y Gerontologia Raul Blanco Cervantes, San Jose, Costa Rica",02/04/2022,Clinical,,M,85,
+CNRVC170179,258,San Jose,"Hospital Nacional de Geriatria y Gerontologia Raul Blanco Cervantes, San Jose, Costa Rica",10/04/2022,Clinical,,M,76,
+CNRVC170177,258,San Jose,"Hospital Nacional de Geriatria y Gerontologia Raul Blanco Cervantes, San Jose, Costa Rica",21/04/2022,Clinical,,F,70,
+CNRVC170176,258,San Jose,"Hospital San Juan de Dios, San Jose, Costa Rica",31/01/2024,Clinical,UTI,F,83,2
+CNRVC170241,258,San Jose,"Hospital San Juan de Dios, San Jose, Costa Rica",02/01/2024,Clinical, ,F,84,
+CNRVC170240,258,San Jose,"Hospital San Juan de Dios, San Jose, Costa Rica",05/01/2024,Clinical,UTI,M,82,
+CNRVC170242,258,San Jose,"Hospital San Juan de Dios, San Jose, Costa Rica",05/01/2024,Clinical,UTI,M,84,1
+CNRVC170173,258,San Jose,"Hospital Mexico, San Jose, Costa Rica",08/01/2024,Clinical,UTI,F,79,2
+CNRVC170182,258,San Jose,"Hospital Mexico, San Jose, Costa Rica",11/01/2024,Clinical,UTI,F,71,1
+CNRVC170186,258,San Jose,"Hospital Nacional de Geriatria y Gerontologia Raul Blanco Cervantes, San Jose, Costa Rica",11/01/2024,Clinical,UTI,F,79,
+CNRVC170208,258,San Jose,"Hospital Metropolitano, San Jose, Costa Rica",13/01/2024,Clinical,UTI,M,74,1
+CNRVC170203,258,San Jose,"Hospital Clinica Biblica, San Jose, Costa Rica",14/01/2024,Clinical,UTI,M,74,2
+CNRVC170195,258,San Jose,"Hospital Hotel La Catolica, San Jose, Costa Rica",16/01/2024,Clinical,UTI,M,80,1
+CNRVC170183,258,San Jose,"Hospital Hotel La Catolica, San Jose, Costa Rica",17/01/2024,Clinical,UTI,M,70,
+CNRVC170191,258,San Jose,"Hospital Clinica Biblica, San Jose, Costa Rica",17/01/2024,Clinical,UTI,M,75,1
+CNRVC170199,258,San Jose,"Hospital Hotel La Catolica, San Jose, Costa Rica",21/01/2024,Clinical,UTI,M,71,2
+CNRVC170170,258,San Jose,"Hospital Metropolitano, San Jose, Costa Rica",25/01/2024,Clinical,UTI,M,88,
+CNRVC170202,258,San Jose,"Hospital Metropolitano, San Jose, Costa Rica",27/01/2024,Clinical,UTI,F,89,
+CNRVC170188,258,San Jose,"Hospital Nacional de Geriatria y Gerontologia Raul Blanco Cervantes, San Jose, Costa Rica",28/01/2024,Clinical,meningitis,M,78,
+CNRVC170198,258,San Jose,"Hospital Metropolitano, San Jose, Costa Rica",28/01/2024,Clinical,UTI,F,73,1
+CNRVC170189,258,San Jose,"Hospital Nacional de Geriatria y Gerontologia Raul Blanco Cervantes, San Jose, Costa Rica",31/01/2024,Clinical,UTI,F,77,
+CNRVC170185,258,San Jose,"Hospital Cima, San Jose, Costa Rica",01/02/2024,Clinical,UTI,M,73,2
+CNRVC170190,258,San Jose,"Hospital Cima, San Jose, Costa Rica",01/02/2024,Clinical,UTI,F,75,2
+CNRVC170192,258,San Jose,"Hospital Cima, San Jose, Costa Rica",01/02/2024,Clinical,UTI,F,79,2
+CNRVC170184,258,San Jose,"Hospital Metropolitano, San Jose, Costa Rica",03/02/2024,Clinical,UTI,F,95,
+CNRVC170200,258,San Jose,"Hospital Clinica Biblica, San Jose, Costa Rica",04/02/2024,Clinical,sepsis,F,81,
+CNRVC170197,258,San Jose,"Hospital San Juan de Dios, San Jose, Costa Rica",07/02/2024,Clinical,sepsis,F,97,
+CNRVC170205,258,San Jose,"Hospital Metropolitano, San Jose, Costa Rica",07/02/2024,Clinical,UTI,F,79,2
+CNRVC170168,258,San Jose,"Hospital San Juan de Dios, San Jose, Costa Rica",09/02/2024,Clinical,UTI,M,75,2
+CNRVC170194,258,San Jose,"Hospital Mexico, San Jose, Costa Rica",09/02/2024,Clinical,UTI,F,99,2
+CNRVC170175,258,San Jose,"Hospital Maximiliano Peralta Jimenez, San Jose, Costa Rica",12/02/2024,Clinical,UTI,M,71,
+CNRVC170201,258,San Jose,"Hospital San Juan de Dios, San Jose, Costa Rica",12/02/2024,Clinical,UTI,M,79,2
+CNRVC170187,258,San Jose,"Hospital Hotel La Catolica, San Jose, Costa Rica",13/02/2024,Clinical,UTI,M,88,1
+CNRVC170174,258,San Jose,"Hospital Metropolitano, San Jose, Costa Rica",14/02/2024,Clinical,sepsis,M,76,
+CNRVC170196,258,San Jose,"Hospital Clinica Biblica, San Jose, Costa Rica",15/02/2024,Clinical,UTI,M,75,2
+CNRVC170193,258,San Jose,"Hospital San Juan de Dios, San Jose, Costa Rica",16/02/2024,Clinical,UTI,M,79,
+CNRVC170204,258,San Jose,"Hospital Mexico, San Jose, Costa Rica",19/02/2024,Clinical,UTI,M,70,

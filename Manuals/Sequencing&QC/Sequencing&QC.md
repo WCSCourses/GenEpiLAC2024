@@ -10,8 +10,8 @@
 - [Introduction](#introduction)
   - [Brief recap](#brief-recap)
   - [Commonly used file formats for NGS data](#commonly-used-file-formats-for-NGS-data)
-    - [FASTA](#fasta)
     - [FASTQ](#fastq)
+    - [FASTA](#fasta)
     - [SAM and BAM](#sam-and-bam)
   - [Quality control for FastQ data](#quality-control-for-FastQ-data)
 - [Practical Exercise](#practical-exercise)
@@ -68,6 +68,50 @@ Command line shortcuts
 ●	Ctrl+u: Removes till the beginning 
 ```
 ## [Commonly used file formats for NGS data](#commonly-used-file-formats-for-NGS-data)
+
+### FASTQ
+
+The widely used FASTA file format has the great advantage of simplicity. However, this simplicity can be restrictive if we want to include additional data/metadata in addition to the sequence.
+
+Given the non-negligible error rates of NGS technologies, often we need to accompany our sequence data with quality scores that estimate our confidence in the accuracy of the sequence data. As we will see later, this allows us to perform quality control checks and filter-out poor-quality data before performing analyses.
+
+**FASTQ** is a simple text-based format that allows us to include quality scores. A single sequence is represented by four lines of text:
+
+    @ERR8261968.1 1 length=97
+    ACTTTCGATCTCTTGTAGATCTGTTCTCTAAACGAACTTTAAAATCTGTGTGGCTGTCACTCGGCTGCATGCTTAGTGCACTCACGCAGTATAATTA
+    +ERR8261968.1 1 length=97
+    CCCCCFDDFFFFGGGGGGGGGGHHHHHHHHHHHGGGGHHHHHHHHHHHHHHHGHHGHHIIHHGGGGGGHHHHHHHHHHHHHHHHHHHGGGHHHHHHH
+
+- The first line is a 'header' containing a unique identifier for the sequence and, optionally, further description.
+- The second line contains the actual nucleotide sequence.
+- The third line is redundant  and can be safely ignored. Sometimes it simply repeats the first line. Sometimes it is blank or just contains a '+' character.
+- The fourth line contains a string of characters that encode quality scores for each nucleotide in the sequence on [ASCII code](https://en.wikipedia.org/wiki/ASCII). 
+
+Each single character encodes a score, typically a number between 0 and 40; this score is encoded by a single character.
+
+| Character | ASCII | FASTQ quality score (ASCII – 33) 
+| --|--|--
+| ! | 33 | 0
+| “ | 34 | 1
+| # | 35 | 2
+| $ | 36 | 3
+| % | 37 | 4
+| ... | ... | ...
+| C | 67 | 34
+| D | 68 | 35
+| E | 69 | 36
+| F | 70 | 37
+| G | 71 | 38
+| H | 72 | 39
+|40 | 73 | 40
+
+So, in the example above, we can see that most of the positions within the 97-nucleotide sequence have scores in the high 30s, which indicates a high degree of confidence in their accuracy.
+- A score of 30 denotes a 1 in 1000 chance of an error, i.e. 99.9% accuracy.
+- A score of 40 denotes a 1 in 10,000 chance of an error, i.e. 99.99% accuracy.
+
+You can read more about the FastQ file format and quality scores here:
+
+Cock, P. J., Fields, C. J., Goto, N., Heuer, M. L., & Rice, P. M. (2010). The Sanger FASTQ file format for sequences with quality scores, and the Solexa/Illumina FASTQ variants. *Nucleic Acids Research*, **38**, 1767–1771. https://doi.org/10.1093/nar/gkp1137.
 
 ### FASTA
 
@@ -141,50 +185,6 @@ AGTATGGCAAATTAA
 ```
 
 If you want a more detailed history of the FASTA file format, then you could take a look at the Wikipedia page here: https://en.wikipedia.org/wiki/FASTA_format.
-
-### FASTQ
-
-The widely used FASTA file format has the great advantage of simplicity. However, this simplicity can be restrictive if we want to include additional data/metadata in addition to the sequence.
-
-Given the non-negligible error rates of NGS technologies, often we need to accompany our sequence data with quality scores that estimate our confidence in the accuracy of the sequence data. As we will see later, this allows us to perform quality control checks and filter-out poor-quality data before performing analyses.
-
-**FASTQ** is a simple text-based format that allows us to include quality scores. A single sequence is represented by four lines of text:
-
-    @ERR8261968.1 1 length=97
-    ACTTTCGATCTCTTGTAGATCTGTTCTCTAAACGAACTTTAAAATCTGTGTGGCTGTCACTCGGCTGCATGCTTAGTGCACTCACGCAGTATAATTA
-    +ERR8261968.1 1 length=97
-    CCCCCFDDFFFFGGGGGGGGGGHHHHHHHHHHHGGGGHHHHHHHHHHHHHHHGHHGHHIIHHGGGGGGHHHHHHHHHHHHHHHHHHHGGGHHHHHHH
-
-- The first line is a 'header' containing a unique identifier for the sequence and, optionally, further description.
-- The second line contains the actual nucleotide sequence.
-- The third line is redundant  and can be safely ignored. Sometimes it simply repeats the first line. Sometimes it is blank or just contains a '+' character.
-- The fourth line contains a string of characters that encode quality scores for each nucleotide in the sequence on [ASCII code](https://en.wikipedia.org/wiki/ASCII). 
-
-Each single character encodes a score, typically a number between 0 and 40; this score is encoded by a single character.
-
-| Character | ASCII | FASTQ quality score (ASCII – 33) 
-| --|--|--
-| ! | 33 | 0
-| “ | 34 | 1
-| # | 35 | 2
-| $ | 36 | 3
-| % | 37 | 4
-| ... | ... | ...
-| C | 67 | 34
-| D | 68 | 35
-| E | 69 | 36
-| F | 70 | 37
-| G | 71 | 38
-| H | 72 | 39
-|40 | 73 | 40
-
-So, in the example above, we can see that most of the positions within the 97-nucleotide sequence have scores in the high 30s, which indicates a high degree of confidence in their accuracy.
-- A score of 30 denotes a 1 in 1000 chance of an error, i.e. 99.9% accuracy.
-- A score of 40 denotes a 1 in 10,000 chance of an error, i.e. 99.99% accuracy.
-
-You can read more about the FastQ file format and quality scores here:
-
-Cock, P. J., Fields, C. J., Goto, N., Heuer, M. L., & Rice, P. M. (2010). The Sanger FASTQ file format for sequences with quality scores, and the Solexa/Illumina FASTQ variants. *Nucleic Acids Research*, **38**, 1767–1771. https://doi.org/10.1093/nar/gkp1137.
 
 ### SAM and BAM
 
@@ -404,7 +404,7 @@ Now, we are going to look at how we can remove poor data and adapter contaminati
 
 We will need to do some minor trimming (quality 25, length 50) as well as checking/removing Illumina adapter sequences:
 ```
-trim_galore -q 25 --length 50 --paired ARIMSS995-11_1.fastq.gz ARIMSS995-11_2.fastq.gz
+trim_galore -q 25 --length 50 --paired --illumina --fastqc ARIMSS995-11_1.fastq.gz ARIMSS995-11_2.fastq.gz
 ```
 
 -q 25 = trim the 3’ end of the reads – remove nucleotides less than Phred Quality 25
@@ -412,6 +412,10 @@ trim_galore -q 25 --length 50 --paired ARIMSS995-11_1.fastq.gz ARIMSS995-11_2.fa
 --length 50 = after adapter and quality trimming, remove reads less than length 50bp
 
 --paired = the names of the paired FASTQ files to analyses in order
+
+--illumina = adapter sequence to be trimmed is the first 13bp of the Illumina universal adapter AGATCGGAAGAGC instead of the default auto-detection of adapter sequence
+
+--fastqc = run FastQC in the default mode on the FastQ file once trimming is complete
 
 Once trim_galore has finished, check the outputs. You should see that two new FASTQ (.fq) files have been created by trim_galore:
 
