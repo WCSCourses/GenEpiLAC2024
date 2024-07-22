@@ -58,7 +58,7 @@ Aims of this exercise:
 
 ## Background
 
-*Staphylococcus aureus* is a bacterial pathogen that has garnered attention in recent years due to its capacity to evolve into highly virulent and antibiotic-resistant strains. Its prevalence in hospital settings poses a significant burden on healthcare systems worldwide, being the leading cause of hospital-acquired infections. The rise of antibiotic resistance among *S. aureus* strains, particularly to β-lactam antibiotics like methicillin, has reached alarming levels in regions such as Europe, the US, and Japan, where 40-60% of hospital-acquired *S. aureus* infections are now methicillin-resistant. The emergence of methicillin-resistant *S. aureus* (MRSA) dates back to the 1960s, and since then, various successful clones have disseminated globally.
+*Staphylococcus aureus* is a bacterial pathogen that has gained attention in recent years due to its capacity to evolve into highly virulent and antibiotic-resistant strains. Its prevalence in hospital settings poses a significant burden on healthcare systems worldwide, being the leading cause of hospital-acquired infections. The rise of antibiotic resistance among *S. aureus* strains, particularly to β-lactam antibiotics like methicillin, has reached alarming levels in regions such as Europe, the US, and Japan, where 40-60% of hospital-acquired *S. aureus* infections are now methicillin-resistant. The emergence of methicillin-resistant *S. aureus* (MRSA) dates back to the 1960s, and since then, various successful clones have disseminated globally.
 
 ## An outbreak sample
 
@@ -82,6 +82,8 @@ The three ST1 isolates are closely related but exhibit different antibiotic resi
 - 16B is resistant to penicillin, fusidic acid, methicillin and erythromycin
 - MSSA476 is resistant to penicillin and fusidic acid
 - MW2 is resistant to penicillin and methicillin
+
+<br>
 
 **Using a comparative genomic approach we will identify regions of difference, the genetic basis of the antibiotic resistance in 16B, and the genetic mechanisms that drive the evolution of resistance.**
 
@@ -138,11 +140,11 @@ The directory contains:
 
 ## Using the genome to predict antibiotic resistance phenotype <!-- omit in toc -->
 
-One of the benefits of whole genome sequencing bacterial pathogens is that you capture the genomic inventory of the organism. This has been capitalized on in clinical microbiology for the _in silico_ prediction of antibiotic resistance directly from whole genome sequencing data. This is being developed as a alternative to phenotypic sensitivity testing of microorganisms in the laboratory, where microorganisms are routinely sequenced.
+One of the benefits of whole genome sequencing bacterial pathogens is that you capture the genomic inventory of the organism. This has been capitalized on in clinical microbiology for the _in silico_ prediction of antibiotic resistance directly from whole genome sequencing data. This is being developed as an alternative to phenotypic sensitivity testing of microorganisms in the laboratory, where microorganisms are routinely sequenced.
 
 For many microorganisms the genetic basis of antibiotic resistance has been extensively studied. This means that the genes responsible for resistance have been identified and sequenced, and can be used to compile a database of resistance determinants and used to query an organism’s genome and define its resistome. Based on the presence or absence of genes or mutations it is possible to make a prediction of the antibiotic sensitives of an organism. For some species of bacteria this works better than others. For example, _S. aureus_ the correlation between the genotype and phenotype for most commonly used antibiotics is above 99%. However, for other organisms, such as members of the _Enterobacteriaceae_, the concordance is a lot lower, as these organisms have a more extensive array of resistance mechanisms and determinants.
 
-A recent review from a EUCAST subcommittee summarized the current development status of WGS for bacterial antimicrobial susceptibility testing (AST) for a range or organisms: Ellington MJ, _et al_., (2017) The role of whole genome sequencing in antimicrobial susceptibility testing of bacteria: report from the EUCAST Subcommittee. Clin Microbiol Infect. 23:2-22. PubMed PMID: 27890457.
+A recent review from a EUCAST subcommittee summarized the current development status of whole genome sequencing for bacterial antimicrobial susceptibility testing (AST) for a range or organisms: Ellington MJ, _et al_., (2017) The role of whole genome sequencing in antimicrobial susceptibility testing of bacteria: report from the EUCAST Subcommittee. Clin Microbiol Infect. 23:2-22. PubMed PMID: 27890457.
 
 ## Resistance phenotype of 16B, MW2 and MSSA476 <!-- omit in toc -->
 
@@ -188,6 +190,12 @@ Now we can run `ariba`
 ```bash
 ariba getref resfinder out.resfinder
 ```
+
+<br>
+
+<p align="center">
+    <img src="images/ariba_getref.png" alt="ariba_getref" style="width:70%">
+</p>
 
 <br>
 
@@ -386,7 +394,7 @@ To generate the _de novo_ assembly, you are going to use an assembly package cal
 
 `Unicycler` simplifies the assembly process by combining several steps into one command and enhances the assembly with improved handling of repeat sequences and complex genomic regions. It uses a combination of de Bruijn graph and overlap-based assembly strategies, benefiting from SPAdes’ robust algorithm. For more details on Unicycler or the theory behind its usage, you can refer to the [Unicycler GitHub page](https://github.com/rrwick/Unicycler).
 
-To perform the assembly, you will type a series of commands on the command line. Ensure that you type the commands carefully, as UNIX is case-sensitive and some command lines contain a lot of text. The input files for the Unicycler _de novo_ assembly are the `16B_1.fastq` and `16B_2.fastq` files that you previously used with `ariba`. The forward and reverse reads for the isolate 16B were generated using an Illumina HiSeq machine and are 75bp paired-end reads. The `Unicycler` package only requires a single command to process and assemble the reads into a genome. This command calls `SPAdes` internally and performs various additional steps to improve the quality of the final assembly.
+The input files for the `Unicycler` _de novo_ assembly are the `16B_1.fastq` and `16B_2.fastq` files that you previously used with `ariba`. The forward and reverse reads for the isolate 16B were generated using an Illumina HiSeq machine and are 75bp paired-end reads. The `Unicycler` package only requires a single command to process and assemble the reads into a genome. This command calls `SPAdes` internally and performs various additional steps to improve the quality of the final assembly.
 
 <br>
 
@@ -498,7 +506,7 @@ An interactive report will be produced `report.html` in the `quast.output` direc
 <br>
 
 ```bash
-firefox ./quast.ouput/report.html &
+firefox quast.ouput/report.html &
 ```
 
 <br>
@@ -764,17 +772,37 @@ act MSSA476.embl MSSA476.dna_vs_16B.ordered.fasta.tsv 16B.ordered.fasta &
 
 <br>
 
+Here, you will see 3 tracks. The first track shows the annotations. The second track shows the mapped regions between MSSA476 and 16B (this is the outputs from blastn), and the third track is the fasta sequence of 16B. Each track has a slider on the right hand side allowing you to modify the view. Moving the slider for track 2 controlls the minimum length of a mapped region for it to be displayed on screen. In the view below, the shortest mapped regions have been hidden. Moving the slider for track 3 controlls how much of the genome of 16B is in view. Use this to zoom out and see the entire genome. Making these modifications, you should see a similar output as below.
+
+<br>
+
 <p align="center">
     <img src="images/ACT_overview.png" alt="ACT_overview" style="width:80%">
 </p>
 
 <br>
 
-Once the `act` window loads up, open `16B.ordered.tab` file into the `16B.ordered.fasta` entry by going to the *File* menu, and selecting the *16B.ordered.fasta* option, and right clicking onto the *Read An Entry* option. 
+Next we will load in the `16B.ordered.tab` file into the `16B.ordered.fasta` entry by going to the *File* menu, and selecting the *16B.ordered.fasta* option, and right clicking onto the *Read An Entry* option.
 
-Once ACT has opened, zoom out so you can see the whole of the sequences (you may have to re-size the ACT window) and reduce the size of the BLASTN footprint that is displayed, by moving the slider on the right-hand side of the comparison window down to the bottom of the bar.
+<br>
 
-As before, display the GC Deviation (G-C)/(G+C) plots for both of the sequences (under the Graph menu there will be two sequences, top and bottom sequences, click on each to open the graphs for each). Remember to rescale the plot for a more appropriate window size (use 20000 as before, then move the graph slider of the right hand side of the screen down to the bottom of the bar).
+<p align="center">
+    <img src="images/ACT_load_tab.png" alt="ACT_load_tab" style="width:80%">
+</p>
+
+<br>
+
+This adds the assembled contigs onto the 16B track. The contigs fall into 2 rows. The top row show contigs mapped in the forward orientation. The bottom row shows contigs which were mapped in the reverse complement orientation. 
+
+<br>
+
+<p align="center">
+    <img src="images/ACT_16B_contigs.png" alt="ACT_16B_contigs" style="width:80%">
+</p>
+
+<br>
+
+Next, display the GC Deviation (G-C)/(G+C) plots for both of the sequences (under the Graph menu there will be two sequences, top and bottom sequences, click on each to open the graphs for each). Remember to rescale the plot for a more appropriate window size (use 20000 as before, then move the graph slider of the right hand side of the screen down to the bottom of the bar).
 
 
 <br>
@@ -828,7 +856,13 @@ snippy --outdir 16B_mapping --R1 16B_1.fastq --R2 16B_2.fastq --ref 16B.ordered.
 
 <br>
 
-This produces a number of files, including: **COMPLETE**
+<p align="center">
+    <img src="images/snippy_output.png" alt="snippy_output" style="width:80%">  
+</p>
+
+<br>
+
+This outputs a number of files which can be found in the `16B_mapping` directory. We require two of these files to view the outputs in `act`. The `snps.bam` file which is a binary alignment/map file. This contains information on reads which mapped to the genome. The `snps.bam.bai` file contains index information which `act` uses for fast access to data within the bam file.
 
 <br>
 
@@ -838,7 +872,7 @@ This produces a number of files, including: **COMPLETE**
 
 <br>
 
-To load the `bam` file into `act`, click *File* on the menu and them click the *16B.ordered.fasta* entry, and then the *Read BAM / VCF*.
+To load the `bam` file into `act`, click *File* on the menu and them click the *16B.ordered.fasta* entry, and then the *Read BAM / CRAM / VCF ...*.
 
 In the pop-up box click *Select*, select the `snps.bam` file from the `16B_mapping` directory, click *Open*, then click *OK*.
 
@@ -850,7 +884,7 @@ In the pop-up box click *Select*, select the `snps.bam` file from the `16B_mappi
 
 <br>
 
-If you are not already there, go to the inversion region, and the inversion point in the contig (the region below illustrated in the image). You should see the BAM view as a panel at the bottom of the screen.
+If you are not already there, go to the inversion region, and the inversion point in the contig (the region below illustrated in the image). You should see the BAM view as a panel at the bottom of the screen. Double click on the inversion to centre the alignment.
 
 <br>
 
@@ -927,17 +961,16 @@ There are two steps in running `bakta`, the first is downloading a database for 
 
 ## Step 13. Genomic annotation using `bakta`
 
-`bakta` uses a number of databases to annotate a genome. These databases are located in `bakta_database/db-light`. First we need to ensure these databases are up-to-date. Update the `amrfinder` database by running the following command:
+`bakta` uses a number of databases to annotate a genome. These databases are located in `bakta_database/db-light`. These have been updated for you. 
 
 <br>
 
+<!-------
+First we need to ensure these databases are up-to-date. Update the `amrfinder` database by running the following command:
+<br>
 ```bash
 amrfinder_update --force_update --database /home/manager/Module_5_Genome_Assembly_And_Annotation/Part_2_Genome_Annotation/bakta_database/db-light/amrfinderplus-db
 ```
-
-<br>
-
-<!---
 `bakta` may also need updating:
 <br>
 ```bash
