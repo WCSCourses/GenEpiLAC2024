@@ -597,7 +597,7 @@ And now build a new phylogeny:
 ```
 snp-sites -o clean2.full.SNPs.aln clean2.full.aln
 
-iqtree -s clean2.full.SNPs.aln -fconst $( snp-sites -C clean.full.aln ) -m GTR+F+I -T 2 -mem 2G -B 1000 -o M66
+iqtree -s clean2.full.SNPs.aln -fconst $( snp-sites -C clean2.full.aln ) -m GTR+F+I -T 2 -mem 2G -B 1000 -o M66
 
 cp clean2.full.SNPs.aln.treefile clean2.full.SNPs.aln.tre
 ```
