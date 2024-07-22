@@ -772,7 +772,9 @@ act MSSA476.embl MSSA476.dna_vs_16B.ordered.fasta.tsv 16B.ordered.fasta &
 
 <br>
 
-Here, you will see 3 tracks. The first track shows the annotations. The second track shows the mapped regions between MSSA476 and 16B (this is the outputs from blastn), and the third track is the fasta sequence of 16B. Each track has a scroll bar allowing you to modify the view. Moving the scroll bar for track 2 controlls the minimum length of a mapped region for it to be displayed on screen. In the view below, the shortest mapped regions have been hidden. Moving the scrool bar for track 3 controlls how much of the genome of 16B is in view. Use this to zoom out and see the entire genome. Making these modifications, you should see a similar output as below.
+Here, you will see 3 tracks. The first track shows the annotations. The second track shows the mapped regions between MSSA476 and 16B (this is the outputs from blastn), and the third track is the fasta sequence of 16B. Each track has a slider on the right hand side allowing you to modify the view. Moving the slider for track 2 controlls the minimum length of a mapped region for it to be displayed on screen. In the view below, the shortest mapped regions have been hidden. Moving the slider for track 3 controlls how much of the genome of 16B is in view. Use this to zoom out and see the entire genome. Making these modifications, you should see a similar output as below.
+
+<br>
 
 <p align="center">
     <img src="images/ACT_overview.png" alt="ACT_overview" style="width:80%">
@@ -780,11 +782,27 @@ Here, you will see 3 tracks. The first track shows the annotations. The second t
 
 <br>
 
-Once the `act` window loads up, open `16B.ordered.tab` file into the `16B.ordered.fasta` entry by going to the *File* menu, and selecting the *16B.ordered.fasta* option, and right clicking onto the *Read An Entry* option. 
+Next we will load in the `16B.ordered.tab` file into the `16B.ordered.fasta` entry by going to the *File* menu, and selecting the *16B.ordered.fasta* option, and right clicking onto the *Read An Entry* option.
 
-Once ACT has opened, zoom out so you can see the whole of the sequences (you may have to re-size the ACT window) and reduce the size of the BLASTN footprint that is displayed, by moving the slider on the right-hand side of the comparison window down to the bottom of the bar.
+<br>
 
-As before, display the GC Deviation (G-C)/(G+C) plots for both of the sequences (under the Graph menu there will be two sequences, top and bottom sequences, click on each to open the graphs for each). Remember to rescale the plot for a more appropriate window size (use 20000 as before, then move the graph slider of the right hand side of the screen down to the bottom of the bar).
+<p align="center">
+    <img src="images/ACT_load_tab.png" alt="ACT_load_tab" style="width:80%">
+</p>
+
+<br>
+
+This adds the assembled contigs onto the 16B track. The contigs fall into 2 rows. The top row show contigs mapped in the forward orientation. The bottom row shows contigs which were mapped in the reverse complement orientation. 
+
+<br>
+
+<p align="center">
+    <img src="images/ACT_16B_contigs.png" alt="ACT_16B_contigs" style="width:80%">
+</p>
+
+<br>
+
+Next, display the GC Deviation (G-C)/(G+C) plots for both of the sequences (under the Graph menu there will be two sequences, top and bottom sequences, click on each to open the graphs for each). Remember to rescale the plot for a more appropriate window size (use 20000 as before, then move the graph slider of the right hand side of the screen down to the bottom of the bar).
 
 
 <br>
