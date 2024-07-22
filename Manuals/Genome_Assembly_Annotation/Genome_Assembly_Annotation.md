@@ -772,6 +772,8 @@ act MSSA476.embl MSSA476.dna_vs_16B.ordered.fasta.tsv 16B.ordered.fasta &
 
 <br>
 
+Here, you will see 3 tracks. The first track shows the annotations. The second track shows the mapped regions between MSSA476 and 16B (this is the outputs from blastn), and the third track is the fasta sequence of 16B. Each track has a scroll bar allowing you to modify the view. Moving the scroll bar for track 2 controlls the minimum length of a mapped region for it to be displayed on screen. In the view below, the shortest mapped regions have been hidden. Moving the scrool bar for track 3 controlls how much of the genome of 16B is in view. Use this to zoom out and see the entire genome. Making these modifications, you should see a similar output as below.
+
 <p align="center">
     <img src="images/ACT_overview.png" alt="ACT_overview" style="width:80%">
 </p>
