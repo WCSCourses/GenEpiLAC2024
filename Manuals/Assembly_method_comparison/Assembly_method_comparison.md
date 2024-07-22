@@ -74,7 +74,7 @@ To add some uncertainty into the analysis, there are 3 different versions of eac
 
 First move into the working directory for this exercise:
 ```
-cd Module_6_Assembly_Comparison_exercise
+cd Module_5_Genome_Assembly_And_Annotation/Part_1_Assembly_Methods_Comparison
 ```
 You can examine the contents of this directory:
 ```
