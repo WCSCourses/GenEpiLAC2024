@@ -6,6 +6,9 @@
 Learn how to apply genomics to epidemiological surveillance of bacterial pathogens and public health in Latin America
 
 ## Course Overview
+
+[Timetable](https://github.com/WCSCourses/GenEpiLAC2024/blob/main/Manuals/Timetable.pdf)
+
 [Course Website](https://coursesandconferences.wellcomeconnectingscience.org/event/genomics-epidemiological-surveillance-of-bacterial-pathogens-latin-america-and-the-caribbean-20240721/)
 
 ## Instructors
