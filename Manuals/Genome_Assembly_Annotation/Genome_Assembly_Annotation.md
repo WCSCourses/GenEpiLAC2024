@@ -405,7 +405,7 @@ The following parameters will be used when running `Unicycler`:
 - Allocate 4 CPUs to the assembler:
   - `-t 4`
 - Specify the kmer size to be used during the `SPAdes` assembly:
-  - `--kmers 65`
+  - `--kmers 49`
 - Specify the input paired-end reads in FASTQ format:
   - `-1 16B_1.fastq`
   - `-2 16B_2.fastq`
@@ -421,7 +421,7 @@ Run the `Unicycler` command:
 <br>
 
 ```bash
-unicycler -t 4 --kmers 65 -1 16B_1.fastq -2 16B_2.fastq -o 16B_assembly
+unicycler -t 4 --kmers 49 -1 16B_1.fastq -2 16B_2.fastq -o 16B_assembly
 ```
 
 <br>
@@ -501,6 +501,16 @@ quast --threads 4 --output-dir quast.output assembly.fasta
 
 <br>
 
+You will see an output similar to below printed to screen.
+
+<br>
+
+<p align="center">
+    <img src="images/QUAST_output.png" alt="QUAST_output"style="width:80%">
+</p>
+
+<br>
+
 An interactive report will be produced `report.html` in the `quast.output` directory. This file summarises the assembly statistics and can be viewed in a web browser e.g. firefox:
 
 <br>
@@ -523,6 +533,7 @@ This output provides key metrics which give insights into the assembly quality a
 - **Total length:** This value represents the total size of the assembled genome.
 - **N50:** The N50 statistic is a measure commonly used to evaluate the assembly quality. It represents the contig length such that 50% of the entire assembly is contained in contigs of at least this length. A higher N50 indicates a more contiguous and likely more accurate assembly.
 
+Feel free to explore to plots at the bottom of the page.
 <!--
 
 Mention the GC content and how there are 3 contigs with a higher GC content. These are the same 3 contigs which are not part of the main assembly graph
@@ -539,7 +550,7 @@ Mention the GC content and how there are 3 contigs with a higher GC content. The
 
 <br>
 
-At the top of the page, there is a link to view the genome in the **Icarus Contig Browser**. This provides a graphical representation of the assembly size, as well as the N50 and N90 highlighted. Zoom out for a view of the whole assembly. 
+At the top of the page, there is a link to view the genome in the **Icarus Contig Browser**. This provides a graphical representation of the assembly size, as well as the N50 and N90 highlighted. Zoom out for a view of the whole assembly (keep pressing the -5x button at the top of the screen). 
 
 <br>
 
@@ -772,7 +783,7 @@ act MSSA476.embl MSSA476.dna_vs_16B.ordered.fasta.tsv 16B.ordered.fasta &
 
 <br>
 
-Here, you will see 3 tracks. The first track shows the annotations. The second track shows the mapped regions between MSSA476 and 16B (this is the outputs from blastn), and the third track is the fasta sequence of 16B. Each track has a slider on the right hand side allowing you to modify the view. Moving the slider for track 2 controlls the minimum length of a mapped region for it to be displayed on screen. In the view below, the shortest mapped regions have been hidden. Moving the slider for track 3 controlls how much of the genome of 16B is in view. Use this to zoom out and see the entire genome. Making these modifications, you should see a similar output as below.
+Here, you will see 3 tracks. The first track shows the annotations. The second track shows the mapped regions between MSSA476 and 16B (this is the outputs from blastn), and the third track is the fasta sequence of 16B. Each track has a slider on the right hand side allowing you to modify the view. Moving the slider for track 2 controls the minimum length of a mapped region for it to be displayed on screen. In the view below, the shortest mapped regions have been hidden. Moving the slider for track 3 controls how much of the genome of 16B is in view. Use this to zoom out and see the entire genome. Double clicking on a mapped region will move the view sothat the mapped region is in the centre of the view. Making these modifications, you should see a similar output as below.
 
 <br>
 
@@ -802,32 +813,29 @@ This adds the assembled contigs onto the 16B track. The contigs fall into 2 rows
 
 <br>
 
-Next, display the GC Deviation (G-C)/(G+C) plots for both of the sequences (under the Graph menu there will be two sequences, top and bottom sequences, click on each to open the graphs for each). Remember to rescale the plot for a more appropriate window size (use 20000 as before, then move the graph slider of the right hand side of the screen down to the bottom of the bar).
-
+In the `act` figure there are several regions of interest that are worth investing. The first region we are going to look at is a potential rearramgement. This is a region of DNA which is similar between the two *S aureus* strains, but appears in different locations within the two genomes. 
 
 <br>
 
 <p align="center">
-    <img src="images/ACT_gc.png" alt="ACT_gc" style="width:80%">
+    <img src="images/ACT_rearrangement_1a.png" alt="ACT_rearrangement_1a" style="width:80%">  
 </p>
 
 <br>
 
-In the `act` figure there are several regions of interest that are worth investing. The first region we are going to look at is the inverted region in the centre of the assembly that is covered by the hourglass shaped blue matches in the comparison panel. This 130 kb region spans the terminus of replication region, and is present at one end of a contig. At the other end of the putative inverted region there is a contig break. 
-
-<!--- ADD FURTHER DETAILS --->
+This potential rearrangement is part of contig 6 of the ordered assembly. Double click on contig 6 to focus the view and zoom in. Here, we can see more clearly how contig 6 maps to two separate regions of MSSA476. To investigate further if this is a real rearrangement or a misassembly, we can use read information. For this, we need to map the reads back to the genome.
 
 <br>
 
 <p align="center">
-    <img src="images/ACT_focus.png" alt="ACT_focus" style="width:80%">  
+    <img src="images/ACT_rearrangement_1b.png" alt="ACT_rearrangement_1b" style="width:80%">  
 </p>
 
 <br>
 
 ## Step 12. Mapping reads back to the ordered assembly using `snippy`
 
-In this next exercise you are going to use the same mapping method as you did in Mapping Module, to map the 16B strain forward and reverse reads against the pseudo-molecule that you created using `abacas`. We are then going to look at the aligned mapped reads in `act` by loading the mapped bam file with the `16B.ordered.fasta`.  
+Here you will use the same mapping method as you did in Mapping Module, to map the 16B strain forward and reverse reads against the pseudo-molecule that you created using `abacas`. We are then going to look at the aligned mapped reads in `act` by loading the mapped bam file with the `16B.ordered.fasta`.  
 
 First we will run `snippy` with the following parameters:
 
@@ -874,65 +882,63 @@ This outputs a number of files which can be found in the `16B_mapping` directory
 
 To load the `bam` file into `act`, click *File* on the menu and them click the *16B.ordered.fasta* entry, and then the *Read BAM / CRAM / VCF ...*.
 
-In the pop-up box click *Select*, select the `snps.bam` file from the `16B_mapping` directory, click *Open*, then click *OK*.
+In the pop-up box click *Select*, go into the `16B_mapping` directory, select the `snps.bam` file, click *Open*, and then click *OK*.
 
 <br>
 
 <p align="center">
-    <img src="images/ACT_bam_load.png" alt="ACT_bam_load" style="width:80%">  
+    <img src="images/ACT_load_bam.png" alt="ACT_bam_load" style="width:80%">  
 </p>
 
 <br>
 
-If you are not already there, go to the inversion region, and the inversion point in the contig (the region below illustrated in the image). You should see the BAM view as a panel at the bottom of the screen. Double click on the inversion to centre the alignment.
+If you are not already there, go to the region of the suspected rearrangement. In this region we see high, consistent read coverage.
 
 <br>
 
 <p align="center">
-    <img src="images/ACT_bam_inv_1.png" alt="ACT_bam_inv_1" style="width:80%">  
+    <img src="images/ACT_rearrangement_1c.png" alt="ACT_rearrangement_1c" style="width:80%">  
 </p>
 
 <br>
 
-Zoom in further keeping the inversion site in the centre of the ACT screen.  
+Zooming in further to the point at which the two mapped regions meet within contig 6 (at approx 1230820 to 1231000 in the genome of 16B), you can see that read mapping supports these two regions being together in the genome of 16B. This would suggest that this assembly is correct and a rearrangement has occurred.
 
 <br>
 
 <p align="center">
-    <img src="images/ACT_bam_inv_2.png" alt="ACT_bam_inv_2" style="width:80%">  
+    <img src="images/ACT_rearrangement_1d.png" alt="ACT_rearrangement_1d" style="width:80%">  
 </p>
 
 <br>
-
-The reads in the BAM view appear to break at the junction of the inversion indicated by the `blasts` match; no reads span the junction point (click on the reads around the junction to see their pair) suggesting that there may be problems with the assembly of the 16B DNA across this region. 
 
 To get another perspective of the mapping to this region, change the BAM view to show the inferred size of the insert. To do this right click on the BAM view window, move the cursor over *Views*, and click *Inferred Size*.
 
 <br>
 
 <p align="center">
-    <img src="images/ACT_bam_inv_3.png" alt="ACT_bam_inv_3" style="width:80%">  
+    <img src="images/ACT_rearrangement_1e.png" alt="ACT_rearrangement_1e" style="width:80%">  
 </p>
 
 <br>
 
-From the inferred size view you can see that there are no reads with predicted inserts that span this region. This suggests that the inversion may not be present, and that the sequence generated by Velvet in this region has not assembled correctly, and needs further investigation. To check if this is a mis-assembly, you could change the parameters of the original Velvet runs, or alternatively design PCR primers and do a PCR to check for the orientation of this region in the genomic DNA.
+From the inferred size view you can see that there are many reads with predicted inserts that span this region. This further supports that the assembly is correct and a rearrangement has occurred.
 
 <br>
 
-In addition to allowing us to check for potential mis-assemblies we can also use the mapping data to look for copy number variants in the assembly.
-
-In `act` change the read view back to *Stack view*, and zoom out to see the whole sequence
+In addition to allowing us to check for potential mis-assemblies we can also use the mapping data to look for copy number variants in the assembly. In `act` change the read view back to *Stack view*, and zoom out to see the whole sequence
 
 <br>
 
 <p align="center">
-    <img src="images/ACT_bam_inv_4.png" alt="ACT_bam_inv_4" style="width:80%">  
+    <img src="images/ACT_read_depth" alt="ACT_read_depth" style="width:80%">  
 </p>
 
 <br>
 
-From this view in `act` you can see that the average coverage across the whole 16B sequence is about 120 fold, and that there is subtle reduction in coverage from the origin to the terminus of replication. You can also see that the non-mapping sequences from the bin at the right-hand side of the sequence have a higher level of coverage than the rest of the sequence that matches to the MSSA476 chromosome.
+From this view in `act` you can see that the average coverage across the whole 16B sequence is about 120x, and that there is subtle reduction in coverage from the origin to the terminus of replication. You can also see that the non-mapping sequences from the bin at the right-hand side of the 16B assembly have a higher level of coverage than the rest of the 16B genome that matches to the MSSA476 chromosome.
+
+
 
 Zoom into this region to look in more detail.
 
@@ -1162,7 +1168,7 @@ We are now going to load up the three sequences and relevant comparison files in
 <br>
 
 ```bash
-act MSSA476.embl MSSA476.dna_vs_16B.ordered.fasta.tsv 16B.ordered.embl 16B.ordered.fasta_vs_MW2.dna MW2.embl &
+act MSSA476.embl MSSA476.dna_vs_16B.ordered.fasta.tsv 16B.ordered.embl 16B.ordered.fasta_vs_MW2.dna.tsv MW2.embl &
 ```
 
 <br>
