@@ -226,12 +226,6 @@ This command may generate warnings indicating sequences or variants were removed
 
 <br>
 
-```bash
-WARNING. 82 sequence(s) excluded. Please see the 01.filter.check_genes.log and 01.filter_check_noncoding.log for details. This will show them:
-    grep REMOVE out.resfinder.prepareref/01.filter.check_genes.log
-    cat out.resfinder.prepareref/01.filter.check_noncoding.log
-WARNING. Problem with at least one variant. Problem variants are removed. Please see the file out.resfinder.prepareref/01.filter.check_metadata.log for details.
-```
 
 <br>
 
