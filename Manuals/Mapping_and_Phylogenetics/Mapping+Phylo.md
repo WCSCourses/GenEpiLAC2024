@@ -184,7 +184,7 @@ We can use integrated pipelines to automate parts of these processes
 ## Finding the data 
 Navigate to the `Module_4_Mapping_Phylogeny` directory
 
-```
+```{ .no-copy}
 cd Module_4_Mapping_Phylogeny
 ```
 
