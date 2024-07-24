@@ -31,7 +31,8 @@ gs4_deauth()
 
 CostaRica_assembly.stats <- read_sheet("https://docs.google.com/spreadsheets/d/1CEDScAVSXuboNu-K_-lZzkPnk9woO_3MFRZ8zgWG3c0/edit#gid=0", sheet="Student_Results")
 
-CostaRica_assembly.stats
+CostaRica_assembly.stats <- CostaRica_assembly.stats %>%
+  filter(!is.na(`Student Name`))
 ```
 \
 Create a variable 'method_full' that summarises the methods used
@@ -95,7 +96,9 @@ ggsave(paste0("Assembly.Type.by.N50.png"), units='mm', width=120, height=60, dev
 CostaRica_assembly.stats %>%
   arrange((`N50`)) %>%
   mutate(method_full=factor(`Assembly Type (short/long/hybrid)`, levels=unique(`Assembly Type (short/long/hybrid)`))) %>%
+  filter(!is.na(N50)) %>%
   ggplot(aes(y=method_full, x=`N50`, color=factor(`Number of long reads (if used)`))) +
+  #ggplot(aes(y=method_full, x=`N50`)) +
   geom_quasirandom(width=0.4, alpha=0.75, groupOnX=F) +
   theme_bw() + theme(legend.position = 'bottom') + 
   theme.text.size + 
@@ -112,12 +115,12 @@ CostaRica_assembly.stats %>%
   arrange((`N50`)) %>%
   #filter(method_full=="Unicycler__hybrid__10000") %>%
   mutate(`student_method`=factor(`student_method`, levels=unique(`student_method`))) %>%
-  ggplot(aes(y=`student_method`, x=`N50`, fill=`Student Name`)) +
-  #geom_quasirandom(width=0.4, alpha=0.75, groupOnX=F) +
-  geom_barh(width=0.5, stat='identity') + 
+  ggplot(aes(y=`student_method`, x=`N50`, color=`Student Name`)) +
+  geom_quasirandom(width=0.4, alpha=0.75, groupOnX=F) +
+  #geom_barh(width=0.5, stat='identity') + 
   theme_bw() + theme(legend.position = 'none') + 
   theme.text.size + 
-  geom_text(aes((N50+150000), `student_method`,label=`Student Name`), size=2.5) +
+  geom_text(aes((N50+500000), `student_method`,label=`Student Name`), size=2.5) +
   labs(y="Student", x="N50", title="N50 for each Student")
 
 ggsave(paste0("Student.by.N50.png"), units='mm', width=110, height=140, device='png', dpi=900)
@@ -127,14 +130,16 @@ CostaRica_assembly.stats %>%
   arrange(desc(`# contigs`)) %>%
   #filter(method_full=="Unicycler__hybrid__10000") %>%
   mutate(student_method=factor(`student_method`, levels=unique(`student_method`))) %>%
-  ggplot(aes(y=`student_method`, x=`# contigs`, fill=`Student Name`)) +
+  ggplot(aes(y=`student_method`, x=`# contigs`, color=`Student Name`)) +
   #geom_quasirandom(width=0.4, alpha=0.75, groupOnX=F) +
-  geom_barh(width=0.5, stat='identity') + 
+  geom_quasirandom() +
+  #geom_barh(width=0.5, stat='identity') + 
   theme_bw() + theme(legend.position = 'none') + 
   theme.text.size + 
-  geom_text(aes((`# contigs`+20), `student_method`,label=`Student Name`), size=2.5) +
+  geom_text(aes((`# contigs`+80), `student_method`,label=`Student Name`), size=2.5) +
   labs(y="Student", x="# Contigs", title="# Contigs for each Student") +
-  coord_cartesian(xlim=c(1,500)) #+ scale_x_log10()  
+  #coord_cartesian(xlim=c(1,500)) #+ scale_x_log10() +
+NULL
 
 ggsave(paste0("Student.by.Contig.count.png"), units='mm', width=110, height=140, device='png', dpi=900)
 
