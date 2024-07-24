@@ -230,7 +230,7 @@ Use `cp` to copy the `.tar.gz` file from `/github_repository/course_data/` to yo
 
 <br>
 
-Use `tar -zxf` to unzip the tar file
+Use `tar -zxf` to unzip the `dragonflye_old_runs_2024.tar.gz` file
 
 <br>
 
