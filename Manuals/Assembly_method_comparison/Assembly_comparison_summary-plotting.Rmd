@@ -27,9 +27,9 @@ theme.text.size <- theme(text = element_text(size = standard.textsize))
 Import googlesheet 
 ```{r}
 gs4_deauth()
-CostaRica_assembly.stats <- read_sheet("https://docs.google.com/spreadsheets/d/1CEDScAVSXuboNu-K_-lZzkPnk9woO_3MFRZ8zgWG3c0/edit?usp=sharing", sheet="Instructor_Testing")
+#CostaRica_assembly.stats <- read_sheet("https://docs.google.com/spreadsheets/d/1CEDScAVSXuboNu-K_-lZzkPnk9woO_3MFRZ8zgWG3c0/edit?usp=sharing", sheet="Instructor_Testing")
 
-#CostaRica_assembly.stats <- read_sheet("https://docs.google.com/spreadsheets/d/1CEDScAVSXuboNu-K_-lZzkPnk9woO_3MFRZ8zgWG3c0/edit#gid=0", sheet="Student_Results")
+CostaRica_assembly.stats <- read_sheet("https://docs.google.com/spreadsheets/d/1CEDScAVSXuboNu-K_-lZzkPnk9woO_3MFRZ8zgWG3c0/edit#gid=0", sheet="Student_Results")
 
 CostaRica_assembly.stats
 ```

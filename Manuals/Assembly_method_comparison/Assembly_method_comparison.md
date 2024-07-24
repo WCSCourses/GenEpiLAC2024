@@ -206,7 +206,7 @@ Unfortunately, we have encountered an issue with the Virtual Machine using the l
 
 Go to the github directory
 ```
-cd /github_repository
+cd ~/github_repository
 ```
 
 ```
@@ -217,7 +217,7 @@ git pull
 Your files should now be available
 
 ```
-ls -l /github_repository/course_data/
+ls -l ~/github_repository/course_data/
 ```
 
 <br>
@@ -226,7 +226,7 @@ Now use `cd` go to the Module 5 Part 1 directory.
 
 <br>
 
-Use `cp` to copy the `.tar.gz` file from `/github_repository/course_data/` to your current location.
+Use `cp` to copy the `.tar.gz` file from `~/github_repository/course_data/` to your current location.
 
 <br>
 
