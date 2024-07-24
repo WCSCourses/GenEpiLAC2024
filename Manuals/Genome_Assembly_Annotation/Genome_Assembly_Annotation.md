@@ -30,14 +30,16 @@
   - [Step 8. Assess the asembly quality using `QUAST`](#step-8-assess-the-asembly-quality-using-quast)
 - [Investigating genomic composition](#investigating-genomic-composition)
   - [Step 9. Ordering the assembly against a reference genome using `abacas`](#step-9-ordering-the-assembly-against-a-reference-genome-using-abacas)
-  - [Step 10. Identify highly similar regions using `blastn`](#step-10-identify-highly-similar-regions-using-blastn)
+  - [Step 10. Identify highly similar regions using `blastn` (16B vs MSSA476)](#step-10-identify-highly-similar-regions-using-blastn-16b-vs-mssa476)
   - [Step 11. Explore local genomeic matches in `act`](#step-11-explore-local-genomeic-matches-in-act)
   - [Step 12. Mapping reads back to the ordered assembly using `snippy`](#step-12-mapping-reads-back-to-the-ordered-assembly-using-snippy)
+  - [Step 13. Visualize the mapped reads in `act`](#step-13-visualize-the-mapped-reads-in-act)
 - [Generating the genome annotation](#generating-the-genome-annotation)
-  - [Step 13. Genomic annotation using `bakta`](#step-13-genomic-annotation-using-bakta)
-  - [Step 14. Visualizing the `bakta` annotation](#step-14-visualizing-the-bakta-annotation)
+  - [Step 14. Genomic annotation using `bakta`](#step-14-genomic-annotation-using-bakta)
+  - [Step 15. Visualizing the `bakta` annotation in `act`](#step-15-visualizing-the-bakta-annotation-in-act)
 - [Examining the evolution of drug resistance in ST1 *S. aureus*](#examining-the-evolution-of-drug-resistance-in-st1-s-aureus)
-  - [Step 15. Comparing annotations of 16B vs MSSA476 vs MW2 in `act`](#step-15-comparing-annotations-of-16b-vs-mssa476-vs-mw2-in-act)
+  - [Step 16. Identify highly similar regions using `blastn` (MW2 vs 16B)](#step-16-identify-highly-similar-regions-using-blastn-mw2-vs-16b)
+  - [Step 17. Comparing annotations of 16B vs MSSA476 vs MW2 in `act`](#step-17-comparing-annotations-of-16b-vs-mssa476-vs-mw2-in-act)
 
 <br>
 
@@ -707,7 +709,7 @@ Should return:
 
 <br>
 
-## Step 10. Identify highly similar regions using `blastn`
+## Step 10. Identify highly similar regions using `blastn` (16B vs MSSA476)
 
 Now that the contigs are ordered, the next step is to perform a detailed comparison to identify smaller matches between the ordered assembly and the reference genome. Local alignment focuses on finding regions of high similarity within by identifying the most similar subregions rather than aligning the entire length of the sequences. This is useful for finding and aligning functional domains, motifs, or regions of interest within larger, more varied sequences. It is also useful when aligning sequences of different lengths or when only specific parts of the sequences are expected to be similar.
 
@@ -870,7 +872,11 @@ snippy --outdir 16B_mapping --R1 16B_1.fastq --R2 16B_2.fastq --ref 16B.ordered.
 
 <br>
 
-This outputs a number of files which can be found in the `16B_mapping` directory. We require two of these files to view the outputs in `act`. The `snps.bam` file which is a binary alignment/map file. This contains information on reads which mapped to the genome. The `snps.bam.bai` file contains index information which `act` uses for fast access to data within the bam file.
+This outputs a number of files which can be found in the `16B_mapping` directory.
+
+## Step 13. Visualize the mapped reads in `act`
+
+We require two of these files to view the outputs in `act`. The `snps.bam` file which is a binary alignment/map file. This contains information on reads which mapped to the genome. The `snps.bam.bai` file contains index information which `act` uses for fast access to data within the bam file.
 
 <br>
 
@@ -931,59 +937,42 @@ In addition to allowing us to check for potential mis-assemblies we can also use
 <br>
 
 <p align="center">
-    <img src="images/ACT_read_depth" alt="ACT_read_depth" style="width:80%">  
+    <img src="images/ACT_read_depth.png" alt="ACT_read_depth" style="width:80%">  
 </p>
 
 <br>
 
 From this view in `act` you can see that the average coverage across the whole 16B sequence is about 120x, and that there is subtle reduction in coverage from the origin to the terminus of replication. You can also see that the non-mapping sequences from the bin at the right-hand side of the 16B assembly have a higher level of coverage than the rest of the 16B genome that matches to the MSSA476 chromosome.
 
-
-
 Zoom into this region to look in more detail.
 
 <br>
 
 <p align="center">
-    <img src="images/ACT_bam_inv_5.png" alt="ACT_bam_inv_5" style="width:80%">  
+    <img src="images/ACT_non-mapped.png" alt="ACT_non-mapped" style="width:80%">  
 </p>
 
 <br>
 
-The non-mapping contigs are indicated by the yellow features. There are 7 contigs and the two larger sequences are 20.6 kb and 2.5 kb. The read coverage across these regions increases considerably from the average (120 fold), to about 400 fold for the 20.6 kb contig, and 1400 fold for the 2.5 kb contig. It is therefore likely that these two contigs are separate multicopy plasmids that are part of the 16B genome.
+The non-mapping contigs are indicated by the yellow features. There are 7 contigs and the two larger sequences are 20.6 kb and 2.5 kb. The read coverage across these regions increases considerably from the average (approx. 120x), to about 400x coverage for the 20.6 kb contig, and 1400x coverage for the 2.5 kb contig. It is therefore likely that these two contigs are separate multicopy plasmids that are part of the 16B genome.
 
 <br>
 
 # Generating the genome annotation
 
-Now we have the contigs ordered against the reference, and have mapped back the reads to identify a possible mis-assembly, and also identified putative plasmid sequences. However we are still not yet in a position to drill down into the biology of the strain. For this we need to add some annotation to the newly assembled genome. 
+Now we have the contigs ordered against the reference, and have mapped back the reads to confirm a rearrangement, and also identified putative plasmid sequences. However we are still not yet in a position to drill down into the biology of the strain. For this we need to add some annotation to the newly assembled genome. 
 
-There are a number of ways you can generate annotation for a novel sequence. You can manually annotate sequence by curating the results of bioinformatic analyses of the sequence, but this is time consuming and prone to human bias. If there is a closely related reference sequence and annotation, you can transfer annotation by similarity matching, but this relies on there being a suitable reference. The fastest and most consistant way to generate annotation for novel sequence is to use an automatic annotation software such as `prokka` (Seemann T. (2014) Prokka: rapid prokaryotic genome annotation. Bioinformatics. 30:2068-9. doi: 10.1093/bioinformatics/btu153) or `bakta` (Schwengers O et al., (2021). Bakta: rapid and standardized annotation of bacterial genomes via alignment-free sequence identification. Microbial Genomics, 7(11). https://doi.org/10.1099/mgen.0.000685)
+There are a number of ways you can generate annotation for a novel sequence. You can manually annotate a sequence by curating the results of bioinformatic analyses of the sequence, but this is time consuming and prone to human bias. If there is a closely related reference sequence and annotation, you can transfer annotation by similarity matching, but this relies on there being a suitable reference. The fastest and most consistant way to generate annotation for novel sequence is to use an automatic annotation software such as `prokka` (Seemann T. (2014) Prokka: rapid prokaryotic genome annotation. Bioinformatics. 30:2068-9. doi: 10.1093/bioinformatics/btu153) or `bakta` (Schwengers O et al., (2021). Bakta: rapid and standardized annotation of bacterial genomes via alignment-free sequence identification. Microbial Genomics, 7(11). https://doi.org/10.1099/mgen.0.000685)
 
-Both of these program are installed on the disk image, but we are going to use `bakta` as this is a new tool that generates standardized, taxonomy-independent, high-throughput annotation.
+In this example, we are going to use `bakta` as this is a new tool that generates standardized, taxonomy-independent, high-throughput annotation.
 
-There are two steps in running `bakta`, the first is downloading a database for it to use for annotation, the second is to run the `bakta` annotation on a query sequence using the database. The downloading step takes a while to run (it involves download a file of ~1.6 Gb), so we have already down loaded is for you. 
+<br>
 
-
-## Step 13. Genomic annotation using `bakta`
+## Step 14. Genomic annotation using `bakta`
 
 `bakta` uses a number of databases to annotate a genome. These databases are located in `bakta_database/db-light`. These have been updated for you. 
 
 <br>
-
-<!-------
-First we need to ensure these databases are up-to-date. Update the `amrfinder` database by running the following command:
-<br>
-```bash
-amrfinder_update --force_update --database /home/manager/Module_5_Genome_Assembly_And_Annotation/Part_2_Genome_Annotation/bakta_database/db-light/amrfinderplus-db
-```
-`bakta` may also need updating:
-<br>
-```bash
-mamba install bioconda::bakta
-```
-<br>
---->
 
 Run `bakta` with the following commands to anotate the ordered assembly for 16B:
 
@@ -1024,11 +1013,11 @@ For more information on the annotation generated by `bakta`, the run options and
 
 <br>
 
-## Step 14. Visualizing the `bakta` annotation
+## Step 15. Visualizing the `bakta` annotation in `act`
 
-`bakta` has generated a number of output files in different foramt that contain the annotation for 16B ordered assembly. We are going to use the EMBL format file and view it in ACT. 
+`bakta` has generated a number of output files in different formats that contain the annotation for the 16B ordered assembly. We are going to use the EMBL format file and view it in `act`. 
 
-In ACT, open the `16B.ordered.embl` file into the `16B.ordered.fasta` entry by going to the *File* menu, and selecting the *16B.ordered.fasta* option, and right clicking onto the *Read An Entry* option. 
+In `act`, open the `16B.ordered.embl` file into the `16B.ordered.fasta` entry by going to the *File* menu, and selecting the *16B.ordered.fasta* option, and right clicking onto the *Read An Entry* option. 
 
 <br>
 
@@ -1043,18 +1032,32 @@ In ACT, open the `16B.ordered.embl` file into the `16B.ordered.fasta` entry by g
 <br>
 
 <p align="center">
-    <img src="images/ACT_region_1.png" alt="ACT_region_1" style="width:80%">  
+    <img src="images/ACT_region_1_overview.png" alt="ACT_region_1" style="width:80%">  
 </p>
 
 <br>
 
-In this region near at the left hand side of the reference chromosome and near the origin of replication, you can see that this contig spans the origin of replication and therefore matches two separate regions of the reference (left and right ends of the MSSA476 chromosome). 
+In this region on the left hand side of the reference chromosome and near the origin of replication, you can see that the first contig spans the origin of replication and therefore matches two separate regions of the reference (left and right ends of the MSSA476 chromosome). 
 
-Beyond the origin of replication there is a second region that is a novel indel region in 16B. The region spans two contigs. This ~22 kb region, contains `blastn` hits in the middle of the sequence, that match sequence in the MSSA476 reference (top) that is also present in the 16B assembly. This suggest that the ~22 kb region shares some similarity with the region downstream. 
+<br>
+
+<p align="center">
+    <img src="images/ACT_region_1_ori_rep.png" alt="ACT_region_1_ori_rep" style="width:80%">  
+</p>
+
+<br>
+
+Beyond the origin of replication there is a second region that is a novel indel region in 16B. The region spans two contigs. This ~20 kb region, contains `blastn` hits in the middle of the sequence, that match sequence in the MSSA476 reference (top) that is also present in the 16B assembly. This suggest that the ~20kb region shares some similarity with the region downstream. 
 
 <br>
 
 Have a look at the annotation generated by `bakta` of the CDSs in this region in 16B.
+
+<br>
+
+<p align="center">
+    <img src="images/ACT_region_1_indel.png" alt="ACT_region_1_indel" style="width:80%">  
+</p>
 
 <br>
 
@@ -1087,9 +1090,7 @@ Have a look at the annotation of the CDSs in the MSSA476 reference that match th
 
 <br>
 
-From the `act` figure it would appear that there is a large insert in the 16B assembly relative to the MSSA476. If you zoom in and look at the sequence you will see that is composed of Ns rather than bases (in the figure you can make out regions with Ns, as they do not have any black lines that indicate stop codons on the forward and reverse translations). In this case ABACAS has mis-predicted a gap in this region, and therefore `bakta` has not  annotation this region as it does not contain sequence.
-
-<br>
+phage in pink and abacas bad gap
 
 ### Region 3 <!-- omit in toc -->
 
@@ -1139,7 +1140,7 @@ Before we begin this exercise close down any `act` session you have open.
 
 <br>
 
-## Step 15. Comparing annotations of 16B vs MSSA476 vs MW2 in `act`
+## Step 16. Identify highly similar regions using `blastn` (MW2 vs 16B)
 
 In order to examine the regions of difference in the 16B assembly with MW2 we are going generate a comparison file that we can load in ACT, as we did previously for MSSA476.
 
@@ -1163,6 +1164,10 @@ blastn -query MW2.dna -db 16B.ordered -out 16B.ordered.fasta_vs_MW2.dna.tsv -out
 
 <br>
 
+<br>
+
+## Step 17. Comparing annotations of 16B vs MSSA476 vs MW2 in `act`
+
 We are now going to load up the three sequences and relevant comparison files into `act`. You can do this either from the command line or by clicking on the ACT icon. If you prefer to do it from the command line you can type:
 
 <br>
@@ -1178,17 +1183,17 @@ Now that you have included the MW2 sequence to the comparison you should see an 
 <br>
 
 <p align="center">
-    <img src="images/ACT_3way_1.png" alt="ACT_3way_1" style="width:80%">  
+    <img src="images/ACT_3_way_overview.png" alt="ACT_3way_1" style="width:80%">  
 </p>
 
 <br>
 
-To help you with your investigations, we have also provided two additional annotation files that contain misc_features which mark the extent of MGEs identified in the MSSA476 and MW2 chromosomes. These can be loaded into the appropriate entry (from the menu click *File*, the entry you want, then *Read An Entry*). The misc_features are colour coded in the ACT view according to the type of MGE (see legend on on the circular diagram of MSSA476).
+To help you with your investigations, we have also provided two additional annotation files that contain misc_features which mark the extent of MGEs identified in the MSSA476 and MW2 chromosomes. These can be loaded into the appropriate entry (from the menu click *File*, the entry you want, then *Read An Entry*). The misc_features are colour coded in the `act` view according to the type of MGE (see legend on on the circular diagram of MSSA476).
 
 <br>
 
 <p align="center">
-    <img src="images/ACT_3way_2.png" alt="ACT_3way_2" style="width:80%">  
+    <img src="images/ACT_SCCmec_fusC_mecA.png" alt="ACT_3way_2" style="width:80%">  
 </p>
 
 <br>
@@ -1208,7 +1213,7 @@ Here is the Region 1 that we have looked at previously, now with MW2 at the bott
 <br>
 
 <p align="center">
-    <img src="images/ACT_3way_3.png" alt="ACT_3way_3" style="width:80%">  
+    <img src="images/ACT_mecA_16B_vs_MW2.png" alt="ACT_mecA_16B_vs_MW2" style="width:80%">  
 </p>
 
 <br>
