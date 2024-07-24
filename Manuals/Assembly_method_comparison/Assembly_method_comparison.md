@@ -443,7 +443,7 @@ Add your assembly metrics to the google sheet at https://docs.google.com/spreads
 
 <br>
 
-When all results are uploaded, we will put summary plots [here](https://github.com/WCSCourses/GenEpiLAC2024/blob/main/Manuals/Assembly_method_comparison/Assembly_Comparison_Results.md)
+When all results are uploaded, we will (hopefully) put summary plots [here](https://github.com/WCSCourses/GenEpiLAC2024/blob/main/Manuals/Assembly_method_comparison/Assembly_Comparison_Results.md)
 
 <br>
 
