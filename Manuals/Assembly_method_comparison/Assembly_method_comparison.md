@@ -193,7 +193,54 @@ unicycler -t 4 -1 S_aureus_JKD6159_Illumina.s100.ds500000-reads_1.fastq.gz -2 S_
 ![unicycler.hybrid.running](Unicycler-hybrid.running.png)
 
 <br>
+<br>
+<br>
 
+## Long read assemblies using Dragonflye
+
+Unfortunately, we have encountered an issue with the Virtual Machine using the long read assembler (dragonflye). The commands are correct, and work on our personal laptops, but do not work correctly on the classroom computers. Therefore, we will be unable to run this part of the exercise. Instead, we will use assemblies prepared overnight. 
+
+<br>
+
+### Download preprepared assemblies
+
+Go to the github directory
+```
+cd /github_repository
+```
+
+```
+git pull
+```
+
+<br>
+Your files should now be available
+
+```
+ls -l /github_repository/course_data/
+```
+
+<br>
+
+Now use `cd` go to the Module 5 Part 1 directory.
+
+<br>
+
+Use `cp` to copy the `.tar.gz` file from `/github_repository/course_data/` to your current location.
+
+<br>
+
+Use `tar -zxf` to unzip the tar file
+
+<br>
+
+You will not be able to successfully complete the Long Read or Hybrid assemblies using Dragonflye below. The files you have just downloaded are the completed assemblies performed by your instructors last night.
+
+Proceed to `Assessing Assembly Quality`
+
+<br>
+<br>
+<br>
 
 ## Long Read only assembly (Dragonflye)
 `Dragonflye` is an optimised pipeline written specifically for quickly assembling bacterial assemblies from Oxford Nanopore long read data. It uses the long read assembler `flye`, and has a number of speed optimisations to make it run efficiently. 
