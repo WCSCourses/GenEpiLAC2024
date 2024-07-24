@@ -228,20 +228,27 @@ Change the colour column to "Source". Click on the eye icon at the top left of t
 
 ![](img/microreact_source.png)
 
-> 3.  Can you confirm that the K. pneumoniae isolated from the UEPV campus are closely related to the patient isolates?
-> 4.  Why is it useful to include genomes from a previous outbreak in the analysis? Is the current outbreak related to the past outbreak from Jan-Feb 2020?
-
 Microreact assigns colours automatically to every column in your metadata table, but you can customise them. Let's change the colour column to "Infection Type". Click on the eye icon at the top left of the page. Then select "Infection Type" from the `Colour Column` dropdown list.
 
 ![](img/microreact_household.png)
 
-Now Select "Categorical" from the `Colour Palette` option. Next Select "qualitative" from the `Palette type` dropdown list and "10" from the `Number of colours` dropdown list. Finally, select the second option from the list of palettes.
+Now Select "Categorical" from the `Colour Palette` option. Next Select "qualitative" from the `Palette type` dropdown list and "5" from the `Number of colours` dropdown list. Finally, select the second option from the list of palettes.
 
 ![](img/microreact_palette.png)
 
-Change the colour column back to "Hospital" and add the columns "Source" and "Ward" as metadata blocks. For this, select the slider icon from top right of the tree panel, then, click on the `Metadata blocks` button. Finally, select "Source" and "Household" from the list of options.
+Add the columns "Workplace" and "Workplace details" as metadata blocks. For this, select the slider icon from top right of the tree panel, then, click on the `Metadata blocks` button. Finally, select "Workplace" and "Workplace details" from the list of options.
 
-![](img/microreact_metadata_blocks.png)
+![](img/
+)
+
+Now eexplore the microreact you just created and try to answer the following questions:
+
+## Insights
+
+1. Can you confirm that the K. pneumoniae isolated from the UEPV campus are closely related to the patient isolates?
+2. Was it useful to include genomes from a previous outbreak in the analysis? Is the current outbreak related to the past outbreak from Mar-Apr 2022?
+3. Is the UEPV Campus the origin of the outbreak?
+4. Should we investigate another location in the city?
 
 # Resources
 
