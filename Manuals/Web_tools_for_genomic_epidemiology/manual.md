@@ -238,8 +238,7 @@ Now Select "Categorical" from the `Colour Palette` option. Next Select "qualitat
 
 Add the columns "Workplace" and "Workplace details" as metadata blocks. For this, select the slider icon from top right of the tree panel, then, click on the `Metadata blocks` button. Finally, select "Workplace" and "Workplace details" from the list of options.
 
-![](img/
-)
+![](img/microreact_metadata_blocks)
 
 Now eexplore the microreact you just created and try to answer the following questions:
 
