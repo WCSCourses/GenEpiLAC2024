@@ -158,7 +158,7 @@ The files are located in [**this link**](https://drive.google.com/drive/folders/
 
 We will combine data from these different sources with a data-flo workflow that takes the files above and the data from the Epicollect project as input, and creates as an output a Microreact project where the data can be visualised.
 
-Open the data-flo workflow ([**[https://data-flo.io/run?wbhznSXSn3qAomUnGrXesx](https://www.data-flo.io/run/7QcjMyGh55rqckNjbkYv3h)**]([https://data-flo.io/run?wbhznSXSn3qAomUnGrXesx](https://www.data-flo.io/run/7QcjMyGh55rqckNjbkYv3h)))
+Open the data-flo workflow ([**[https://data-flo.io/run?wbhznSXSn3qAomUnGrXesx](https://www.data-flo.io/run/7QcjMyGh55rqckNjbkYv3h)**]
 
 ![](img/dataflo_2024.png)
 
