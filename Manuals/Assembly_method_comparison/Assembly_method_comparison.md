@@ -78,7 +78,7 @@ cd Module_5_Genome_Assembly_And_Annotation/Part_1_Assembly_Methods_Comparison
 ```
 You can examine the contents of this directory:
 ```
-ls -lrt
+ls -lh
 ```
 
 ![ls_module_start](xx)
