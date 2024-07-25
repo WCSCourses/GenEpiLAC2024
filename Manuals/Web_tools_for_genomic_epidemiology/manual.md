@@ -190,7 +190,7 @@ Now lets go to the implementation page by clicking on the `RUN` option.
 
 ![](img/dataflo_implementation.png)
 
-To run the workflow paste the url of the Epicollect5 project ([**https://www.data-flo.io/run/7QcjMyGh55rqckNjbkYv3hhttps://www.data-flo.io/run/7QcjMyGh55rqckNjbkYv3h**](https://www.data-flo.io/run/7QcjMyGh55rqckNjbkYv3h)) and upload the files, found [`here`](https://drive.google.com/drive/folders/1zcrHcTf2ZXY_CHFcOSyTtLFVgJjrnXgl?usp=drive_link)`(file1 and file2)`.
+To run the workflow paste the url of the Epicollect5 project ([**https://www.data-flo.io/run/7QcjMyGh55rqckNjbkYv3h**](https://www.data-flo.io/run/7QcjMyGh55rqckNjbkYv3h)) and upload the files, found [`here`](https://drive.google.com/drive/folders/1zcrHcTf2ZXY_CHFcOSyTtLFVgJjrnXgl?usp=drive_link)`(file1 and file2)`.
 
 ![](img/dataflo_run2.png)
 
