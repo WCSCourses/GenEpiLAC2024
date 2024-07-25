@@ -78,7 +78,7 @@ cd Module_5_Genome_Assembly_And_Annotation/Part_1_Assembly_Methods_Comparison
 ```
 You can examine the contents of this directory:
 ```
-amrfinder_update --force_update --database /home/manager/Module_5_Genome_Assembly_And_Annotation/Part_2_Genome_Annotation/bakta_database/db-light/amrfinderplus-db
+ls -lrt
 ```
 
 ![ls_module_start](xx)
