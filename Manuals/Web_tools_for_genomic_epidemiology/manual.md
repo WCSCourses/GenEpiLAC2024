@@ -158,7 +158,7 @@ The files are located in [**this link**](https://drive.google.com/drive/folders/
 
 We will combine data from these different sources with a data-flo workflow that takes the files above and the data from the Epicollect project as input, and creates as an output a Microreact project where the data can be visualised.
 
-Open the data-flo workflow ([**https://data-flo.io/run?wbhznSXSn3qAomUnGrXesx**](https://data-flo.io/run?wbhznSXSn3qAomUnGrXesx))
+Open the data-flo workflow ([**[https://data-flo.io/run?wbhznSXSn3qAomUnGrXesx](https://www.data-flo.io/run/7QcjMyGh55rqckNjbkYv3h)**]
 
 ![](img/dataflo_2024.png)
 
@@ -190,7 +190,7 @@ Now lets go to the implementation page by clicking on the `RUN` option.
 
 ![](img/dataflo_implementation.png)
 
-To run the workflow paste the url of the Epicollect5 project ([**https://www.data-flo.io/run/7QcjMyGh55rqckNjbkYv3hhttps://www.data-flo.io/run/7QcjMyGh55rqckNjbkYv3h**](https://www.data-flo.io/run/7QcjMyGh55rqckNjbkYv3h)) and upload the files, found [`here`](https://drive.google.com/drive/folders/1zcrHcTf2ZXY_CHFcOSyTtLFVgJjrnXgl?usp=drive_link)`(file1 and file2)`.
+To run the workflow paste the url of the Epicollect5 project ([**https://www.data-flo.io/run/7QcjMyGh55rqckNjbkYv3h**](https://www.data-flo.io/run/7QcjMyGh55rqckNjbkYv3h)) and upload the files, found [`here`](https://drive.google.com/drive/folders/1zcrHcTf2ZXY_CHFcOSyTtLFVgJjrnXgl?usp=drive_link)`(file1 and file2)`.
 
 ![](img/dataflo_run2.png)
 
@@ -238,8 +238,7 @@ Now Select "Categorical" from the `Colour Palette` option. Next Select "qualitat
 
 Add the columns "Workplace" and "Workplace details" as metadata blocks. For this, select the slider icon from top right of the tree panel, then, click on the `Metadata blocks` button. Finally, select "Workplace" and "Workplace details" from the list of options.
 
-![](img/
-)
+![](img/microreact_metadata_blocks.png)
 
 Now eexplore the microreact you just created and try to answer the following questions:
 
